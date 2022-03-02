@@ -1,5 +1,3 @@
-@@ -1,2 +1,70 @@
-
 # FrontWallaclone
 
 Este es el proyecto final del equipo madCoders en el Full Stack Web Bootcamp 11 de keepcoding. Se puede acceder a los requisitos básicos de la plataforma [pulsando aquí.](./documentation/specifications_wallaclone.pdf)
