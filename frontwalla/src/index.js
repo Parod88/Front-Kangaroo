@@ -9,12 +9,11 @@ import configureStore from "./store";
 
 const history = createBrowserHistory();
 const store = configureStore({ history });
-
 ReactDOM.render(
-  <React.StrictMode>
-    <Root store={store}>
+  <Root store={store} history={history}>
+    <React.StrictMode>
       <App />
-    </Root>
-  </React.StrictMode>,
+    </React.StrictMode>
+  </Root>,
   document.getElementById("root")
 );

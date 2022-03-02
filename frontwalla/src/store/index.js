@@ -4,7 +4,7 @@ import { connectRouter, routerMiddleware } from "connected-react-router";
 import thunk from "redux-thunk";
 import logger from "redux-logger";
 
-import * as reducers from "./reducers";
+import * as reducers from "./reducers/mainAdvertsListReducers";
 
 const api = { undefined };
 
