@@ -1,10 +1,10 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
-import { connectRouter, routerMiddleware } from "connected-react-router";
-import thunk from "redux-thunk";
-import logger from "redux-logger";
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { composeWithDevTools } from '@redux-devtools/extension';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
+import thunk from 'redux-thunk';
+import logger from 'redux-logger';
 
-import * as reducers from "./reducers/mainAdvertsListReducers";
+import * as reducers from './reducers/mainAdvertsListReducers';
 
 const api = { undefined };
 

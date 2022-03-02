@@ -1,19 +1,20 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { createBrowserHistory } from "history";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { createBrowserHistory } from 'history';
 
-import "./index.css";
-import App from "./App";
-import Root from "./components/Root";
-import configureStore from "./store";
+import './index.scss';
+import App from './app/App';
+import RootCustomProvider from './components/RootCustomProvider/RootCustomProvider';
+import configureStore from './store';
 
 const history = createBrowserHistory();
-const store = configureStore({ history });
+const store = configureStore({}, { history });
+
 ReactDOM.render(
-  <Root store={store} history={history}>
+  <RootCustomProvider store={store} history={history}>
     <React.StrictMode>
       <App />
     </React.StrictMode>
-  </Root>,
-  document.getElementById("root")
+  </RootCustomProvider>,
+  document.getElementById('root')
 );
