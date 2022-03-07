@@ -6,8 +6,8 @@ function AdvertsList({ adverts }) {
     <div className="advertsPage">
       <ul className="flex-ul">
         {adverts.length > 0 ? (
-          adverts.map(({ id, ...advert }) => (
-            <li className="Advert-div" key={id}>
+          adverts.map(({ _id, ...advert }) => (
+            <li className="Advert-div" key={_id}>
               <Advert {...advert} />
             </li>
           ))

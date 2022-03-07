@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Advert = ({ name, description, sale, price, image, gallery, tags, author, ...props }) => {
+const Advert = ({ name, description, sale, price, image, gallery, author, ...props }) => {
   return (
     <article className="adv-article">
       <div className="adv-body">
@@ -10,7 +10,7 @@ const Advert = ({ name, description, sale, price, image, gallery, tags, author, 
         <br />
         <span className="adv-price">{price}€</span>
         <br />
-        <span className="adv-tags">{tags.join(', ')}</span>
+        {/* <span className="adv-tags">{tags.join(', ')}</span> */}
         <br />
         <span className="adv-sale">{sale ? 'On Sale' : 'On Demand'}</span>
         <br />
