@@ -4,9 +4,10 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 
-import * as reducers from './reducers/mainAdvertsListReducers';
+import * as reducers from './reducers/AdvertsListReducers';
+import * as adverts from '../pages/service';
 
-const api = { undefined };
+const api = { adverts };
 
 // //Reducer enhancer, so actions saves an entry in history
 // const actionsHistory =
@@ -27,7 +28,7 @@ const configureStore = (preloadedState, { history }) => {
   const middlewares = [
     routerMiddleware(history),
     thunk.withExtraArgument({ api, history }),
-    logger,
+    logger
   ];
   const store = createStore(
     combineReducers({ ...reducers, router: connectRouter(history) }),
