@@ -1,10 +1,6 @@
-import {
-  ADVERTS_LOADED_REQUEST,
-  ADVERTS_LOADED_SUCCESS,
-  ADVERTS_LOADED_FAILURE
-} from '../types/AdvertsListTypes';
+import { ADVERTS_LOADED_REQUEST, ADVERTS_LOADED_SUCCESS, ADVERTS_LOADED_FAILURE } from '../types/';
 
-export const defaultState = {
+const defaultState = {
   adverts: {
     loaded: false,
     data: []
@@ -18,7 +14,7 @@ export const defaultState = {
 export function adverts(advertsState = defaultState.adverts, action) {
   switch (action.type) {
     case ADVERTS_LOADED_SUCCESS:
-      return { ...advertsState, data: [...advertsState.data, action.payload] };
+      return { ...advertsState, loaded: true, data: action.payload.data.advertisementsList };
     default:
       return advertsState;
   }

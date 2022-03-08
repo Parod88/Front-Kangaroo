@@ -15,7 +15,6 @@ function AdvertsPage(history, ...props) {
   }, [dispatch]);
 
   const adverts = useSelector(getAdverts);
-  console.log(adverts);
 
   return (
     <LayoutGeneral id="adverts-page" {...props}>
