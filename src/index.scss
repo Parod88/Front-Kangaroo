@@ -1,7 +1,10 @@
 :root {
   /* Colors */
-  --primary: #13c1ac;
+  --primary: #140342;
   --primary-hover: #0f9989;
+
+  --secondary: #00ff84;
+  --ternary: #6440fb;
 
   --black: #111827;
   --white: #ffffff;
@@ -37,14 +40,24 @@
   padding: 0;
 }
 
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
 html {
   font-size: 16px;
 }
 
+a {
+  text-decoration: none;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&display=swap');
 
 * {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Arimo', sans-serif;
   font-weight: 400;
   color: var(--text-black);
 }
@@ -52,14 +65,39 @@ html {
 body {
   min-height: 100vh;
   margin: 0;
-  background-color: var(--bg-primary);
+  background-color: white;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 .container {
-  max-width: 1640px;
+  max-width: 1290px;
   margin-left: auto;
   margin-right: auto;
   padding: 0 1rem;
+}
+
+h3 {
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 1.875rem;
+}
+
+h4 {
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 1.063rem;
+}
+
+h5 {
+  color: #4f547b;
+  font-size: 0.938rem;
+  font-weight: 500;
+}
+
+p {
+  font-family: 'Poppins', sans-serif;
+  color: #6d7381;
+  font-size: 0.938rem;
+  line-height: 1.4rem;
 }

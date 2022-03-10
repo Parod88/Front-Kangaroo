@@ -1,9 +1,9 @@
 import LayoutGeneral from '../../components/LayoutGeneral/LayoutGeneral';
-import AdvertsList from './AdvertsList';
+import SectionSlider from './SectionSlider/SectionSlider';
 import './AdvertsPage.scss';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { loadAdverts, loadPaginatedAdverts } from '../../store/actions';
+import { loadPaginatedAdverts } from '../../store/actions';
 import { getAdverts } from '../../store/selectors/selectors';
 import { useEffect } from 'react';
 
@@ -17,8 +17,22 @@ function AdvertsPage(history, ...props) {
   const adverts = useSelector(getAdverts);
 
   return (
-    <LayoutGeneral id="adverts-page" {...props}>
-      <AdvertsList adverts={adverts} />
+    <LayoutGeneral>
+      <SectionSlider
+        adverts={adverts}
+        title={'Featured consoles'}
+        subtitle={'Discover the most desired consoles of the moment'}
+        category={'category'}
+        limit={4}
+      />
+
+      <SectionSlider
+        adverts={adverts}
+        title={'Featured consoles'}
+        subtitle={'Discover the most desired consoles of the moment'}
+        category={'category'}
+        limit={4}
+      />
     </LayoutGeneral>
   );
 }
