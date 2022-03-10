@@ -7,10 +7,11 @@
   }
   .adv-image {
     position: absolute;
-    width: 300px;
-    height: 210px;
+
     .adv-image-size {
       object-fit: scale-down;
+      width: 300px;
+      height: 210px;
     }
   }
   .adv-body {

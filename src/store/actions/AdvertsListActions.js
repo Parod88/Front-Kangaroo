@@ -36,3 +36,18 @@ export function loadAdverts() {
     }
   };
 }
+
+export function loadPaginatedAdverts() {
+  return async function (dispatch, getState, { api }) {
+    if (areAdvertsLoaded(getState())) {
+      return;
+    }
+    dispatch(advertsLoadedRequest());
+    try {
+      const adverts = await api.adverts.getLatestPaginatedAdverts();
+      dispatch(advertsLoadedSuccess(adverts));
+    } catch (error) {
+      dispatch(advertsLoadedFailure(error));
+    }
+  };
+}

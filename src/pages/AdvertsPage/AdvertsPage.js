@@ -3,7 +3,7 @@ import AdvertsList from './AdvertsList';
 import './AdvertsPage.scss';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { loadAdverts } from '../../store/actions';
+import { loadAdverts, loadPaginatedAdverts } from '../../store/actions';
 import { getAdverts } from '../../store/selectors/selectors';
 import { useEffect } from 'react';
 
@@ -11,7 +11,7 @@ function AdvertsPage(history, ...props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(loadAdverts());
+    dispatch(loadPaginatedAdverts());
   }, [dispatch]);
 
   const adverts = useSelector(getAdverts);

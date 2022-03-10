@@ -1,13 +1,18 @@
 import AdvertCard from '../../components/Advert/AdvertCard';
 import { Link } from 'react-router-dom';
+import './advertsList.scss';
 
 function AdvertsList({ adverts }) {
   return (
-    <div className="advertsPage">
-      <ul className="flex-ul">
+    <div id="adverts-list">
+      <div>
+        <h3></h3>
+        <h5></h5>
+      </div>
+      <ul className="adverts-list-grid">
         {adverts.length > 0 ? (
           adverts.map(({ _id, ...advert }) => (
-            <li className="Advert-div" key={_id}>
+            <li key={_id}>
               <AdvertCard {...advert} />
             </li>
           ))

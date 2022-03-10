@@ -2,5 +2,6 @@ export {
   advertsLoadedRequest,
   advertsLoadedSuccess,
   advertsLoadedFailure,
-  loadAdverts
+  loadAdverts,
+  loadPaginatedAdverts
 } from './AdvertsListActions';

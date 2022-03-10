@@ -14,7 +14,7 @@ const defaultState = {
 export function adverts(advertsState = defaultState.adverts, action) {
   switch (action.type) {
     case ADVERTS_LOADED_SUCCESS:
-      return { ...advertsState, loaded: true, data: action.payload.data.advertisementsList };
+      return { ...advertsState, loaded: true, data: action.payload.data.results };
     default:
       return advertsState;
   }
