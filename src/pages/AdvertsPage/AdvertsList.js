@@ -1,4 +1,4 @@
-import Advert from './Advert';
+import AdvertCard from '../../components/Advert/AdvertCard';
 import { Link } from 'react-router-dom';
 
 function AdvertsList({ adverts }) {
@@ -8,7 +8,7 @@ function AdvertsList({ adverts }) {
         {adverts.length > 0 ? (
           adverts.map(({ _id, ...advert }) => (
             <li className="Advert-div" key={_id}>
-              <Advert {...advert} />
+              <AdvertCard {...advert} />
             </li>
           ))
         ) : (
