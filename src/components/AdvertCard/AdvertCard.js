@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './advertCard.scss';
+import './AdvertCard.scss';
 const { formatDistanceToNow } = require('date-fns');
 
 const AdvertCard = (advert, ...props) => {
@@ -28,7 +28,7 @@ const AdvertCard = (advert, ...props) => {
           <img className="img-avatar" alt={author.name} src={author.imageAvatar} />
           {author.name}
         </Link>
-        <p>$ {price}</p>
+        <p>${price}</p>
       </div>
     </article>
   );

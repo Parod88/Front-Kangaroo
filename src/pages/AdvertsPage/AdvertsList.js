@@ -1,6 +1,6 @@
 import AdvertCard from '../../components/Advert/AdvertCard';
 import { Link } from 'react-router-dom';
-import './advertsList.scss';
+import './AdvertsList.scss';
 
 function AdvertsList({ adverts }) {
   return (

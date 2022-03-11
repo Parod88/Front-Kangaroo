@@ -1,6 +1,6 @@
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
-import './layoutGeneral.scss';
+import './LayoutGeneral.scss';
 
 function LayoutGeneral({ children }) {
   return (

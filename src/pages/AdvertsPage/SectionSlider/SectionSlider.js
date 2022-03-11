@@ -1,4 +1,4 @@
-import AdvertCard from '../../../components/Advert/AdvertCard';
+import AdvertCard from '../../../components/AdvertCard/AdvertCard';
 import './SectionSlider.scss';
 
 function SectionSlider({ adverts, title, subtitle, limit }) {

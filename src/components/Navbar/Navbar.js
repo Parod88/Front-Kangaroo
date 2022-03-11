@@ -8,7 +8,7 @@ function Navbar() {
   return (
     <header id="navbar">
       <div className="container grid">
-        <div className="grid">
+        <div>
           <Link to="/">
             <img src={KangarooBrand} alt="brand" />
           </Link>

@@ -101,3 +101,12 @@ p {
   font-size: 0.938rem;
   line-height: 1.4rem;
 }
+
+button {
+  color: var(--primary);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 50rem;
+  background-color: yellow;
+  cursor: pointer;
+}
