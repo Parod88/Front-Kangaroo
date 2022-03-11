@@ -1,0 +1,19 @@
+#categorie-icon-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #eef2f6;
+  min-height: 15rem;
+  border-radius: 0.5rem;
+  h5 {
+    color: var(--primary);
+    font-size: 1.063rem;
+    font-weight: 700;
+    padding: 1rem 0 2rem 0;
+  }
+
+  p {
+    font-size: 0.813rem;
+  }
+}

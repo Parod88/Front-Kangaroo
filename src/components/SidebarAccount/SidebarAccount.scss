@@ -1,0 +1,17 @@
+#sidebar-account {
+  max-width: 150px;
+  padding: 2rem;
+  ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 2rem;
+  }
+
+  .selected {
+    color: white;
+    background-color: var(--primary);
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+  }
+}
