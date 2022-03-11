@@ -16,6 +16,10 @@ import ReviewsPage from '../pages/_Account/ReviewsPage/ReviewsPage';
 import DashboardPage from '../pages/_Account/DashboardPage/DashboardPage';
 import LogoutPage from '../pages/_Account/LogoutPage/LogoutPage';
 
+import AdvertEdit from '../pages/_Account/AdvertEdit/AdvertEdit';
+import AdvertCreate from '../pages/_Account/AdvertCreate/AdvertCreate';
+import ProfileEdit from '../pages/_Account/ProfileEdit/ProfileEdit';
+
 //Static content pages
 import AboutUsPage from '../pages/_StaticPages/AboutUsPage/AboutUsPage';
 import PrivacyPolicyPage from '../pages/_StaticPages/PrivacyPolicyPage/PrivacyPolicyPage';
@@ -24,39 +28,49 @@ import SupportPage from '../pages/_StaticPages/SupportPage/SupportPage';
 
 //Auth pages
 import RegisterPage from '../pages/_Auth/RegisterPage/RegisterPage';
-import ForgotPasswordPage from '../pages/_Auth/ForgotPasswordPage/ForgotPasswordPage';
 import LoginPage from '../pages/_Auth/LoginPage/LoginPage';
+import PasswordForgotPage from '../pages/_Auth/PasswordForgotPage/PasswordForgotPage';
+import PasswordResetPage from '../pages/_Auth/PasswordResetPage/PasswordResetPage';
 
 function App({ ...props }) {
   return (
     <Switch>
       {/*Static content routes*/}
-      <Route path="/about" component={AboutUsPage} />
-      <Route path="/privacy-policy" component={PrivacyPolicyPage} />
-      <Route path="/terms" component={TermsPage} />
-      <Route path="/support" component={SupportPage} />
+      <Route exact path="/about" component={AboutUsPage} />
+      <Route exact path="/privacy-policy" component={PrivacyPolicyPage} />
+      <Route exact path="/terms" component={TermsPage} />
+      <Route exact path="/support" component={SupportPage} />
 
       {/*User account routes*/}
-      <Route path="/account/profile" component={ProfilePage} />
-      <Route path="/account/products" component={ProductsPage} />
-      <Route path="/account/favorites" component={FavoritesPage} />
-      <Route path="/account/chat" component={ChatPage} />
-      <Route path="/account/reviews" component={ReviewsPage} />
-      <Route path="/account/dashboard" component={DashboardPage} />
-      <Route path="/account/logout" component={LogoutPage} />
+      {/*TODO: add id params user accoutn*/}
+      <Route exact path="/account/profile/" component={ProfilePage} />
+      <Route exact path="/account/products" component={ProductsPage} />
+      <Route exact path="/account/favorites" component={FavoritesPage} />
+      <Route exact path="/account/chat" component={ChatPage} />
+      <Route exact path="/account/reviews" component={ReviewsPage} />
+      <Route exact path="/account/dashboard" component={DashboardPage} />
+      <Route exact path="/account/logout" component={LogoutPage} />
+
+      <Route exact path="/account/:id/edit" component={ProfileEdit} />
 
       {/*Public routes*/}
       {/*TODO: change parameters routers, example /advert/:id */}
-      <Route path="/advert" component={AdvertPage} />
-      <Route path="/adverts" component={AdvertsPage} />
-      <Route path="/advertisers" component={AdvertisersPage} />
+      <Route exact path="/adverts" component={AdvertsPage} />
+      <Route exact path="/adverts/categories/:id" component={AdvertsPage} />
+
+      <Route exact path="/advert/create" component={AdvertCreate} />
+      <Route exact path="/advert/:id/edit" component={AdvertEdit} />
+      <Route exact path="/advert/:id" component={AdvertPage} />
+
+      <Route exact path="/advertisers" component={AdvertisersPage} />
 
       {/*Auth routes*/}
-      <Route path="/forgot-password" component={ForgotPasswordPage} />
-      <Route path="/register" component={RegisterPage} />
-      <Route path="/login" component={LoginPage} />
+      <Route exact path="/reset-password" component={PasswordResetPage} />
+      <Route exact path="/forgot-password" component={PasswordForgotPage} />
+      <Route exact path="/register" component={RegisterPage} />
+      <Route exact path="/login" component={LoginPage} />
 
-      <Route path="/" component={HomePage} />
+      <Route exact path="/" component={HomePage} />
     </Switch>
   );
 }

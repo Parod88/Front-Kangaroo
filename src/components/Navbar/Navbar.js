@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import KangarooBrand from '../../resources/svg/kangaroo-brand-color.svg';
 
 import './Navbar.scss';
@@ -21,7 +21,7 @@ function Navbar() {
             id="email"
             placeholder="Search for a product, category or vendor"
             required
-            onChange={''}
+            onChange={() => alert('implement')}
           ></input>
         </div>
 
@@ -36,6 +36,12 @@ function Navbar() {
           </Link>
           <Link to="/account/profile">
             <button>Admin temporal access</button>
+          </Link>
+          <Link to="/adverts/?cateogie=car">
+            <button>Categorie Search</button>
+          </Link>
+          <Link to="/adverts">
+            <button>Adverts Search</button>
           </Link>
         </div>
       </div>

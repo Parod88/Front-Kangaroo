@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import './AdvertCard.scss';
 const { formatDistanceToNow } = require('date-fns');
 
-const AdvertCard = (advert, ...props) => {
-  const { name, description, price, image, author, updatedAt } = advert;
+const AdvertCard = ({ advert, ...props }) => {
+  const { _id, name, description, price, image, author, updatedAt } = advert;
 
   return (
     <article id="advert-card">
-      <Link target="_blank" to={`/advertisement/${'id'}`}>
+      <Link to={`/advert/${_id}`}>
         <div className="header">
           <img alt={name} src={image} />
         </div>

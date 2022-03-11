@@ -21,17 +21,16 @@
   .nav-section-search {
     display: flex;
     background-color: white;
-    padding: 1rem;
-    min-height: 45px;
+    height: 3rem;
     border-radius: 50rem;
     color: var(--primary);
     gap: 1rem;
 
     input[type='email'] {
+      padding: 0;
       color: #4f547b;
       border-width: 0px;
       font-size: 1rem;
-
       border: none;
       outline: none;
     }

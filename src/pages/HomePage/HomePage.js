@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import LayoutGeneral from '../../components/LayoutGeneral/LayoutGeneral';
 import { loadPaginatedAdverts } from '../../store/actions';
 import { getAdverts } from '../../store/selectors/selectors';
-import SectionSlider from '../AdvertsPage/SectionSlider/SectionSlider';
+import SectionSlider from './SectionSlider/SectionSlider';
+import Header from './Header/Header';
 import './HomePage.scss';
+import SliderCategories from './SliderCategories/SliderCategories';
 
 function HomePage() {
   const dispatch = useDispatch();
@@ -17,6 +19,8 @@ function HomePage() {
 
   return (
     <LayoutGeneral>
+      <Header />
+      <SliderCategories />
       <SectionSlider
         adverts={adverts}
         title={'Featured consoles'}

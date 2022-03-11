@@ -53,7 +53,7 @@ function Footer() {
               <h4 className="title">About</h4>
               <ul>
                 <li>
-                  <Link to="">About Us</Link>
+                  <Link to="/about">About Us</Link>
                 </li>
                 <li>
                   <Link to="">How it Works</Link>
@@ -107,7 +107,7 @@ function Footer() {
                   id="email"
                   placeholder="Enter email"
                   required
-                  onChange={''}
+                  onChange={() => alert('implement')}
                 ></input>
                 <button className="newsletter-button" type="submit" value="Enviar datos">
                   submit
