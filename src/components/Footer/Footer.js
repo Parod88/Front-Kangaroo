@@ -93,7 +93,7 @@ function Footer() {
                   <Link to="">Dashboard</Link>
                 </li>
                 <li>
-                  <Link to="">Help Center</Link>
+                  <Link to="">Support Center</Link>
                 </li>
               </ul>
             </div>
