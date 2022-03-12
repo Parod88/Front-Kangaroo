@@ -18,7 +18,6 @@ import LogoutPage from '../pages/_Account/LogoutPage/LogoutPage';
 
 import AdvertEdit from '../pages/_Account/AdvertEdit/AdvertEdit';
 import AdvertCreate from '../pages/_Account/AdvertCreate/AdvertCreate';
-import ProfileEdit from '../pages/_Account/ProfileEdit/ProfileEdit';
 
 //Static content pages
 import AboutUsPage from '../pages/_StaticPages/AboutUsPage/AboutUsPage';
@@ -50,8 +49,6 @@ function App({ ...props }) {
       <Route exact path="/account/reviews" component={ReviewsPage} />
       <Route exact path="/account/dashboard" component={DashboardPage} />
       <Route exact path="/account/logout" component={LogoutPage} />
-
-      <Route exact path="/account/:id/edit" component={ProfileEdit} />
 
       {/*Public routes*/}
       {/*TODO: change parameters routers, example /advert/:id */}
