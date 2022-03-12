@@ -5,7 +5,7 @@ function TabProfileEdit() {
     <div id="tab-profile-edit">
       <div className="avatar">
         <div>
-          <img src="https://i.pravatar.cc/500" />
+          <img alt="" src="https://i.pravatar.cc/500" />
         </div>
         <div>
           <h5>Your avatar</h5>

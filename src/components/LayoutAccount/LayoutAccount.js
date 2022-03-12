@@ -1,13 +1,12 @@
 import SidebarAccount from '../SidebarAccount/SidebarAccount';
 import Navbar from '../Navbar/Navbar';
 import './LayoutAccount.scss';
-import { NavLink } from 'react-router-dom';
 
 function LayoutAccount({ title, subtitle, children }) {
   return (
     <div id="layout-account">
       <Navbar />
-      <div className="body">
+      <div className="layout-account-body">
         <SidebarAccount />
         <main className="">
           <div>

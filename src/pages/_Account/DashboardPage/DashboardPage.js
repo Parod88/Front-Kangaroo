@@ -3,7 +3,11 @@ import LayoutAccount from '../../../components/LayoutAccount/LayoutAccount';
 import './DashboardPage.scss';
 
 function DashboardPage() {
-  return <LayoutAccount>DashboardPage</LayoutAccount>;
+  return (
+    <LayoutAccount title={'Dashboard'} subtitle={'Lorem ipsum dolor sit amet, consectetur'}>
+      DashboardPage
+    </LayoutAccount>
+  );
 }
 
 export default DashboardPage;

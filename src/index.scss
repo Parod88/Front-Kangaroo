@@ -149,9 +149,11 @@ label {
   margin-bottom: 0.625rem;
 }
 
+select,
 input[type='text'],
 input[type='password'],
 input[type='tel'],
+input[type='number'],
 input[type='email'] {
   height: 2.813rem;
 }
@@ -161,6 +163,7 @@ textarea {
 }
 
 textarea,
+select,
 input {
   border: 1px solid #dddddd;
   border-radius: 0.5rem;

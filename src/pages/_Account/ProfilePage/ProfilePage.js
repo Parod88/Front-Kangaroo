@@ -1,13 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import LayoutAccount from '../../../components/LayoutAccount/LayoutAccount';
 import './ProfilePage.scss';
 import TabProfileEdit from './TabsProfile/TabProfileEdit';
 import TabProfilePassword from './TabsProfile/TabProfilePassword';
 import TabProfileCloseAccount from './TabsProfile/TabProfileCloseAccount';
-import 'react-tabs/style/react-tabs.css';
-
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 
 function ProfilePage() {
   return (

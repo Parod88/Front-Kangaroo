@@ -11,37 +11,37 @@ function SidebarAccount() {
       <ul>
         <li>
           <NavLink to={`/account/profile`} activeClassName="selected">
-            profile
+            Profile
           </NavLink>
         </li>
         <li>
           <NavLink to={`/account/products`} activeClassName="selected">
-            products
+            Products
           </NavLink>
         </li>
         <li>
           <NavLink to={`/account/favorites`} activeClassName="selected">
-            favorites
+            Favorites
           </NavLink>
         </li>
         <li>
-          <NavLink to={`/account/chat`} activeClassName="selected">
-            chat
+          <NavLink to={`/account/messages`} activeClassName="selected">
+            Messages
           </NavLink>
         </li>
         <li>
           <NavLink to={`/account/reviews`} activeClassName="selected">
-            reviews
+            Reviews
           </NavLink>
         </li>
         <li>
           <NavLink to={`/account/dashboard`} activeClassName="selected">
-            dashboard
+            Dashboard
           </NavLink>
         </li>
         <li>
           <NavLink to={`/account/logout`} activeClassName="selected">
-            logout
+            Logout
           </NavLink>
         </li>
       </ul>
