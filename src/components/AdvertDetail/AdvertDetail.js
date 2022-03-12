@@ -6,12 +6,12 @@ import { getAdvertDetail } from '../../store/selectors/selectors';
 
 const AdvertDetail = (...props) => {
   const dispatch = useDispatch();
-  const { advId } = useParams();
-  const advert = useSelector((state) => getAdvertDetail(state, advId));
+  const { id } = useParams();
+  const advert = useSelector((state) => getAdvertDetail(state, id));
 
   useEffect(() => {
-    dispatch(loadAdvertDetail(advId));
-  }, [dispatch, advId]);
+    dispatch(loadAdvertDetail(id));
+  }, [dispatch, id]);
 
   return advert ? (
     <article id="advert-detail">

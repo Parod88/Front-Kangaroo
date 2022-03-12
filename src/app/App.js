@@ -60,7 +60,7 @@ function App({ ...props }) {
 
       <Route exact path="/advert/create" component={AdvertCreate} />
       <Route exact path="/advert/:id/edit" component={AdvertEdit} />
-      <Route exact path="/advert/:advId" component={AdvertPage} />
+      <Route exact path="/advert/:id" component={AdvertPage} />
 
       <Route exact path="/advertisers" component={AdvertisersPage} />
 

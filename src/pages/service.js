@@ -12,7 +12,7 @@ export const getLatestPaginatedAdverts = () => {
   return client.get(url);
 };
 
-export const getSingleAdvert = (advId) => {
-  const url = `${advertsBaseURL}/${advId}`;
+export const getSingleAdvert = (id) => {
+  const url = `${advertsBaseURL}/${id}`;
   return client.get(url);
 };

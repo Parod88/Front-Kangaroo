@@ -22,14 +22,14 @@ export function advertDetailFailure(error) {
   };
 }
 
-export function loadAdvertDetail(advId) {
+export function loadAdvertDetail(id) {
   return async function (dispatch, getState, { api }) {
-    if (getAdvertDetail(getState(), advId)) {
+    if (getAdvertDetail(getState(), id)) {
       return;
     }
     dispatch(advertDetailRequest());
     try {
-      const advert = await api.adverts.getSingleAdvert(advId);
+      const advert = await api.adverts.getSingleAdvert(id);
       dispatch(advertDetailSuccess(advert));
     } catch (error) {
       dispatch(advertDetailFailure(error));

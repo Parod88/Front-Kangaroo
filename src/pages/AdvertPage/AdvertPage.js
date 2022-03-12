@@ -8,12 +8,12 @@ import './AdvertPage.scss';
 
 function AdvertPage() {
   const dispatch = useDispatch();
-  const { advId } = useParams();
-  const advert = useSelector((state) => getAdvertDetail(state, advId));
+  const { id } = useParams();
+  const advert = useSelector((state) => getAdvertDetail(state, id));
 
   useEffect(() => {
-    dispatch(loadAdvertDetail(advId));
-  }, [dispatch, advId]);
+    dispatch(loadAdvertDetail(id));
+  }, [dispatch, id]);
   //TODO: Advert mock data
   // const advert = {
   //   _id: '621bf293e5330d28f93909ca',
