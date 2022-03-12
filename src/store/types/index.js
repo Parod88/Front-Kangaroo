@@ -3,3 +3,9 @@ export {
   ADVERTS_LOADED_REQUEST,
   ADVERTS_LOADED_SUCCESS
 } from './AdvertsListTypes';
+
+export {
+  ADVERT_LOADED_REQUEST,
+  ADVERT_LOADED_SUCCESS,
+  ADVERT_LOADED_FAILURE
+} from './AdvertDetailTypes';
