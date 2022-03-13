@@ -1,18 +1,17 @@
 import client from '../api/client';
 
-const advertsBaseURL = '/api/v1/advertisements';
-
+const advertsURL = '/api/v1/advertisements';
 export const getLatestAdverts = () => {
-  const url = `${advertsBaseURL}`;
+  const url = `${advertsURL}`;
   return client.get(url);
 };
 
 export const getLatestPaginatedAdverts = () => {
-  const url = `${advertsBaseURL}/p&1`;
+  const url = `${advertsURL}/p&1`;
   return client.get(url);
 };
 
 export const getSingleAdvert = (id) => {
-  const url = `${advertsBaseURL}/${id}`;
+  const url = `${advertsURL}/${id}`;
   return client.get(url);
 };

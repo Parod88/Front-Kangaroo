@@ -6,8 +6,9 @@ import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import * as reducers from './reducers/reducers';
 import * as adverts from '../pages/service';
+import * as users from '../pages/_Auth/service';
 
-const api = { adverts };
+const api = { adverts, users };
 
 // //Reducer enhancer, so actions saves an entry in history
 // const actionsHistory =

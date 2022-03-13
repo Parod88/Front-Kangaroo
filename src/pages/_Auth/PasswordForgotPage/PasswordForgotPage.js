@@ -1,9 +1,24 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './PasswordForgotPage.scss';
 
+import { forgetPassword } from '../../../store/actions';
+
 function PasswordForgotPage() {
+  const dispatch = useDispatch();
   const [sendEmail, setSendEmail] = useState(false);
+  const [value, setValue] = useState({ content: '' });
+  const { content } = value;
+
+  const handleChange = (event) => {
+    setValue({ content: event.target.value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(forgetPassword(value));
+  };
 
   return (
     <div id="password-forgot-page">
@@ -19,29 +34,26 @@ function PasswordForgotPage() {
                 reset your password.
               </p>
             </div>
-
-            <div className="body">
-              <div className="input-item">
-                <label>Enter your email</label>
-                <input
-                  className="input"
-                  type="email"
-                  id="email"
-                  placeholder="Enter email"
-                  required
-                  onChange={() => alert('implement')}
-                ></input>
+            <form onSubmit={handleSubmit}>
+              <div className="body">
+                <div className="input-item">
+                  <label>Enter your email</label>
+                  <input
+                    name="email"
+                    className="input"
+                    type="email"
+                    id="email"
+                    placeholder="Enter email"
+                    value={content}
+                    required
+                    onChange={handleChange}
+                  ></input>
+                </div>
+                <div>
+                  <button type="submit">send email</button>
+                </div>
               </div>
-              <div>
-                <button
-                  onClick={() => {
-                    setSendEmail(true);
-                  }}
-                >
-                  send email
-                </button>
-              </div>
-            </div>
+            </form>
           </>
         ) : (
           <>
@@ -59,11 +71,11 @@ function PasswordForgotPage() {
                 <button>Open email app</button>
               </div>
               <p>
-                Didn’t receive the email?{' '}
+                Did not receive the email?{' '}
                 <button
-                  onClick={() => {
-                    setSendEmail(false);
-                  }}
+                // onClick={() => {
+                //   setSendEmail(false);
+                // }}
                 >
                   Click to resend
                 </button>
