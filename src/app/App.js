@@ -5,6 +5,7 @@ import { Switch } from 'react-router-dom/cjs/react-router-dom.min';
 import HomePage from '../pages/HomePage/HomePage';
 import AdvertsPage from '../pages/AdvertsPage/AdvertsPage';
 import AdvertPage from '../pages/AdvertPage/AdvertPage';
+import UserPublicPage from '../pages/UserPublicPage/UserPublicPage';
 
 //User account pages
 import ProfilePage from '../pages/_Account/ProfilePage/ProfilePage';
@@ -57,6 +58,8 @@ function App({ ...props }) {
       <Route exact path="/adverts/:id" component={AdvertsPage} />
       <Route exact path="/adverts" component={AdvertsPage} />
       <Route exact path="/advert/:id" component={AdvertPage} />
+
+      <Route exact path="/user/:id" component={UserPublicPage} />
 
       {/*Auth routes*/}
       <Route exact path="/reset-password" component={PasswordResetPage} />

@@ -24,7 +24,7 @@ const AdvertCard = ({ advert, ...props }) => {
         </div>
       </Link>
       <div className="footer">
-        <Link to="" className="vendor-data">
+        <Link to={`/user/${author._id}`} className="vendor-data">
           <img className="img-avatar" alt={author.name} src={author.imageAvatar} />
           {author.name}
         </Link>

@@ -1,0 +1,12 @@
+#user-public-profile {
+  .content-user {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+  .tabs-section {
+    .tab-panel {
+      margin-top: 3rem;
+    }
+  }
+}
