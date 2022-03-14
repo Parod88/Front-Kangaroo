@@ -1,15 +1,37 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './PasswordResetPage.scss';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import { useDispatch } from 'react-redux';
+
+import { resetPassword } from '../../../store/actions';
 
 function PasswordResetPage() {
-  const [resetPassword, setResetPassword] = useState(false);
+  const dispatch = useDispatch();
+  const { userToken } = useParams();
+  const [newPassword, setNewPassword] = useState(false);
+  const [value, setValue] = useState({
+    password: '',
+    confirmPassword: ''
+  });
+
+  const handleChange = ({ target: { value, name } }) => {
+    setValue((prevState) => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(resetPassword(value, userToken));
+  };
 
   return (
     <div id="password-reset-page">
       <div className="modal">
         {/*TODO: implement logic email for reset forgot password*/}
-        {!resetPassword ? (
+        {!newPassword ? (
           <>
             <div className="header">
               <div>icono</div>
@@ -18,42 +40,41 @@ function PasswordResetPage() {
                 Your new password must be different to previously used password.
               </p>
             </div>
+            <form onSubmit={handleSubmit}>
+              <div id="password" className="body">
+                <div className="input-item">
+                  <label>Password *</label>
+                  <input
+                    name="password"
+                    className="input"
+                    type="password"
+                    placeholder="Enter your password"
+                    value={value.password}
+                    required
+                    onChange={handleChange}
+                    autoComplete="off"
+                  ></input>
+                </div>
 
-            <div className="body">
-              <div className="input-item">
-                <label>Password *</label>
-                <input
-                  className="input"
-                  type="password"
-                  id="password"
-                  placeholder="Enter your password"
-                  required
-                  onChange={() => alert('implement')}
-                ></input>
-              </div>
+                <div className="input-item">
+                  <label>Confirm Password *</label>
+                  <input
+                    name="confirmPassword"
+                    className="input"
+                    type="password"
+                    placeholder="Enter your password"
+                    value={value.confirmPassword}
+                    required
+                    onChange={handleChange}
+                    autoComplete="off"
+                  ></input>
+                </div>
 
-              <div className="input-item">
-                <label>Confirm Password *</label>
-                <input
-                  className="input"
-                  type="password"
-                  id="password"
-                  placeholder="Enter your password"
-                  required
-                  onChange={() => alert('implement')}
-                ></input>
+                <div>
+                  <button type="submit">send email</button>
+                </div>
               </div>
-
-              <div>
-                <button
-                  onClick={() => {
-                    setResetPassword(true);
-                  }}
-                >
-                  send email
-                </button>
-              </div>
-            </div>
+            </form>
           </>
         ) : (
           <>
@@ -70,7 +91,7 @@ function PasswordResetPage() {
             <div className="body">
               <button
                 onClick={() => {
-                  setResetPassword(false);
+                  setNewPassword(false);
                 }}
               >
                 Continue{' '}
