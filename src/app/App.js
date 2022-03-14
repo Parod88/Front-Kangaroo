@@ -65,7 +65,7 @@ function App({ ...props }) {
       <Route exact path="/advertisers" component={AdvertisersPage} />
 
       {/*Auth routes*/}
-      <Route exact path="/reset-password" component={PasswordResetPage} />
+      <Route path="/reset-password/:userToken" component={PasswordResetPage} />
       {/* <Route exact path={`/reset-password/${userToken}`} component={PasswordResetPage} /> */}
       <Route exact path="/forgot-password" component={PasswordForgotPage} />
       <Route exact path="/register" component={RegisterPage} />

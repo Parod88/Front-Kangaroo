@@ -17,5 +17,9 @@ export {
   forgetPasswordRequest,
   forgetPasswordSuccess,
   forgetPasswordFailure,
-  forgetPassword
+  forgetPassword,
+  resetPasswordRequest,
+  resetPasswordSuccess,
+  resetPasswordFailure,
+  resetPassword
 } from './ForgetResetPasswordActions';
