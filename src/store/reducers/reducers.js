@@ -21,11 +21,7 @@ const defaultState = {
       data: null
     },
     resetPass: {
-      data: {
-        password: null,
-        confirmPassword: null,
-        userToken: null
-      }
+      data: null
     }
   },
   adverts: {
@@ -45,6 +41,11 @@ export function auth(authState = defaultState.auth, action) {
         ...authState,
         logged: false,
         forgotPass: { isForgotten: true, data: action.payload.config.data }
+      };
+    case RESET_PASSWORD_SUCCESS:
+      return {
+        ...authState,
+        data: action.payload
       };
     default:
       return authState;

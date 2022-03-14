@@ -7,9 +7,8 @@ import { useDispatch } from 'react-redux';
 import { resetPassword } from '../../../store/actions';
 
 function PasswordResetPage() {
-  const dispatch = useDispatch;
-  const { token } = useParams();
-  const userToken = token;
+  const dispatch = useDispatch();
+  const { userToken } = useParams();
   const [newPassword, setNewPassword] = useState(false);
   const [value, setValue] = useState({
     password: '',
@@ -23,12 +22,9 @@ function PasswordResetPage() {
     }));
   };
 
-  // const { content } = value;
-
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    dispatch(resetPassword(value, token));
+    dispatch(resetPassword(value, userToken));
   };
 
   return (

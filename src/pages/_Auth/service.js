@@ -10,10 +10,10 @@ export const forgottenPassword = (email) => {
 };
 
 export const resetForgottenPassword = (data, userToken) => {
-  const url = `${usersURL}/new-password/:${userToken}`;
+  const url = `${usersURL}/new-password/${userToken}`;
   client.defaults.headers.common['reset'] = `${userToken}`;
   return client.put(url, {
     newPassword: `${data.password}`,
-    newPasswordConfirmation: `${data.passwordConfirm}`
+    newPasswordConfirmation: `${data.confirmPassword}`
   });
 };
