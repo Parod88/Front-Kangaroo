@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Button from '../../../components/Button/Button';
 
 import './LoginPage.scss';
 
@@ -60,7 +61,9 @@ function LoginPage() {
             </div>
 
             <div>
-              <button>Login</button>
+              <Button secondary full>
+                Login
+              </Button>
             </div>
           </div>
 

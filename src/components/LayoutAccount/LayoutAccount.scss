@@ -1,5 +1,5 @@
 #layout-account {
-  .body {
+  .layout-account-body {
     display: flex;
     flex-direction: row;
     gap: 2rem;
@@ -9,5 +9,13 @@
   main {
     width: 100%;
     background-color: #dddddd;
+    padding: 4rem;
+  }
+
+  .body-container {
+    border-radius: 0.5rem;
+    margin-top: 2rem;
+    background-color: white;
+    min-height: 60vh;
   }
 }

@@ -1,0 +1,16 @@
+#products-page {
+  .account-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+  }
+}
+
+/*Tabs*/
+.tab-grid-cards {
+  display: grid;
+  gap: 1.875rem;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}

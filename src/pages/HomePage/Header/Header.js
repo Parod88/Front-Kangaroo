@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Header.scss';
 import header from '../../../resources/images/header.png';
+import Button from '../../../components/Button/Button';
 
 function Header() {
   return (
@@ -14,7 +15,7 @@ function Header() {
             </h1>
             {/*TODO: Implement redirection to login in case you are not logged in. */}
             <Link to="/account/products">
-              <button>+ Upload your product</button>
+              <Button secondaryOutline>+ Upload your product</Button>
             </Link>
           </div>
           <div className="col-right">

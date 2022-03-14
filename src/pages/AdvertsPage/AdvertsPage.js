@@ -9,6 +9,7 @@ import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import SectionTitle from '../../components/SectionTitle/SectionTitle';
 import AdvertCard from '../../components/AdvertCard/AdvertCard';
 import FiltersSection from './FiltersSection/FiltersSection';
+import NotResultsFound from '../../components/NotResultsFound/NotResultsFound';
 
 function AdvertsPage(history, ...props) {
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ function AdvertsPage(history, ...props) {
               ))
             ) : (
               <div>
-                <h2>Aún no hay Anuncios, ¡sé el primero!</h2>
+                <NotResultsFound />
               </div>
             )}
           </ul>

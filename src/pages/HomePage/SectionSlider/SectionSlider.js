@@ -1,5 +1,6 @@
 import AdvertCard from '../../../components/AdvertCard/AdvertCard';
 import './SectionSlider.scss';
+import NotResultsFound from '../../../components/NotResultsFound/NotResultsFound';
 
 function SectionSlider({ adverts, title, subtitle, limit }) {
   return (
@@ -18,7 +19,7 @@ function SectionSlider({ adverts, title, subtitle, limit }) {
             ))
           ) : (
             <div>
-              <h2>Aún no hay Anuncios, ¡sé el primero!</h2>
+              <NotResultsFound />
             </div>
           )}
         </ul>

@@ -1,0 +1,29 @@
+#profile-page {
+  .avatar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+
+    img {
+      width: 150px;
+      border-radius: 50rem;
+    }
+  }
+
+  .account-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  .grid-two-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    column-gap: 2rem;
+  }
+}

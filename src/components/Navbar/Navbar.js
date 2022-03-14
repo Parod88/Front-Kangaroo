@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import KangarooBrand from '../../resources/svg/kangaroo-brand-color.svg';
+import Button from '../../components/Button/Button';
 
 import './Navbar.scss';
 
@@ -11,6 +12,9 @@ function Navbar() {
         <div className="nav-section-brand">
           <Link to="/">
             <img src={KangarooBrand} alt="brand" />
+          </Link>
+          <Link className="explore-link" to="/account/profile">
+            <span>= </span>admin
           </Link>
         </div>
         <div className="nav-section-search">
@@ -26,22 +30,15 @@ function Navbar() {
         </div>
 
         <div className="nav-section-buttons">
-          <p>LanguageButton</p>
-          <p>ThemeIcon</p>
+          <Button language>
+            <span>icon</span>English
+          </Button>
+          <p>Theme</p>
           <Link to="/login">
-            <button>Login</button>
+            <Button textWhite>Login</Button>
           </Link>
           <Link to="/register">
-            <button>Create account</button>
-          </Link>
-          <Link to="/account/profile">
-            <button>Admin temporal access</button>
-          </Link>
-          <Link to="/adverts/?cateogie=car">
-            <button>Categorie Search</button>
-          </Link>
-          <Link to="/adverts">
-            <button>Adverts Search</button>
+            <Button white>SignUp</Button>
           </Link>
         </div>
       </div>

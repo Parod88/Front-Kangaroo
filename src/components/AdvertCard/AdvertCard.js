@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ReviewStartAndCount from '../ReviewStartAndCount/ReviewStartAndCount';
 import './AdvertCard.scss';
 const { formatDistanceToNow } = require('date-fns');
 
@@ -24,11 +25,14 @@ const AdvertCard = ({ advert, ...props }) => {
         </div>
       </Link>
       <div className="footer">
-        <Link to="" className="vendor-data">
+        <Link to={`/user/${author._id}`} className="vendor-data">
           <img className="img-avatar" alt={author.name} src={author.imageAvatar} />
-          {author.name}
+          <div>
+            {author.name}
+            <ReviewStartAndCount reviewCount={45} reviewStart={3.5} />
+          </div>
         </Link>
-        <p>${price}</p>
+        <p className="price">${price}</p>
       </div>
     </article>
   );

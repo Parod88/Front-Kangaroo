@@ -10,7 +10,12 @@ function SliderCategories() {
           <h3>Top Categories</h3>
           <h5>Lorem ipsum dolor sit amet, consectetur.</h5>
         </div>
-        <div>
+        <div className="categories">
+          <CategorieIconCard />
+          <CategorieIconCard />
+          <CategorieIconCard />
+          <CategorieIconCard />
+          <CategorieIconCard />
           <CategorieIconCard />
         </div>
       </div>
