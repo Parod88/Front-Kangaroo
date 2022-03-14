@@ -1,5 +1,6 @@
 import React from 'react';
 import ReviewCard from '../../../components/ReviewCard/ReviewCard';
+import NotResultsFound from '../../../components/NotResultsFound/NotResultsFound';
 
 function TabUserReviews() {
   //TODO: Mock data reviews
@@ -34,7 +35,7 @@ function TabUserReviews() {
             ))
           ) : (
             <div>
-              <h2>Aún no hay Anuncios, ¡sé el primero!</h2>
+              <NotResultsFound />
             </div>
           )}
         </ul>

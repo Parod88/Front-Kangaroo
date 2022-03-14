@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '../../../../components/Button/Button';
 
 function TabProfileEdit() {
   return (
@@ -11,7 +12,7 @@ function TabProfileEdit() {
           <h5>Your avatar</h5>
           <p>PNG or JPG no bigger then 1000px wide and tall.</p>
           <div>
-            <button>load file</button>
+            <button>icon load file</button>
             <button>delete file</button>
           </div>
         </div>
@@ -78,7 +79,7 @@ function TabProfileEdit() {
         </div>
       </div>
 
-      <button>Update Profile</button>
+      <Button secondary>Update Profile</Button>
     </div>
   );
 }

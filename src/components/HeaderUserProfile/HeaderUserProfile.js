@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '../Button/Button';
 import './HeaderUserProfile.scss';
 
 function HeaderUserProfile() {
@@ -35,8 +36,8 @@ function HeaderUserProfile() {
       <div className="map-box">Map</div>
 
       <div className="buttons-group">
-        <button>Follow</button>
-        <button>Send Message</button>
+        <Button secondaryOutline>Follow</Button>
+        <Button secondary>Send Message</Button>
         <button>...</button>
       </div>
     </section>

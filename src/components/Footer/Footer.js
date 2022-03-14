@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Footer.scss';
 import KangarooBrand from '../../resources/svg/kangaroo-brand-color.svg';
+import Button from '../Button/Button';
 
 function Footer() {
   const mockCategories = [
@@ -125,7 +126,7 @@ function Footer() {
               <Link to="">Cookie Notice</Link>
               <Link to="">Security</Link>
               <Link to="">Terms of Use</Link>
-              <button>icon English</button>
+              <Button secondary>icon English</Button>
             </div>
           </div>
         </div>

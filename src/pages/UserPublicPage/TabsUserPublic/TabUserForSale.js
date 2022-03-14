@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import AdvertCardAccount from '../../../components/AdvertCardAccount/AdvertCardAccount';
 import { loadPaginatedAdverts } from '../../../store/actions';
 import { getAdverts } from '../../../store/selectors/selectors';
+import NotResultsFound from '../../../components/NotResultsFound/NotResultsFound';
 
 function TabUserForSale() {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ function TabUserForSale() {
           ))
         ) : (
           <div>
-            <h2>Aún no hay Anuncios, ¡sé el primero!</h2>
+            <NotResultsFound />
           </div>
         )}
       </ul>

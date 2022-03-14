@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '../../../components/Button/Button';
 import LayoutAccount from '../../../components/LayoutAccount/LayoutAccount';
 import './LogoutPage.scss';
 
@@ -11,8 +12,8 @@ function LogoutPage() {
           <p>are you sure you want to logout from Kangaroo?</p>
 
           <div>
-            <button>Cancel</button>
-            <button>Yes, I'm sure</button>
+            <Button primaryOutline>Cancel</Button>
+            <Button secondary>Yes, I'm sure</Button>
           </div>
         </div>
       </LayoutAccount>

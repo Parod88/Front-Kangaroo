@@ -4,6 +4,7 @@ import AdvertCardAccount from '../../../../components/AdvertCardAccount/AdvertCa
 import { loadPaginatedAdverts } from '../../../../store/actions';
 import { getAdverts } from '../../../../store/selectors/selectors';
 import FiltersSection from '../../../AdvertsPage/FiltersSection/FiltersSection';
+import NotResultsFound from '../../../../components/NotResultsFound/NotResultsFound';
 
 function TabAllProducts() {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ function TabAllProducts() {
           ))
         ) : (
           <div>
-            <h2>Aún no hay Anuncios, ¡sé el primero!</h2>
+            <NotResultsFound />
           </div>
         )}
       </ul>

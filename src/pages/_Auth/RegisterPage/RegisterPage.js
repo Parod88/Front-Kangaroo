@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Button from '../../../components/Button/Button';
 import './RegisterPage.scss';
 
 function RegisterPage() {
@@ -85,7 +86,9 @@ function RegisterPage() {
             </div>
 
             <div>
-              <button>Create account</button>
+              <Button secondary full>
+                Create account
+              </Button>
             </div>
           </div>
 

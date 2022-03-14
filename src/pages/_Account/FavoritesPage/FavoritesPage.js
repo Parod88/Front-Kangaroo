@@ -5,6 +5,8 @@ import LayoutAccount from '../../../components/LayoutAccount/LayoutAccount';
 import { loadPaginatedAdverts } from '../../../store/actions';
 import { getAdverts } from '../../../store/selectors/selectors';
 import FiltersSection from '../../AdvertsPage/FiltersSection/FiltersSection';
+import NotResultsFound from '../../../components/NotResultsFound/NotResultsFound';
+
 import './FavoritesPage.scss';
 
 function FavoritesPage() {
@@ -34,7 +36,7 @@ function FavoritesPage() {
                 ))
               ) : (
                 <div>
-                  <h2>Aún no hay Anuncios, ¡sé el primero!</h2>
+                  <NotResultsFound />
                 </div>
               )}
             </ul>

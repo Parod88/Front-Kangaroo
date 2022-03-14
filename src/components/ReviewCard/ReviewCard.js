@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '../Button/Button';
 import './ReviewCard.scss';
 
 function ReviewCard({ review, ...props }) {
@@ -14,7 +15,7 @@ function ReviewCard({ review, ...props }) {
         <div>{rating}*</div>
         <h5>Nombre Producto</h5>
         <p>{comment}</p>
-        <button>Respond</button>
+        <Button primaryOutline>Respond</Button>
       </div>
     </article>
   );

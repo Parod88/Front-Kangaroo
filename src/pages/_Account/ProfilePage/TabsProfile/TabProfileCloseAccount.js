@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '../../../../components/Button/Button';
 import './TabProfileCloseAccount.scss';
 
 function TabProfileCloseAccount() {
@@ -26,7 +27,7 @@ function TabProfileCloseAccount() {
           // onChange={}
         ></input>
       </div>
-      <button>Delete Your Account</button>
+      <Button secondary>Delete Your Account</Button>
     </div>
   );
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import LayoutAccount from '../../../components/LayoutAccount/LayoutAccount';
 import ReviewCard from '../../../components/ReviewCard/ReviewCard';
 import './ReviewsPage.scss';
+import NotResultsFound from '../../../components/NotResultsFound/NotResultsFound';
 
 function ReviewsPage() {
   //TODO: Mock data reviews
@@ -53,7 +54,7 @@ function ReviewsPage() {
               ))
             ) : (
               <div>
-                <h2>Aún no hay Anuncios, ¡sé el primero!</h2>
+                <NotResultsFound />
               </div>
             )}
           </ul>

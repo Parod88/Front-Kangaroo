@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '../../../../components/Button/Button';
 
 function TabProfilePassword() {
   return (
@@ -40,7 +41,7 @@ function TabProfilePassword() {
           ></input>
         </div>
       </form>
-      <button>Update Password</button>
+      <Button secondary>Update Password</Button>
     </div>
   );
 }
