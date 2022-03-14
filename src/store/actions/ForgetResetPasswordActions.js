@@ -45,10 +45,10 @@ export function resetPasswordRequest() {
     type: RESET_PASSWORD_REQUEST
   };
 }
-export function resetPasswordSuccess(password, confirmPassword) {
+export function resetPasswordSuccess(data) {
   return {
     type: RESET_PASSWORD_SUCCESS,
-    payload: { password, confirmPassword }
+    payload: data
   };
 }
 export function resetPasswordFailure(error) {

@@ -45,18 +45,18 @@ function PasswordResetPage() {
               </p>
             </div>
             <form onSubmit={handleSubmit}>
-              <div className="body">
+              <div id="password" className="body">
                 <div className="input-item">
                   <label>Password *</label>
                   <input
                     name="password"
                     className="input"
                     type="password"
-                    id="password"
                     placeholder="Enter your password"
                     value={value.password}
                     required
                     onChange={handleChange}
+                    autoComplete="off"
                   ></input>
                 </div>
 
@@ -66,11 +66,11 @@ function PasswordResetPage() {
                     name="confirmPassword"
                     className="input"
                     type="password"
-                    id="password"
                     placeholder="Enter your password"
                     value={value.confirmPassword}
                     required
                     onChange={handleChange}
+                    autoComplete="off"
                   ></input>
                 </div>
 
