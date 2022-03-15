@@ -13,6 +13,7 @@ function ChatPage() {
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState({});
   const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState('');
   const user = {
     _id: '621bf293e5330d28f939097b',
     name: 'WallacloneAdmin',
@@ -52,6 +53,23 @@ function ChatPage() {
     };
     getMessages();
   }, [currentChat]);
+
+  const handleSubmitMessage = async (event) => {
+    event.preventDefault();
+    const sendMessage = {
+      userSenderId: user._id,
+      conversationId: currentChat._id,
+      text: newMessage
+    };
+
+    try {
+      const res = await axios.post('http://localhost:3000/api/v1/chat/message', sendMessage);
+      setMessages([...messages, res.data.results]);
+      setNewMessage(''); //Reset input
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div id="chat-page">
@@ -103,10 +121,14 @@ function ChatPage() {
                         id="message"
                         placeholder="Write your message..."
                         col="30"
+                        value={newMessage}
+                        onChange={(event) => setNewMessage(event.target.value)}
                       ></textarea>
                     </div>
                     <div>
-                      <Button secondary>Send</Button>
+                      <Button secondary onClick={handleSubmitMessage}>
+                        Send
+                      </Button>
                     </div>
                   </div>
                 </>
