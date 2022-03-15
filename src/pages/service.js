@@ -1,6 +1,7 @@
 import client from '../api/client';
 
-const advertsURL = '/api/v1/advertisements';
+const advertsURL = process.env.REACT_APP_ADVERTS_BASE_URL;
+
 export const getLatestAdverts = () => {
   const url = `${advertsURL}`;
   return client.get(url);

@@ -1,6 +1,6 @@
 import client from '../../api/client';
 
-const usersURL = '/api/v1/user';
+const usersURL = process.env.REACT_APP_USERS_BASE_URL;
 // USER SERVICES
 export const forgottenPassword = (email) => {
   const url = `${usersURL}/forgot-password`;
