@@ -26,6 +26,13 @@ const Button = styled.button`
       : ``}
 
   ${(props) =>
+    props.rounded
+      ? css`
+          border-radius: 100rem;
+        `
+      : ``}
+
+  ${(props) =>
     props.primary
       ? css`
           background-color: var(--primary);

@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { useDispatch } from 'react-redux';
 
 import { resetPassword } from '../../../store/actions';
+import Button from '../../../components/Button/Button';
 
 function PasswordResetPage() {
   const dispatch = useDispatch();
@@ -71,7 +72,9 @@ function PasswordResetPage() {
                 </div>
 
                 <div>
-                  <button type="submit">send email</button>
+                  <Button secondary full type="submit">
+                    send email
+                  </Button>
                 </div>
               </div>
             </form>
@@ -89,13 +92,15 @@ function PasswordResetPage() {
             </div>
 
             <div className="body">
-              <button
+              <Button
+                secondary
+                full
                 onClick={() => {
                   setNewPassword(false);
                 }}
               >
                 Continue{' '}
-              </button>
+              </Button>
             </div>
           </>
         )}

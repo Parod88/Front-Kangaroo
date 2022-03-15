@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './PasswordForgotPage.scss';
+import Button from '../../../components/Button/Button';
 
 import { forgetPassword } from '../../../store/actions';
 
@@ -50,7 +51,9 @@ function PasswordForgotPage() {
                   ></input>
                 </div>
                 <div>
-                  <button type="submit">send email</button>
+                  <Button secondary full type="submit">
+                    send email
+                  </Button>
                 </div>
               </div>
             </form>
@@ -68,17 +71,20 @@ function PasswordForgotPage() {
 
             <div className="body">
               <div>
-                <button>Open email app</button>
+                <Button secondary full>
+                  Open email app
+                </Button>
               </div>
               <p>
                 Did not receive the email?{' '}
-                <button
-                // onClick={() => {
-                //   setSendEmail(false);
-                // }}
+                <Button
+                  text
+                  // onClick={() => {
+                  //   setSendEmail(false);
+                  // }}
                 >
                   Click to resend
-                </button>
+                </Button>
               </p>
             </div>
           </>

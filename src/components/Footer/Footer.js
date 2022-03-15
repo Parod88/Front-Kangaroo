@@ -110,9 +110,15 @@ function Footer() {
                   required
                   onChange={() => alert('implement')}
                 ></input>
-                <button className="newsletter-button" type="submit" value="Enviar datos">
+                <Button
+                  primary
+                  rounded
+                  className="newsletter-button"
+                  type="submit"
+                  value="Enviar datos"
+                >
                   submit
-                </button>
+                </Button>
               </form>
             </div>
           </div>
@@ -126,7 +132,7 @@ function Footer() {
               <Link to="">Cookie Notice</Link>
               <Link to="">Security</Link>
               <Link to="">Terms of Use</Link>
-              <Button secondary>icon English</Button>
+              <Button language>icon English</Button>
             </div>
           </div>
         </div>
