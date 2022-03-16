@@ -17,3 +17,15 @@ export const resetForgottenPassword = (data, userToken) => {
     newPasswordConfirmation: `${data.confirmPassword}`
   });
 };
+
+export const registerNewAccount = (newUser) => {
+  // const registerNewUser = new FormData();
+  // registerNewUser.append('username', newUser.username);
+  // registerNewUser.append('email', newUser.email);
+  // registerNewUser.append('password', newUser.password);
+  // registerNewUser.append('confirmPassword', newUser.confirmPassword);
+  // if (newUser.imageAvatar) newUser.append('avatar', newUser.imageAvatar);
+
+  const url = `${usersURL}/register`;
+  return client.post(url, newUser);
+};

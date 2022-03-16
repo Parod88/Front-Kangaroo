@@ -18,3 +18,5 @@ export {
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAILURE
 } from './ForgetResetPasswordTypes';
+
+export { USER_SIGNUP_REQUEST, USER_SIGNUP_SUCCESS, USER_SIGNUP_FAILURE } from './SignupTypes';

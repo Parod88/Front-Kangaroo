@@ -10,7 +10,8 @@ import {
   FORGET_PASSWORD_FAILURE,
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
-  RESET_PASSWORD_FAILURE
+  RESET_PASSWORD_FAILURE,
+  USER_SIGNUP_SUCCESS
 } from '../types/';
 
 const defaultState = {
@@ -22,6 +23,9 @@ const defaultState = {
     },
     resetPass: {
       data: null
+    },
+    user: {
+      data: []
     }
   },
   adverts: {
@@ -46,6 +50,11 @@ export function auth(authState = defaultState.auth, action) {
       return {
         ...authState,
         data: action.payload
+      };
+    case USER_SIGNUP_SUCCESS:
+      return {
+        ...authState,
+        user: { data: action.payload }
       };
     default:
       return authState;
