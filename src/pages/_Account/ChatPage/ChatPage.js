@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Button from '../../../components/Button/Button';
 import LayoutAccount from '../../../components/LayoutAccount/LayoutAccount';
 import './ChatPage.scss';
@@ -14,6 +14,7 @@ function ChatPage() {
   const [currentChat, setCurrentChat] = useState({});
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
+  const scrollRef = useRef();
   const user = {
     _id: '621bf293e5330d28f939097b',
     name: 'WallacloneAdmin',
@@ -71,6 +72,10 @@ function ChatPage() {
     }
   };
 
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
   return (
     <div id="chat-page">
       <LayoutAccount
@@ -106,11 +111,13 @@ function ChatPage() {
                 <>
                   <div className="chat-box-top">
                     {messages.map((message) => (
-                      <Message
-                        key={message._id}
-                        message={message}
-                        own={message.userSenderId === user._id}
-                      />
+                      <div ref={scrollRef}>
+                        <Message
+                          key={message._id}
+                          message={message}
+                          own={message.userSenderId === user._id}
+                        />
+                      </div>
                     ))}
                   </div>
                   <div className="chat-box-bottom">
