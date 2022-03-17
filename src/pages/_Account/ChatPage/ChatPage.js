@@ -36,7 +36,7 @@ function ChatPage() {
 
   //Init socket
   useEffect(() => {
-    socket.current = io('ws://localhost:8900');
+    socket.current = io('http://localhost:8900');
     socket.current.on('getMessage', (data) => {
       setArrivalMessage({
         userSenderId: data.userSenderId,
@@ -58,7 +58,7 @@ function ChatPage() {
     socket.current.on('getUsers', (users) => {
       setOnlineUsers(users);
     });
-  }, [user]);
+  }, []);
 
   //Get all conversations users
   useEffect(() => {
