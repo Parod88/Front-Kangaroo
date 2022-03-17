@@ -5,7 +5,7 @@ import logger from 'redux-logger';
 
 import thunk from 'redux-thunk';
 import * as reducers from './reducers/reducers';
-import * as adverts from '../pages/service';
+import * as adverts from '../api/services/advertService';
 import * as users from '../pages/_Auth/service';
 
 const api = { adverts, users };
