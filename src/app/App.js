@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route } from 'react-router-dom';
 import { Switch } from 'react-router-dom/cjs/react-router-dom.min';
 
@@ -29,8 +29,10 @@ import RegisterPage from '../pages/_Auth/RegisterPage/RegisterPage';
 import LoginPage from '../pages/_Auth/LoginPage/LoginPage';
 import PasswordForgotPage from '../pages/_Auth/PasswordForgotPage/PasswordForgotPage';
 import PasswordResetPage from '../pages/_Auth/PasswordResetPage/PasswordResetPage';
+import { logout } from '../pages/_Auth/LoginPage/service';
 
-function App({ ...props }) {
+function App({...props }) {
+
   return (
     <Switch>
       {/*Static content routes*/}
