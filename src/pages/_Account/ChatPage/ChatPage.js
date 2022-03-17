@@ -6,15 +6,21 @@ import './ChatPage.scss';
 import ChatUsersOnline from './ChatUsersOnline/ChatUsersOnline';
 import Conversation from './Conversation/Conversation';
 import Message from './Message/Message';
+import { io } from 'socket.io-client';
 
 function ChatPage() {
   //TODO: User data mock simulate login. Implemento with redux and finaly authentication
 
   const [conversations, setConversations] = useState([]);
-  const [currentChat, setCurrentChat] = useState({});
+  const [currentConversation, setcurrentConversation] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
+  const [arrivalMessage, setArrivalMessage] = useState(null);
+  const [onlineUsers, setOnlineUsers] = useState([]);
+  const socket = useRef();
   const scrollRef = useRef();
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const user = {
     _id: '621bf293e5330d28f939097b',
     name: 'WallacloneAdmin',
@@ -27,6 +33,33 @@ function ChatPage() {
   };
 
   //TODO: Refactoring with Redux
+
+  //Init socket
+  useEffect(() => {
+    socket.current = io('ws://localhost:8900');
+    socket.current.on('getMessage', (data) => {
+      setArrivalMessage({
+        userSenderId: data.userSenderId,
+        text: data.text,
+        createdAt: Date.now()
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    arrivalMessage &&
+      currentConversation?.members.includes(arrivalMessage.userSenderId) &&
+      setMessages((prev) => [...prev, arrivalMessage]);
+  }, [arrivalMessage, currentConversation]);
+
+  useEffect(() => {
+    socket.current.emit('addUser', user._id);
+    //TODO:Filter users followin video
+    socket.current.on('getUsers', (users) => {
+      setOnlineUsers(users);
+    });
+  }, [user]);
+
   //Get all conversations users
   useEffect(() => {
     const getConversations = async () => {
@@ -46,22 +79,32 @@ function ChatPage() {
   useEffect(() => {
     const getMessages = async () => {
       try {
-        const res = await axios.get('http://localhost:3000/api/v1/chat/message/' + currentChat._id);
+        const res = await axios.get(
+          'http://localhost:3000/api/v1/chat/message/' + currentConversation._id
+        );
         setMessages(res.data.results);
       } catch (err) {
         console.log(err);
       }
     };
     getMessages();
-  }, [currentChat]);
+  }, [currentConversation]);
 
   const handleSubmitMessage = async (event) => {
     event.preventDefault();
     const sendMessage = {
       userSenderId: user._id,
-      conversationId: currentChat._id,
+      conversationId: currentConversation._id,
       text: newMessage
     };
+
+    //Socket
+    const userReceiverId = currentConversation.members.find((member) => member !== user._id);
+    socket.current.emit('SendMessage', {
+      userSenderId: user._id,
+      userReceiverId: userReceiverId,
+      text: newMessage
+    });
 
     try {
       const res = await axios.post('http://localhost:3000/api/v1/chat/message', sendMessage);
@@ -96,8 +139,8 @@ function ChatPage() {
             </div>
             <div className="chat-col-menu-box">
               {conversations.map((conversation) => (
-                //Select one conversation in list conversations and currentChat
-                <div key={conversation._id} onClick={() => setCurrentChat(conversation)}>
+                //Select one conversation in list conversations and currentConversation
+                <div key={conversation._id} onClick={() => setcurrentConversation(conversation)}>
                   <Conversation conversation={conversation} currentUser={user} />
                 </div>
               ))}
@@ -107,16 +150,12 @@ function ChatPage() {
           {/*Box */}
           <div className="chat-col-messages">
             <div className="chat-col-messages-box">
-              {currentChat ? (
+              {currentConversation ? (
                 <>
                   <div className="chat-box-top">
                     {messages.map((message) => (
-                      <div ref={scrollRef}>
-                        <Message
-                          key={message._id}
-                          message={message}
-                          own={message.userSenderId === user._id}
-                        />
+                      <div key={message._id} ref={scrollRef}>
+                        <Message message={message} own={message.userSenderId === user._id} />
                       </div>
                     ))}
                   </div>
@@ -147,10 +186,12 @@ function ChatPage() {
 
           {/*Chat */}
           <div className="chat-col-users-online">
-            <ChatUsersOnline />
-            <ChatUsersOnline />
-            <ChatUsersOnline />
-            <ChatUsersOnline />
+            <ChatUsersOnline
+              onlineUsers={onlineUsers}
+              currentUserId={user._id}
+              setcurrentConversation={setcurrentConversation}
+              user={user}
+            />
           </div>
         </div>
       </LayoutAccount>
