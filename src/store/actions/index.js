@@ -23,3 +23,5 @@ export {
   resetPasswordFailure,
   resetPassword
 } from './ForgetResetPasswordActions';
+
+export { signUpRequest, signUpSuccess, signUpFailure, signUpUser } from './SignupActions';

@@ -19,6 +19,7 @@ function PasswordForgotPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(forgetPassword(value));
+    setSendEmail(true);
   };
 
   return (
