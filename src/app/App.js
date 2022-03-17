@@ -26,6 +26,7 @@ import SupportPage from '../pages/_StaticPages/SupportPage/SupportPage';
 
 //Auth pages
 import RegisterPage from '../pages/_Auth/RegisterPage/RegisterPage';
+import ConfirmRegister from '../pages/_Auth/RegisterPage/ConfirmRegister';
 import LoginPage from '../pages/_Auth/LoginPage/LoginPage';
 import PasswordForgotPage from '../pages/_Auth/PasswordForgotPage/PasswordForgotPage';
 import PasswordResetPage from '../pages/_Auth/PasswordResetPage/PasswordResetPage';
@@ -66,6 +67,7 @@ function App({ ...props }) {
       {/* <Route exact path={`/reset-password/${userToken}`} component={PasswordResetPage} /> */}
       <Route exact path="/forgot-password" component={PasswordForgotPage} />
       <Route exact path="/register" component={RegisterPage} />
+      <Route path="/confirm-signup/:userToken" component={ConfirmRegister} />
       <Route exact path="/login" component={LoginPage} />
 
       <Route exact path="/" component={HomePage} />

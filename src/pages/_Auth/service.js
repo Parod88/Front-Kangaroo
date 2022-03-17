@@ -29,3 +29,8 @@ export const registerNewAccount = (newUser) => {
   const url = `${usersURL}/register`;
   return client.post(url, newUser);
 };
+
+export const confirmRegister = (userToken) => {
+  const url = `${usersURL}/confirm-signup/${userToken}`;
+  return client.put(url);
+};
