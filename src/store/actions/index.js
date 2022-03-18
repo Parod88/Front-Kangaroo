@@ -31,3 +31,6 @@ export {
   loginInitiate,
   logoutInitiate
 } from './LoginActions'
+
+export { signUpRequest, signUpSuccess, signUpFailure, signUpUser } from './SignupActions';
+

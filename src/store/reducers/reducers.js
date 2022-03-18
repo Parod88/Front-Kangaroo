@@ -14,7 +14,8 @@ import {
   LOGIN_FAILURE,
   LOGIN_START,
   LOGIN_SUCCESS,
-  LOGOUT_USER
+  LOGOUT_USER,
+  USER_SIGNUP_SUCCESS
 } from '../types/';
 
 const defaultState = {
@@ -26,6 +27,9 @@ const defaultState = {
     },
     resetPass: {
       data: null
+    },
+    user: {
+      data: []
     }
   },
   adverts: {
@@ -60,6 +64,11 @@ export function auth(authState = defaultState.auth, action) {
       return {
         ...authState,
         data: action.payload
+      };
+    case USER_SIGNUP_SUCCESS:
+      return {
+        ...authState,
+        user: { data: action.payload }
       };
     default:
       return authState;
