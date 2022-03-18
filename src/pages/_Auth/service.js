@@ -1,10 +1,12 @@
 import client, {removeAuthorizationHeader, setAuthorizationHeader} from '../../api/client';
 import storage from '../../utils/storage';
 
-const usersURL = process.env.REACT_APP_LOGIN_BASE_URL;
+const usersURL = process.env.REACT_APP_USERS_BASE_URL;
+const loginURL =  process.env.REACT_APP_LOGIN_BASE_URL;
 
 export const login = credentials => {
-    return client.post('/login', credentials)
+    const url = `${loginURL}/login`;
+    return client.post(url, credentials)
     .then(({ token }) => {
     setAuthorizationHeader(token);
     storage.set('auth', token);

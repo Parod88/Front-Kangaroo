@@ -10,10 +10,6 @@ function LoginPage() {
   const dispatch = useDispatch();
 
 const[value, setValue] = useState({email:'', password:''})
-// const[error, setError] = useState(null);
-// const[isLloading, setIsLoading] = useState(false);
-
-// const resetError = () => setError(null);
 
 const handleChange = ({ target: { value, name } }) => {
   setValue(prevState => ({
@@ -25,18 +21,19 @@ const handleChange = ({ target: { value, name } }) => {
 const handleSubmit = async event => {
   event.preventDefault();
   dispatch(loginInitiate(value))
-  // setIsLoading(true);
-  // resetError();
-  // try{
-  //   await login(value);
-  //   setIsLoading(false)
-  // } catch(error){
-  //   setError(error)
-  //   setIsLoading(false)
-  // }
   
 }
 
+const [check, setCheck] = useState({
+  check: false
+})
+
+const handleChangeCheckbox = (event) => {
+  setCheck((prevState) => ({
+    ...prevState,
+    [event.target.name]: event.target.checked
+  }));
+};
 
   return (
     <div id="login-page">
@@ -86,10 +83,10 @@ const handleSubmit = async event => {
             <div className="options">
               <div className="remenberme">
                 <input
-                  name="remenber me"
+                  name="check"
                   type="checkbox"
-                  checked={''}
-                  onChange={() => alert('implement')}
+                  checked={check.check}
+                  onChange={handleChangeCheckbox}
                 />
                 <label>Remember me </label>
               </div>

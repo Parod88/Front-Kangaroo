@@ -2,19 +2,24 @@ import React from 'react';
 import Button from '../../../components/Button/Button';
 import LayoutAccount from '../../../components/LayoutAccount/LayoutAccount';
 import './LogoutPage.scss';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { logoutInitiate } from '../../../store/actions';
 import { Link } from 'react-router-dom';
+import { logout } from '../../_Auth/service';
+import {useHistory} from "react-router-dom"
 
-function LogoutPage({onLogout}) {
+function LogoutPage() {
 
-  // const {logged} = useSelector(state => state.auth);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // const logout = () => {
-  //   dispatch(logoutInitiate());
-  // }
+  const history = useHistory()
 
+  const handleLogout = () => {
+    logout().then(()=>{
+      dispatch(logoutInitiate())
+      history.push("/");
+    })
+  }
 
   return (
     <div id="logout-page">
@@ -27,7 +32,7 @@ function LogoutPage({onLogout}) {
             <Link to="/">
             <Button primaryOutline>Cancel</Button>
             </Link>
-            <Button secondary onClick={onLogout}>Yes, I'm sure</Button>
+            <Button secondary onClick={handleLogout}>Yes, I'm sure</Button>
           </div>
         </div>
       </LayoutAccount>

@@ -1,6 +1,4 @@
-import { login } from '../../pages/_Auth/LoginPage/service';
 import { LOGIN_START, LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT_USER } from '../types';
-import axios from 'axios';
 
 export function loginStart(){
     return{
@@ -26,16 +24,15 @@ export function loginFailure(error){
 export function logoutInitiate (){
     return{
         type:LOGOUT_USER,
-
     }
 }
 
-export function loginInitiate(value) {
+export function loginInitiate(credentials) {
     
     return async function (dispatch, getState, { api, history }) {
     dispatch(loginStart());
     try {
-        const login = await api.users.login(value)
+        const login = await api.users.login(credentials)
         dispatch(loginSuccess());
         const { from } = history.location.state || { from: { pathname: '/' } };
         history.replace(from);
@@ -44,42 +41,4 @@ export function loginInitiate(value) {
     }
     };
 }
-  
-// export const loginInitiate = (remember, ...credentials) =>{
-//     return async function(dispatch, getState, {api, history}){
-//         dispatch(loginStart());
-//         try{
-//             await axios.post('http://localhost:3001/api/v1/login', {
-//              credentials})
-//         // }).then(({userToken})=> {
-//         //     configureClient({userToken});
-//         //     return userToken;
-//         // })
-//         // .then(userToken=>{
-//         //     storage.remove('auth');
-//         //     if(remember){
-//         //         storage.set('auth', userToken)
-//         //     }
-//         // })
-//             //await api.auth.login(credentials);
-//             dispatch(loginSuccess());
-//             const { from } = history.location.state || { from: { pathname: '/' } };
-//             history.replace(from);
-//         } catch (error) {
-//             dispatch(loginFailure(error));
-//         }
-//     };
 
-    // return function (dispatch){
-    //     dispatch(loginStart());
-    //     axios.post('http://localhost:3001/api/v1/login', {
-    //         email,
-    //         password
-    //     })
-    //     .then((response)=> {
-    //         console.log("response", response);
-    //         dispatch(loginSuccess(response.data.userToken))
-    //     })
-    //     .catch((error) => dispatch(loginFailure(error.response.data.message)))
-    // }
-    //}
