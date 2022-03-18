@@ -13,7 +13,7 @@ const store = configureStore({}, { history });
 ReactDOM.render(
   <RootCustomProvider store={store} history={history}>
     <React.StrictMode>
-      <App />
+      <App/>
     </React.StrictMode>
   </RootCustomProvider>,
   document.getElementById('root')
