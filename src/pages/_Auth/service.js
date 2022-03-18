@@ -34,3 +34,8 @@ export const confirmRegister = (userToken) => {
   const url = `${usersURL}/confirm-signup/${userToken}`;
   return client.put(url);
 };
+
+export const deleteAccount = (userId) => {
+  const url = `${usersURL}/${userId}`;
+  return client.delete(url);
+};
