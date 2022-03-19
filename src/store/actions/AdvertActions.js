@@ -55,10 +55,10 @@ export function advertUpdateRequest() {
   };
 }
 
-export function advertUpdateSuccess(advert) {
+export function advertUpdateSuccess(advertUpdate) {
   return {
     type: ADVERT_UPDATE_SUCCESS,
-    payload: advert
+    payload: advertUpdate
   };
 }
 
@@ -71,7 +71,6 @@ export function advertUpdateFailure(error) {
 }
 
 export function updateAdvert(advert, advertId) {
-  console.log(advert);
   return async function (dispatch, getState, { api, history }) {
     dispatch(advertUpdateRequest());
     try {

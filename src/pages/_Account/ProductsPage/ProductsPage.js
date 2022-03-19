@@ -23,9 +23,6 @@ function ProductsPage() {
       <Link to="/account/products/edit/62359721a381ff9e54757ec1">
         <button>Edit advert</button>
       </Link>
-      <Link to="/account/products/create">
-        <button>Create new adver</button>
-      </Link>
       <div id="products-page">
         <Tabs>
           <TabList>

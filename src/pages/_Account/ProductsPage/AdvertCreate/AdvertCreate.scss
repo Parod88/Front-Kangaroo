@@ -31,7 +31,7 @@
 
     .categories {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
 
       input {
         margin-right: 0.5rem;
@@ -49,7 +49,7 @@
     margin: 4rem 0 0 0;
   }
 
-  .type-options {
+  .radio-options {
     .options-title {
       margin-bottom: 0.5rem;
       color: var(--primary);

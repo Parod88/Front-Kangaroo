@@ -55,9 +55,14 @@ function AdvertCreate({ ...props }) {
     setDescriptionEn(event.target.value);
   };
 
-  const [type, setType] = useState('true');
+  const [type, setType] = useState('Sale');
   const handlerType = (event) => {
     setType(event.target.value);
+  };
+
+  const [advertState, setAdvertState] = useState('ForSale');
+  const handlerState = (event) => {
+    setAdvertState(event.target.value);
   };
 
   const [price, setPrice] = useState(0);
@@ -138,7 +143,8 @@ function AdvertCreate({ ...props }) {
       newAdvertFormData.set('name', name);
       newAdvertFormData.set('descriptionEn', descriptionEn);
       newAdvertFormData.set('description', description);
-      newAdvertFormData.set('sale', type);
+      newAdvertFormData.set('type', type);
+      newAdvertFormData.set('state', advertState);
       newAdvertFormData.set('price', price);
       newAdvertFormData.set('categories', selectCategories);
       newAdvertFormData.set('gallery', gallery);
@@ -154,17 +160,6 @@ function AdvertCreate({ ...props }) {
   return (
     <LayoutAccount title={'Create Product'} subtitle={'Lorem ipsum dolor sit amet, consectetur'}>
       <div id="advert-create">
-        {/*TODO: Delete this data example */}
-        {/* <p>name: {name}</p>
-        <p>description: {description}</p>
-        <p>nameEn: {nameEn}</p>
-        <p>descriptionEn: {descriptionEn}</p>
-        <p>sale: {type}</p>
-        <p>price: {price}</p>
-        <p>categories: {JSON.stringify(selectCategories)}</p>
-        <p>tags: {JSON.stringify(selectTags)}</p>
-        <p>author: {user._id}</p> */}
-
         <div className="account-container">
           <form className="form" onSubmit={handleFormSubmit}>
             {!isLoading ? (
@@ -226,6 +221,92 @@ function AdvertCreate({ ...props }) {
                     ></textarea>
                   </div>
 
+                  <div className="radio-options">
+                    <p className="options-title">State:</p>
+                    <div className="radio-container">
+                      <input
+                        type="radio"
+                        name="state"
+                        id="ForSale"
+                        value="ForSale"
+                        checked={advertState === 'ForSale' ? true : false}
+                        onChange={handlerState}
+                      />
+                      <label className="label-radio" htmlFor="ForSale">
+                        <p>+ </p>
+                        <p>ForSale</p>
+                      </label>
+                      <input
+                        type="radio"
+                        name="state"
+                        id="Inactive"
+                        value="Inactive"
+                        checked={advertState === 'Inactive' ? true : false}
+                        onChange={handlerState}
+                      />
+                      <label className="label-radio" htmlFor="Inactive">
+                        <p>+ </p>
+                        <p>Inactive</p>
+                      </label>
+                      <input
+                        type="radio"
+                        name="state"
+                        id="Finished"
+                        value="Finished"
+                        checked={advertState === 'Finished' ? true : false}
+                        onChange={handlerState}
+                      />
+                      <label className="label-radio" htmlFor="Finished">
+                        <p>+ </p>
+                        <p>Finished</p>
+                      </label>
+                    </div>
+                  </div>
+
+                  {/* Type Sale  */}
+                  <div className="type-options">
+                    <p className="options-title">Type:</p>
+                    <div className="radio-container">
+                      <input
+                        type="radio"
+                        name="type"
+                        id="sale"
+                        value="Sale"
+                        checked={type === 'Sale' && true}
+                        onChange={handlerType}
+                      />
+                      <label className="label-radio" htmlFor="sale">
+                        <p>+ </p>
+                        <p>Sale</p>
+                      </label>
+                      <input
+                        type="radio"
+                        name="type"
+                        id="purchase"
+                        value="Purchase"
+                        checked={type === 'Purchase' && true}
+                        onChange={handlerType}
+                      />
+                      <label className="label-radio" htmlFor="purchase">
+                        <p>+ </p>
+                        <p>Purchase</p>
+                      </label>
+                    </div>
+                  </div>
+                </section>
+
+                {/* Tags */}
+                <section className="section grid-two-cols">
+                  <div className="input-item">
+                    {/*TODO:Implement library react-tag-input */}
+                    <label>Aditional Tags</label>
+                    <TagsInput
+                      value={selectTags}
+                      onChange={setSelectTags}
+                      name="tags"
+                      placeHolder="Enter tags related your product"
+                    />
+                  </div>
                   {/* Price*/}
                   <div className="input-item">
                     <label>Price</label>
@@ -239,52 +320,6 @@ function AdvertCreate({ ...props }) {
                       value={price}
                       onChange={(event) => setPrice(event.target.value)}
                     ></input>
-                  </div>
-
-                  {/* Type Sale  */}
-
-                  <div className="type-options">
-                    <p className="options-title">Type:</p>
-                    <div className="radio-container">
-                      <input
-                        type="radio"
-                        name="type"
-                        id="sale"
-                        value="true"
-                        checked={type === 'true' ? true : false}
-                        onChange={handlerType}
-                      />
-                      <label className="label-radio" for="sale">
-                        <p>+ </p>
-                        <p>Sale</p>
-                      </label>
-                      <input
-                        type="radio"
-                        name="type"
-                        id="purchase"
-                        value="false"
-                        checked={type === 'false' ? true : false}
-                        onChange={handlerType}
-                      />
-                      <label className="label-radio" for="purchase">
-                        <p>+ </p>
-                        <p>Purchase</p>
-                      </label>
-                    </div>
-                  </div>
-                </section>
-
-                {/* Tags */}
-                <section className="section">
-                  <div className="input-item">
-                    {/*TODO:Implement library react-tag-input */}
-                    <label>Aditional Tags</label>
-                    <TagsInput
-                      value={selectTags}
-                      onChange={setSelectTags}
-                      name="tags"
-                      placeHolder="Enter tags related your product"
-                    />
                   </div>
                 </section>
 
