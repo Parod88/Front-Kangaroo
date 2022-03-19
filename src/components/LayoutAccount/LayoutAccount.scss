@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: row;
     gap: 2rem;
-    min-height: 100vh;
+    min-height: calc(100vh - 5.625rem);
   }
 
   main {
