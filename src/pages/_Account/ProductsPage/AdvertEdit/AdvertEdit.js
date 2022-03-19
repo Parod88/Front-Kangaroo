@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import LayoutAccount from '../../../../components/LayoutAccount/LayoutAccount';
-import './AdvertCreate.scss';
-import { getCategories, getTags, getUi } from '../../../../store/selectors/selectors';
-import { createAdvert } from '../../../../store/actions/AdvertActions';
+import AdvertImage from '../../../../components/AdvertImage/AdvertImage';
+import './AdvertEdit.scss';
+import {
+  getCategories,
+  getTags,
+  getUi,
+  getAdvertDetail
+} from '../../../../store/selectors/selectors';
+import { updateAdvert } from '../../../../store/actions/AdvertActions';
+import { loadAdvertDetail } from '../../../../store/actions/AdvertDetailActions';
 import NotResultsFound from '../../../../components/NotResultsFound/NotResultsFound';
 import Button from '../../../../components/Button/Button';
 import InputFileUpload from '../../../../components/InputFileUpload/InputFileUpload';
@@ -12,25 +19,26 @@ import imageNoPhoto from '../../../../resources/images/no-image.png';
 import { loadCategories } from '../../../../store/actions/CategoryActions';
 import { TagsInput } from 'react-tag-input-component';
 
-function AdvertCreate({ ...props }) {
+function AdvertEdit({ ...props }) {
   const navigate = useHistory();
-  const params = useParams();
+  const { id: advertId } = useParams();
+
   //TODO: if url with id them edit. Not id them create
   //TODO: add conditional render for title and data
 
   const user = {
-    _id: '621bf293e5330d28f939097b',
-    name: 'WallacloneAdmin',
-    email: 'admin@wallaclone.com',
-    password: '$2a$10$LVlsiH6CmLa77LddL8hDT.yJwgnhrnMESjkWp2nksMdcAnWW/FRai',
-    imageAvatar: 'https://i.pravatar.cc/500',
-    isAdmin: true,
-    createdAt: '2022-02-27T21:52:19.752Z',
-    updatedAt: '2022-02-27T21:52:19.752Z'
+    _id: '621bf293e5330d28f939097b'
   };
 
   const dispatch = useDispatch();
   const { isLoading, error } = useSelector(getUi);
+
+  useEffect(() => {
+    dispatch(loadAdvertDetail(advertId));
+  }, [dispatch, advertId]);
+
+  const advert = useSelector((state) => getAdvertDetail(state, advertId));
+  console.log('advert', advert);
 
   //=============================================
   //Handler
@@ -55,12 +63,12 @@ function AdvertCreate({ ...props }) {
     setDescriptionEn(event.target.value);
   };
 
-  const [type, setType] = useState('Sale');
+  const [type, setType] = useState(true);
   const handlerType = (event) => {
     setType(event.target.value);
   };
 
-  const [advertState, setAdvertState] = useState('ForSale');
+  const [advertState, setAdvertState] = useState('');
   const handlerState = (event) => {
     setAdvertState(event.target.value);
   };
@@ -88,22 +96,7 @@ function AdvertCreate({ ...props }) {
   };
 
   // //Tags
-  const tags = useSelector(getTags) || [];
   const [selectTags, setSelectTags] = useState([]);
-
-  // useEffect(() => {
-  //   dispatch(loadTags());
-  // }, [dispatch]);
-
-  const handlerTags = (event) => {
-    var listTags = [...selectTags];
-    if (event.target.checked) {
-      listTags = [...selectTags, event.target.value];
-    } else {
-      listTags.splice(selectTags.indexOf(event.target.value), 1);
-    }
-    setSelectTags(listTags);
-  };
 
   //Image
   const [gallery, setGallery] = useState(0);
@@ -131,6 +124,24 @@ function AdvertCreate({ ...props }) {
     }
   };
 
+  useEffect(() => {
+    if (advert) {
+      setName(advert.name);
+      setNameEn(advert.nameEn);
+      setDescription(advert.description);
+      setDescriptionEn(advert.descriptionEn);
+      setType(advert.type);
+      setPrice(advert.price);
+      setAdvertState(advert.state);
+      setSelectCategories(advert.categories);
+      setSelectTags(advert.tags);
+      setImageRender(advert.image);
+      setImage(advert.image);
+    }
+  }, [advert]);
+
+  console.log('advert', advert);
+
   //Send form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -139,11 +150,11 @@ function AdvertCreate({ ...props }) {
       alert('Select one categorie'); //TODO: Create error
     } else {
       const newAdvertFormData = new FormData();
-      newAdvertFormData.set('nameEn', nameEn);
       newAdvertFormData.set('name', name);
-      newAdvertFormData.set('descriptionEn', descriptionEn);
+      newAdvertFormData.set('nameEn', nameEn);
       newAdvertFormData.set('description', description);
-      newAdvertFormData.set('type', type);
+      newAdvertFormData.set('descriptionEn', descriptionEn);
+      newAdvertFormData.set('sale', type);
       newAdvertFormData.set('state', advertState);
       newAdvertFormData.set('price', price);
       newAdvertFormData.set('categories', selectCategories);
@@ -153,13 +164,18 @@ function AdvertCreate({ ...props }) {
       if (image) {
         newAdvertFormData.set('image', image);
       }
-      dispatch(createAdvert(newAdvertFormData));
+      dispatch(updateAdvert(newAdvertFormData, advertId));
     }
   };
 
+  const handlerDelete = () => {
+    alert('eleiminar');
+  };
+
   return (
-    <LayoutAccount title={'Create Product'} subtitle={'Lorem ipsum dolor sit amet, consectetur'}>
+    <LayoutAccount title={'Edit Product'} subtitle={'Lorem ipsum dolor sit amet, consectetur'}>
       <div id="advert-create">
+        <p>{type}</p>
         <div className="account-container">
           <form className="form" onSubmit={handleFormSubmit}>
             {!isLoading ? (
@@ -229,7 +245,7 @@ function AdvertCreate({ ...props }) {
                         name="state"
                         id="ForSale"
                         value="ForSale"
-                        checked={advertState === 'ForSale' ? true : false}
+                        checked={advertState === 'ForSale'}
                         onChange={handlerState}
                       />
                       <label className="label-radio" htmlFor="ForSale">
@@ -241,7 +257,7 @@ function AdvertCreate({ ...props }) {
                         name="state"
                         id="Inactive"
                         value="Inactive"
-                        checked={advertState === 'Inactive' ? true : false}
+                        checked={advertState === 'Inactive'}
                         onChange={handlerState}
                       />
                       <label className="label-radio" htmlFor="Inactive">
@@ -253,7 +269,7 @@ function AdvertCreate({ ...props }) {
                         name="state"
                         id="Finished"
                         value="Finished"
-                        checked={advertState === 'Finished' ? true : false}
+                        checked={advertState === 'Finished'}
                         onChange={handlerState}
                       />
                       <label className="label-radio" htmlFor="Finished">
@@ -264,30 +280,30 @@ function AdvertCreate({ ...props }) {
                   </div>
 
                   {/* Type Sale  */}
-                  <div className="type-options">
+                  <div className="radio-options">
                     <p className="options-title">Type:</p>
                     <div className="radio-container">
                       <input
                         type="radio"
                         name="type"
-                        id="sale"
+                        id="Sale"
                         value="Sale"
-                        checked={type === 'Sale' && true}
+                        checked={type === 'Sale'}
                         onChange={handlerType}
                       />
-                      <label className="label-radio" htmlFor="sale">
+                      <label className="label-radio" htmlFor="Sale">
                         <p>+ </p>
                         <p>Sale</p>
                       </label>
                       <input
                         type="radio"
                         name="type"
-                        id="purchase"
+                        id="Purchase"
                         value="Purchase"
-                        checked={type === 'Purchase' && true}
+                        checked={type === 'Purchase'}
                         onChange={handlerType}
                       />
-                      <label className="label-radio" htmlFor="purchase">
+                      <label className="label-radio" htmlFor="Purchase">
                         <p>+ </p>
                         <p>Purchase</p>
                       </label>
@@ -307,6 +323,7 @@ function AdvertCreate({ ...props }) {
                       placeHolder="Enter tags related your product"
                     />
                   </div>
+
                   {/* Price*/}
                   <div className="input-item">
                     <label>Price</label>
@@ -336,6 +353,7 @@ function AdvertCreate({ ...props }) {
                             type="checkbox"
                             onChange={(e) => handleCheckCategories(e)}
                             value={category._id}
+                            checked={selectCategories.includes(category._id) ? true : false}
                           />
                           {category.name}
                         </li>
@@ -344,9 +362,13 @@ function AdvertCreate({ ...props }) {
                   </div>
                 </section>
                 {/* Image */}
+
                 <section className="section">
                   <div className="input-container">
                     <label>Cover Image: </label>
+                    <div className="image">
+                      <AdvertImage alt={''} imageServer={advert ? advert.image : ''} />
+                    </div>
                     <InputFileUpload
                       onChange={handlerImage}
                       imageNoPhoto={imageRender}
@@ -359,6 +381,9 @@ function AdvertCreate({ ...props }) {
                 <section className="footer">
                   <Button primaryOutline onClick={() => navigate(-1)}>
                     Cancel
+                  </Button>
+                  <Button primaryOutline onClick={handlerDelete}>
+                    Delete Product
                   </Button>
                   <Button secondary type="submit">
                     Save Product
@@ -375,4 +400,4 @@ function AdvertCreate({ ...props }) {
   );
 }
 
-export default AdvertCreate;
+export default AdvertEdit;

@@ -17,6 +17,7 @@ import DashboardPage from '../pages/_Account/DashboardPage/DashboardPage';
 import LogoutPage from '../pages/_Account/LogoutPage/LogoutPage';
 
 import AdvertCreate from '../pages/_Account/ProductsPage/AdvertCreate/AdvertCreate';
+import AdvertEdit from '../pages/_Account/ProductsPage/AdvertEdit/AdvertEdit';
 
 //Static content pages
 import AboutUsPage from '../pages/_StaticPages/AboutUsPage/AboutUsPage';
@@ -51,8 +52,8 @@ function App({...props }) {
       <Route exact path="/account/dashboard" component={DashboardPage} />
       <Route exact path="/account/logout" component={LogoutPage} />
 
-      <Route exact path="/account/products/edit/:id" component={AdvertCreate} />
       <Route exact path="/account/products/create" component={AdvertCreate} />
+      <Route exact path="/account/products/edit/:id" component={AdvertEdit} />
 
       {/*Public routes*/}
       {/*TODO: change parameters routers, example /advert/:id */}

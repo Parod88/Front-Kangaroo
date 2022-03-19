@@ -1,4 +1,26 @@
 export {
+  advertCreateRequest,
+  advertCreateSuccess,
+  advertCreateFailure,
+  createAdvert,
+  advertUpdateRequest,
+  advertUpdateSuccess,
+  advertUpdateFailure,
+  updateAdvert,
+  advertDeleteRequest,
+  advertDeleteSuccess,
+  advertDeleteFailure,
+  deleteAdvert
+} from './AdvertActions';
+
+export {
+  loadCategoriesRequest,
+  loadCategoriesSuccess,
+  loadCategoriesFailure,
+  loadCategories
+} from './CategoryActions';
+
+export {
   advertsLoadedRequest,
   advertsLoadedSuccess,
   advertsLoadedFailure,

@@ -20,7 +20,7 @@ function AdvertPage() {
   //   name: 'Guapo Hormigon Bacon',
   //   description:
   //     'Quidem et dicta velit quibusdam dolorum id. Voluptates non temporibus. Iure dolore qui sunt libero quia quos consequuntur id maxime. Cum sint quia in.',
-  //   sale: false,
+  //   type: false,
   //   price: 3,
   //   image: 'http://placeimg.com/640/480',
   //   gallery: [
@@ -46,7 +46,7 @@ function AdvertPage() {
   //   updatedAt: '2022-02-27T21:52:19.929Z'
   // };
 
-  // const { name, description, sale, price, image, gallery, tags, author, categories, updatedAt } =
+  // const { name, description, type, price, image, gallery, tags, author, categories, updatedAt } =
   //   advert;
 
   return advert ? (
