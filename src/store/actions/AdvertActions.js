@@ -38,8 +38,8 @@ export function createAdvert(advert) {
   return async function (dispatch, getState, { api, history }) {
     dispatch(advertCreateRequest());
     try {
-      const advert = await api.adverts.createAdvert(advert);
-      dispatch(advertCreateSuccess(advert));
+      const advertCreate = await api.adverts.createAdvert(advert);
+      dispatch(advertCreateSuccess(advertCreate));
     } catch (error) {
       dispatch(advertCreateFailure(error));
     }
@@ -74,8 +74,8 @@ export function updateAdvert(advert) {
   return async function (dispatch, getState, { api, history }) {
     dispatch(advertCreateRequest());
     try {
-      const advert = await api.updateAdvert(advert);
-      dispatch(advertCreateSuccess(advert));
+      const advertUpdate = await api.updateAdvert(advert);
+      dispatch(advertCreateSuccess(advertUpdate));
     } catch (error) {
       dispatch(advertCreateFailure(error));
     }
@@ -110,7 +110,7 @@ export function deleteAdvert(advertId) {
   return async function (dispatch, getState, { api, history }) {
     dispatch(advertDeleteRequest());
     try {
-      const advert = await api.deleteAdvertId(advertId);
+      const advert = await api.deleteAdvert(advertId);
       dispatch(advertDeleteSuccess(advert));
       history.push(`/adverts`);
     } catch (error) {

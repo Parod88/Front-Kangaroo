@@ -12,7 +12,13 @@ import TabProductsPurchased from './TabsProducts/TabProductsPurchased';
 
 function ProductsPage() {
   return (
-    <LayoutAccount title={'Your Products'} subtitle={'Lorem ipsum dolor sit amet, consectetur'}>
+    <LayoutAccount
+      title={'Your Products'}
+      subtitle={'Lorem ipsum dolor sit amet, consectetur'}
+      haveButton={true}
+      textButton={'Create new product'}
+      urlButton={'/account/products/create'}
+    >
       {/*TODO: add id advert edit*/}
       <Link to="/account/products/edit/4">
         <button>Edit advert</button>
