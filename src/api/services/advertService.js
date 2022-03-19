@@ -18,15 +18,12 @@ export const getSingleAdvert = async (id) => {
 };
 
 export const createAdvert = async (advert) => {
-  console.log('advert', advert);
-  const headers = { 'Content-Type': 'application/json' };
-
   const url = `${apiAdvertsURL}`;
-  return await axiosClient.post(url, advert, { headers });
+  return await axiosClient.post(url, advert);
 };
 
-export const updateAdvert = async (advert) => {
-  const url = `${apiAdvertsURL}`;
+export const updateAdvert = async (advert, advertId) => {
+  const url = `${apiAdvertsURL}/${advertId}`;
   return await axiosClient.put(url, advert);
 };
 

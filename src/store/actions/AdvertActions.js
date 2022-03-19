@@ -70,14 +70,15 @@ export function advertUpdateFailure(error) {
   };
 }
 
-export function updateAdvert(advert) {
+export function updateAdvert(advert, advertId) {
+  console.log(advert);
   return async function (dispatch, getState, { api, history }) {
-    dispatch(advertCreateRequest());
+    dispatch(advertUpdateRequest());
     try {
-      const advertUpdate = await api.updateAdvert(advert);
-      dispatch(advertCreateSuccess(advertUpdate));
+      const advertUpdate = await api.adverts.updateAdvert(advert, advertId);
+      dispatch(advertUpdateSuccess(advertUpdate));
     } catch (error) {
-      dispatch(advertCreateFailure(error));
+      dispatch(advertUpdateFailure(error));
     }
   };
 }
@@ -110,7 +111,7 @@ export function deleteAdvert(advertId) {
   return async function (dispatch, getState, { api, history }) {
     dispatch(advertDeleteRequest());
     try {
-      const advert = await api.deleteAdvert(advertId);
+      const advert = await api.adverts.deleteAdvert(advertId);
       dispatch(advertDeleteSuccess(advert));
       history.push(`/adverts`);
     } catch (error) {

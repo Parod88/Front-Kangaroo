@@ -13,7 +13,6 @@ const AdvertCard = ({ advert, ...props }) => {
     <article id="advert-card">
       <Link to={`/advert/${_id}`}>
         <div className="header">
-          {/* <img alt={name} src={image} /> */}
           <AdvertImage alt={name} imageServer={image} />
         </div>
         <div className="body">
