@@ -7,9 +7,9 @@ function TabProfileCloseAccount() {
   const [value, setValue] = useState({
     deleteAccount: ''
   });
-  const handleChange = () => {
-    setValue((event) => ({
-      [event.target.name]: event.taget.value
+  const handleChange = ({ target: { value, name } }) => {
+    setValue(() => ({
+      [name]: value
     }));
   };
   const handleSubmit = async (event) => {
@@ -39,7 +39,7 @@ function TabProfileCloseAccount() {
             className="input"
             type="text"
             id="delete"
-            placeholder=""
+            placeholder="Write the word"
             required
             value={value.deleteAccount}
             onChange={handleChange}
