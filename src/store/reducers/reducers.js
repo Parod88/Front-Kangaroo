@@ -54,15 +54,15 @@ export function auth(authState = defaultState.auth, action) {
         forgotPass: { isForgotten: true, data: action.payload.config.data }
       };
     case LOGIN_SUCCESS:
-      return{
+      return {
         ...authState,
-        logged:true
-      }
+        logged: true
+      };
     case LOGOUT_USER:
-      return{
+      return {
         ...authState,
-        logged:false
-      }
+        logged: false
+      };
     case RESET_PASSWORD_SUCCESS:
       return {
         ...authState,
