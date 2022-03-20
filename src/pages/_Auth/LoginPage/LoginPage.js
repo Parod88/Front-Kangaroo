@@ -1,10 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../../../components/Button/Button';
-
+import { useDispatch } from 'react-redux';
 import './LoginPage.scss';
+import { loginInitiate } from '../../../store/actions/LoginActions';
 
 function LoginPage() {
+
+  const dispatch = useDispatch();
+
+const[value, setValue] = useState({email:'', password:''})
+
+const handleChange = ({ target: { value, name } }) => {
+  setValue(prevState => ({
+    ...prevState,
+    [name]: value,
+  }));
+};
+
+const handleSubmit = async event => {
+  event.preventDefault();
+  dispatch(loginInitiate(value))
+  
+}
+
+const [check, setCheck] = useState({
+  check: false
+})
+
+const handleChangeCheckbox = (event) => {
+  setCheck((prevState) => ({
+    ...prevState,
+    [event.target.name]: event.target.checked
+  }));
+};
+
   return (
     <div id="login-page">
       <div className="col-left">Image</div>
@@ -21,15 +51,18 @@ function LoginPage() {
           </div>
 
           <div className="body">
+            <form className='loginForm' onSubmit={handleSubmit}>
             <div className="input-item">
               <label>Email</label>
               <input
                 className="input"
                 type="email"
                 id="email"
+                name="email"
                 placeholder="Enter email"
+                value={value.email}
                 required
-                onChange={() => alert('implement')}
+                onChange={handleChange}
               ></input>
             </div>
 
@@ -39,19 +72,21 @@ function LoginPage() {
                 className="input"
                 type="password"
                 id="password"
+                name="password"
                 placeholder="Enter your password"
+                value={value.password}
                 required
-                onChange={() => alert('implement')}
+                onChange={handleChange}
               ></input>
             </div>
 
             <div className="options">
               <div className="remenberme">
                 <input
-                  name="remenber me"
+                  name="check"
                   type="checkbox"
-                  checked={''}
-                  onChange={() => alert('implement')}
+                  checked={check.check}
+                  onChange={handleChangeCheckbox}
                 />
                 <label>Remember me </label>
               </div>
@@ -61,10 +96,11 @@ function LoginPage() {
             </div>
 
             <div>
-              <Button secondary full>
+              <Button secondary full type="submit" disabled={!value.email||!value.password}>
                 Login
               </Button>
             </div>
+            </form>
           </div>
 
           <div className="footer">
@@ -78,6 +114,6 @@ function LoginPage() {
       </div>
     </div>
   );
-}
+  }
 
 export default LoginPage;

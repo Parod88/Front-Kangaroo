@@ -3,13 +3,20 @@
     display: flex;
     flex-direction: row;
     gap: 2rem;
-    min-height: 100vh;
+    min-height: calc(100vh - 5.625rem);
   }
 
   main {
     width: 100%;
     background-color: #dddddd;
     padding: 4rem;
+
+    .header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
   }
 
   .body-container {

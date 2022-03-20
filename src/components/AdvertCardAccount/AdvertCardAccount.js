@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import AdvertImage from '../AdvertImage/AdvertImage';
 import './AdvertCardAccount.scss';
 const { formatDistanceToNow } = require('date-fns');
 
@@ -8,9 +9,9 @@ const AdvertCardAccount = ({ advert, ...props }) => {
 
   return (
     <article id="advert-card-account">
-      <Link to={`/account/products/edit/4`}>
+      <Link to={`/account/products/edit/${_id}`}>
         <div className="header">
-          <img alt={name} src={image} />
+          <AdvertImage alt={name} imageServer={image} />
         </div>
         <div className="body">
           <h4 className="title">{name}</h4>

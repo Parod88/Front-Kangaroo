@@ -11,12 +11,17 @@ import {
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAILURE,
+  LOGIN_FAILURE,
+  LOGIN_START,
+  LOGIN_SUCCESS,
+  LOGOUT_USER,
   USER_SIGNUP_SUCCESS
 } from '../types/';
+import { CATEGORY_LOAD_SUCCESS } from '../types/CategoryTypes';
 
 const defaultState = {
   auth: {
-    logged: true,
+    logged: false,
     forgotPass: {
       isForgotten: false,
       data: null
@@ -30,7 +35,9 @@ const defaultState = {
   },
   adverts: {
     loaded: false,
-    data: []
+    data: [],
+    categories: [],
+    tags: []
   },
   ui: {
     isLoading: false,
@@ -46,6 +53,16 @@ export function auth(authState = defaultState.auth, action) {
         logged: false,
         forgotPass: { isForgotten: true, data: action.payload.config.data }
       };
+    case LOGIN_SUCCESS:
+      return{
+        ...authState,
+        logged:true
+      }
+    case LOGOUT_USER:
+      return{
+        ...authState,
+        logged:false
+      }
     case RESET_PASSWORD_SUCCESS:
       return {
         ...authState,
@@ -65,6 +82,8 @@ export function adverts(advertsState = defaultState.adverts, action) {
   switch (action.type) {
     case ADVERTS_LOADED_SUCCESS:
       return { ...advertsState, loaded: true, data: action.payload.data.results };
+    case CATEGORY_LOAD_SUCCESS:
+      return { ...advertsState, loaded: true, categories: action.payload.data.results };
     case ADVERT_LOADED_SUCCESS:
       return { ...advertsState, data: [...advertsState.data, action.payload.data.results] };
     default:
@@ -78,16 +97,19 @@ export function ui(uiState = defaultState.ui, action) {
     case FORGET_PASSWORD_REQUEST:
     case ADVERTS_LOADED_REQUEST:
     case ADVERT_LOADED_REQUEST:
+    case LOGIN_START:
       return { ...uiState, isLoading: true, error: null };
     case RESET_PASSWORD_SUCCESS:
     case FORGET_PASSWORD_SUCCESS:
     case ADVERTS_LOADED_SUCCESS:
     case ADVERT_LOADED_SUCCESS:
+    case LOGIN_SUCCESS:
       return { ...uiState, isLoading: false, error: null };
     case RESET_PASSWORD_FAILURE:
     case FORGET_PASSWORD_FAILURE:
     case ADVERTS_LOADED_FAILURE:
     case ADVERT_LOADED_FAILURE:
+    case LOGIN_FAILURE:
       return { ...uiState, isLoading: false, error: action.payload };
     default:
       return uiState;
