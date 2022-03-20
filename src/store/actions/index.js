@@ -56,3 +56,10 @@ export {
 
 export { signUpRequest, signUpSuccess, signUpFailure, signUpUser } from './SignupActions';
 
+export {
+  deleteUserRequest,
+  deleteUserSuccess,
+  deleteUserFailure,
+  deleteUser
+} from './DeleteUserActions';
+

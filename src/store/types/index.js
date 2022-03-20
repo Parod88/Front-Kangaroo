@@ -35,3 +35,5 @@ export {
   CONFIRM_SIGNUP_SUCCESS,
   CONFIRM_SIGNUP_FAILURE
 } from './SignupTypes';
+
+export { DELETE_USER_REQUEST, DELETE_USER_SUCCESS, DELETE_USER_FAILURE } from './DeleteUserTypes';
