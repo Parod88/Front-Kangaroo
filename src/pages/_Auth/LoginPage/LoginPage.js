@@ -3,37 +3,31 @@ import { Link } from 'react-router-dom';
 import Button from '../../../components/Button/Button';
 import { useDispatch } from 'react-redux';
 import './LoginPage.scss';
-import { loginInitiate } from '../../../store/actions/LoginActions';
+import { loginInitiate } from '../../../store/actions';
 
 function LoginPage() {
-
   const dispatch = useDispatch();
 
-const[value, setValue] = useState({email:'', password:''})
+  const [value, setValue] = useState({ email: '', password: '', rememberMe: false });
 
-const handleChange = ({ target: { value, name } }) => {
-  setValue(prevState => ({
-    ...prevState,
-    [name]: value,
-  }));
-};
+  const handleChange = ({ target: { value, name } }) => {
+    setValue((prevState) => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
 
-const handleSubmit = async event => {
-  event.preventDefault();
-  dispatch(loginInitiate(value))
-  
-}
+  const handleChangeCheckbox = (event) => {
+    setValue((prevState) => ({
+      ...prevState,
+      [event.target.name]: event.target.checked
+    }));
+  };
 
-const [check, setCheck] = useState({
-  check: false
-})
-
-const handleChangeCheckbox = (event) => {
-  setCheck((prevState) => ({
-    ...prevState,
-    [event.target.name]: event.target.checked
-  }));
-};
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    dispatch(loginInitiate(value));
+  };
 
   return (
     <div id="login-page">
@@ -51,55 +45,55 @@ const handleChangeCheckbox = (event) => {
           </div>
 
           <div className="body">
-            <form className='loginForm' onSubmit={handleSubmit}>
-            <div className="input-item">
-              <label>Email</label>
-              <input
-                className="input"
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Enter email"
-                value={value.email}
-                required
-                onChange={handleChange}
-              ></input>
-            </div>
-
-            <div className="input-item">
-              <label>Password</label>
-              <input
-                className="input"
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Enter your password"
-                value={value.password}
-                required
-                onChange={handleChange}
-              ></input>
-            </div>
-
-            <div className="options">
-              <div className="remenberme">
+            <form className="loginForm" onSubmit={handleSubmit}>
+              <div className="input-item">
+                <label>Email</label>
                 <input
-                  name="check"
-                  type="checkbox"
-                  checked={check.check}
-                  onChange={handleChangeCheckbox}
-                />
-                <label>Remember me </label>
+                  className="input"
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Enter email"
+                  value={value.email}
+                  required
+                  onChange={handleChange}
+                ></input>
               </div>
-              <div>
-                <Link to="/forgot-password">Forgot your password</Link>
-              </div>
-            </div>
 
-            <div>
-              <Button secondary full type="submit" disabled={!value.email||!value.password}>
-                Login
-              </Button>
-            </div>
+              <div className="input-item">
+                <label>Password</label>
+                <input
+                  className="input"
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="Enter your password"
+                  value={value.password}
+                  required
+                  onChange={handleChange}
+                ></input>
+              </div>
+
+              <div className="options">
+                <div className="remenberme">
+                  <input
+                    name="rememberMe"
+                    type="checkbox"
+                    checked={value.rememberMe}
+                    onChange={handleChangeCheckbox}
+                  />
+                  <label>Remember me </label>
+                </div>
+                <div>
+                  <Link to="/forgot-password">Forgot your password</Link>
+                </div>
+              </div>
+
+              <div>
+                <Button secondary full type="submit" disabled={!value.email || !value.password}>
+                  Login
+                </Button>
+              </div>
             </form>
           </div>
 
@@ -114,6 +108,6 @@ const handleChangeCheckbox = (event) => {
       </div>
     </div>
   );
-  }
+}
 
 export default LoginPage;
