@@ -31,6 +31,7 @@ import ConfirmRegister from '../pages/_Auth/RegisterPage/ConfirmRegister';
 import LoginPage from '../pages/_Auth/LoginPage/LoginPage';
 import PasswordForgotPage from '../pages/_Auth/PasswordForgotPage/PasswordForgotPage';
 import PasswordResetPage from '../pages/_Auth/PasswordResetPage/PasswordResetPage';
+import PrivateRoute from '../pages/_Auth/PrivateRoute';
 
 function App({ ...props }) {
   return (
@@ -43,7 +44,7 @@ function App({ ...props }) {
 
       {/*User account routes*/}
       {/*TODO: add id params user accoutn*/}
-      <Route exact path="/account/profile" component={ProfilePage} />
+      <PrivateRoute exact path="/account/profile" component={ProfilePage} />
       <Route exact path="/account/products" component={ProductsPage} />
       <Route exact path="/account/favorites" component={FavoritesPage} />
       <Route exact path="/account/messages" component={ChatPage} />

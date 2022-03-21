@@ -4,12 +4,22 @@ import storage from '../../utils/storage';
 const usersURL = process.env.REACT_APP_USERS_BASE_URL;
 const loginURL = process.env.REACT_APP_LOGIN_BASE_URL;
 
-export const login = (credentials) => {
+export const login = ({ rememberMe, ...credentials }) => {
   const url = `${loginURL}/login`;
-  return client.post(url, credentials).then(({ token }) => {
-    setAuthorizationHeader(token);
-    storage.set('auth', token);
-  });
+  return client
+    .post(url, credentials)
+    .then(({ token }) => {
+      setAuthorizationHeader(token);
+      return token;
+    })
+    .then((token) => {
+      if (rememberMe) {
+        storage.remove('auth');
+        storage.set('auth', token);
+      } else {
+        storage.session('auth', token);
+      }
+    });
 };
 
 export const logout = () =>

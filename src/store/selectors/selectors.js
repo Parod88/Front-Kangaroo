@@ -8,4 +8,6 @@ export const getCagetoriesIsLoaded = (state) => getCategories(state).length > 0;
 export const getTags = (state) => state.adverts.tags;
 export const getTagsIsLoaded = (state) => getTags(state).length > 0;
 
+export const getIsLogged = (state) => state.auth.logged;
+
 export const getUi = (state) => state.ui;
