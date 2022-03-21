@@ -17,7 +17,6 @@ import {
   LOGOUT_USER,
   USER_SIGNUP_SUCCESS
 } from '../types/';
-import { CATEGORY_LOAD_SUCCESS } from '../types/CategoryTypes';
 
 const defaultState = {
   auth: {
@@ -35,10 +34,10 @@ const defaultState = {
   },
   adverts: {
     loaded: false,
-    data: [],
-    categories: [],
-    tags: []
+    data: []
   },
+  categories: [],
+  tags: [],
   ui: {
     isLoading: false,
     error: null
@@ -82,8 +81,8 @@ export function adverts(advertsState = defaultState.adverts, action) {
   switch (action.type) {
     case ADVERTS_LOADED_SUCCESS:
       return { ...advertsState, loaded: true, data: action.payload.data.results };
-    case CATEGORY_LOAD_SUCCESS:
-      return { ...advertsState, loaded: true, categories: action.payload.data.results };
+    // case CATEGORY_LOAD_SUCCESS:
+    // return { ...advertsState, loaded: true, categories: action.payload.data.results };
     case ADVERT_LOADED_SUCCESS:
       return { ...advertsState, data: [...advertsState.data, action.payload.data.results] };
     default:
