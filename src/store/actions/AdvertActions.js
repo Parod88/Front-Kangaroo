@@ -8,7 +8,7 @@ import {
   ADVERT_UPDATE_FAILURE,
   ADVERT_UPDATE_REQUEST,
   ADVERT_UPDATE_SUCCESS
-} from '../types/AdvertTypes';
+} from '../types';
 
 //===================================================================
 //Create
