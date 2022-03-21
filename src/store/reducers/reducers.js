@@ -15,7 +15,10 @@ import {
   LOGIN_START,
   LOGIN_SUCCESS,
   LOGOUT_USER,
-  USER_SIGNUP_SUCCESS
+  USER_SIGNUP_SUCCESS,
+  CATEGORY_LOAD_REQUEST,
+  CATEGORY_LOAD_SUCCESS,
+  CATEGORY_LOAD_FAILURE
 } from '../types/';
 
 const defaultState = {
@@ -80,9 +83,8 @@ export function auth(authState = defaultState.auth, action) {
 export function adverts(advertsState = defaultState.adverts, action) {
   switch (action.type) {
     case ADVERTS_LOADED_SUCCESS:
-      return { ...advertsState, loaded: true, data: action.payload.data.results };
-    // case CATEGORY_LOAD_SUCCESS:
-    // return { ...advertsState, loaded: true, categories: action.payload.data.results };
+      return { ...advertsState, loaded: true, data: action.payload.results };
+
     case ADVERT_LOADED_SUCCESS:
       return { ...advertsState, data: [...advertsState.data, action.payload.data.results] };
     default:
@@ -90,25 +92,38 @@ export function adverts(advertsState = defaultState.adverts, action) {
   }
 }
 
+export function categories(categoriesState = defaultState.categories, action) {
+  switch (action.type) {
+    case CATEGORY_LOAD_SUCCESS:
+      return action.payload.results;
+
+    default:
+      return categoriesState;
+  }
+}
+
 export function ui(uiState = defaultState.ui, action) {
   switch (action.type) {
+    case LOGIN_START:
     case RESET_PASSWORD_REQUEST:
     case FORGET_PASSWORD_REQUEST:
     case ADVERTS_LOADED_REQUEST:
     case ADVERT_LOADED_REQUEST:
-    case LOGIN_START:
+    case CATEGORY_LOAD_REQUEST:
       return { ...uiState, isLoading: true, error: null };
+    case LOGIN_SUCCESS:
     case RESET_PASSWORD_SUCCESS:
     case FORGET_PASSWORD_SUCCESS:
     case ADVERTS_LOADED_SUCCESS:
     case ADVERT_LOADED_SUCCESS:
-    case LOGIN_SUCCESS:
+    case CATEGORY_LOAD_SUCCESS:
       return { ...uiState, isLoading: false, error: null };
+    case LOGIN_FAILURE:
     case RESET_PASSWORD_FAILURE:
     case FORGET_PASSWORD_FAILURE:
     case ADVERTS_LOADED_FAILURE:
     case ADVERT_LOADED_FAILURE:
-    case LOGIN_FAILURE:
+    case CATEGORY_LOAD_FAILURE:
       return { ...uiState, isLoading: false, error: action.payload };
     default:
       return uiState;

@@ -1,8 +1,4 @@
-import {
-  CATEGORY_LOAD_REQUEST,
-  CATEGORY_LOAD_SUCCESS,
-  CATEGORY_LOAD_FAILURE
-} from '../types/CategoryTypes';
+import { CATEGORY_LOAD_REQUEST, CATEGORY_LOAD_SUCCESS, CATEGORY_LOAD_FAILURE } from '../types';
 import { getCagetoriesIsLoaded } from '../selectors/selectors';
 
 //===================================================================
