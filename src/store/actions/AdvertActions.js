@@ -19,10 +19,10 @@ export function advertCreateRequest() {
   };
 }
 
-export function advertCreateSuccess(advert) {
+export function advertCreateSuccess(newAdvert) {
   return {
     type: ADVERT_CREATE_SUCCESS,
-    payload: advert
+    payload: newAdvert
   };
 }
 
