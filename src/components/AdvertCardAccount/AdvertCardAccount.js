@@ -4,20 +4,24 @@ import AdvertImage from '../AdvertImage/AdvertImage';
 import { useDispatch, useSelector } from 'react-redux';
 
 import './AdvertCardAccount.scss';
-import { deleteAdvert } from '../../store/actions';
+import { deleteAdvert, updateAdvert } from '../../store/actions';
 import ConfirmDialog from '../ConfirmDialog/ConfirmDialog';
 const { formatDistanceToNow } = require('date-fns');
 
 const AdvertCardAccount = ({ advert, ...props }) => {
   const dispatch = useDispatch();
 
-  const { _id, name, description, price, image, author, updatedAt } = advert;
+  const { _id, name, advertState, price, image, updatedAt } = advert;
 
   const urlNoImage =
     'https://res.cloudinary.com/kangaroomailer/image/upload/v1647891889/kangaroo/adverts/noimage_deiv4x.jpg';
 
-  const handlerState = () => {
-    alert('change state');
+  const [state, setState] = useState(advertState);
+  const handlerState = (event) => {
+    setState(event.target.value);
+    // dispatch(updateAdvert({ advertState: state }));
+    alert('implement');
+    //TODO: Implemente methods change state
   };
 
   //Modal control
@@ -57,7 +61,14 @@ const AdvertCardAccount = ({ advert, ...props }) => {
           </Link>
 
           <div className="actions">
-            <button onClick={handlerState}>Vendido</button>
+            {/* <button onClick={handlerState}>Vendido</button> */}
+
+            <select value={state} onChange={handlerState}>
+              <option value="ForSale">For Sale</option>
+              <option value="Inactive">Inactive</option>
+              <option value="Finished">Finished</option>
+            </select>
+
             <Link className="content-flex" to={`/account/products/edit/${_id}`}>
               <button>Editar</button>
             </Link>
