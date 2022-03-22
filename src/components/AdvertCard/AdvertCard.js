@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import AdvertImage from '../AdvertImage/AdvertImage';
 import ReviewStartAndCount from '../ReviewStartAndCount/ReviewStartAndCount';
@@ -12,10 +12,33 @@ const { formatDistanceToNow } = require('date-fns');
 const AdvertCard = ({ advert, ...props }) => {
   const { _id, name, description, price, image, author, updatedAt } = advert;
 
+  const [isFavorite, setIsFavorite] = useState(true);
+
+  const handleFavorite = () => {
+    //TODO:Implement
+    alert('implement');
+    setIsFavorite(false ? true : false);
+  };
+
   return (
     <article id="advert-card">
+      <div className="header">
+        <div className="icon-container">
+          <button
+            className="button-favorites"
+            aria-label="add to favorites"
+            onClick={handleFavorite}
+          >
+            {isFavorite ? (
+              <p className="is-favorite">FavYes</p>
+            ) : (
+              <p className="not-favorite">FavNot</p>
+            )}
+          </button>
+        </div>
+      </div>
       <Link to={`/advert/${_id}`}>
-        <div className="header">
+        <div className="cover-image">
           <img alt={name} src={image ? image : urlNoImage} />
         </div>
         <div className="body">
