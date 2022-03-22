@@ -8,16 +8,17 @@ import {
   getTags,
   getUi,
   getAdvertDetail,
-  getUserAuth
+  getUserAuth,
+  getUserData
 } from '../../../../store/selectors/selectors';
-import { updateAdvert } from '../../../../store/actions/AdvertActions';
-import { loadAdvertDetail } from '../../../../store/actions/AdvertDetailActions';
+import { updateAdvert } from '../../../../store/actions';
+import { loadAdvertDetail } from '../../../../store/actions';
 import NotResultsFound from '../../../../components/NotResultsFound/NotResultsFound';
 import Button from '../../../../components/Button/Button';
 import InputFileUpload from '../../../../components/InputFileUpload/InputFileUpload';
 import { useHistory, useParams } from 'react-router-dom';
 import imageNoPhoto from '../../../../resources/images/no-image.png';
-import { loadCategories } from '../../../../store/actions/CategoryActions';
+import { loadCategories } from '../../../../store/actions';
 import { TagsInput } from 'react-tag-input-component';
 import DropFileUpload from '../../../../components/DropFileUpload/DropFileUpload';
 
@@ -26,48 +27,52 @@ const urlNoImage =
 
 function AdvertEdit({ ...props }) {
   const navigate = useHistory();
-  const { id: advertId } = useParams();
+  const { id } = useParams();
 
-  //TODO: if url with id them edit. Not id them create
-  //TODO: add conditional render for title and data
-
-  const user = {
-    _id: '62388739a7a36b32a6ca4967'
-  };
+  console.log('id', id);
 
   const dispatch = useDispatch();
   const { isLoading, error } = useSelector(getUi);
+  const userData = useSelector(getUserData);
   const userIsAuth = useSelector(getUserAuth);
-  const advert = useSelector((state) => getAdvertDetail(state, advertId));
+
+  const advert = useSelector((state) => getAdvertDetail(state, id));
   console.log('advert', advert);
 
   useEffect(() => {
-    dispatch(loadAdvertDetail(advertId));
-  }, [dispatch, advert, advertId]);
+    dispatch(loadAdvertDetail(id));
+  }, [dispatch, id]);
 
   //=============================================
   //Handler
   //=============================================
-  const [name, setName] = useState('');
-  const [nameEn, setNameEn] = useState('');
-  const [description, setDescription] = useState('');
-  const [descriptionEn, setDescriptionEn] = useState('');
+  const [advertConfigData, setAdvertConfigData] = useState({
+    name: '',
+    nameEn: '',
+    description: '',
+    descriptionEn: '',
+    price: 0
+  });
 
-  const [type, setType] = useState(true);
-  const handlerType = (event) => {
-    setType(event.target.value);
+  const handleChange = ({ target: { value, name } }) => {
+    setAdvertConfigData((prevState) => ({
+      ...prevState,
+      [name]: value
+    }));
   };
 
-  const [advertState, setAdvertState] = useState('');
+  const [advertState, setAdvertState] = useState('ForSale');
   const handlerState = (event) => {
     setAdvertState(event.target.value);
   };
 
-  const [price, setPrice] = useState(0);
+  const [type, setType] = useState('Sale');
+  const handlerType = (event) => {
+    setType(event.target.value);
+  };
 
   const categories = useSelector(getCategories) || [];
   const [selectCategories, setSelectCategories] = useState([]);
-
   useEffect(() => {
     dispatch(loadCategories());
   }, [dispatch]);
@@ -82,33 +87,33 @@ function AdvertEdit({ ...props }) {
     setSelectCategories(listCategories);
   };
 
-  // //Tags
   const [selectTags, setSelectTags] = useState([]);
 
-  //Image
-  const [gallery, setGallery] = useState(0);
-
-  const [featuredImage, setFeaturedImage] = useState([]);
+  const [image, setImage] = useState('');
   const updateFeaturedImage = (listUrls) => {
-    setFeaturedImage(listUrls);
+    setImage(listUrls);
   };
+
+  const [gallery, setGallery] = useState(0);
 
   useEffect(() => {
     if (advert) {
-      setName(advert.name);
-      setNameEn(advert.nameEn);
-      setDescription(advert.description);
-      setDescriptionEn(advert.descriptionEn);
+      setAdvertConfigData({
+        name: advert.name,
+        nameEn: advert.nameEn,
+        description: advert.description,
+        descriptionEn: advert.descriptionEn,
+        price: advert.price
+      });
+
       setType(advert.type);
-      setPrice(advert.price);
+      setAdvertConfigData(advert.price);
       setAdvertState(advert.state);
       setSelectCategories(advert.categories);
       setSelectTags(advert.tags);
-      setFeaturedImage(advert.image);
+      setImage(advert.image);
     }
   }, [advert]);
-
-  console.log('advert', advert);
 
   //Send form
   const handleFormSubmit = async (event) => {
@@ -120,20 +125,20 @@ function AdvertEdit({ ...props }) {
       dispatch(
         updateAdvert(
           {
-            name,
-            nameEn,
-            description,
-            descriptionEn,
-            type,
-            advertState,
-            price,
+            name: advertConfigData.name,
+            nameEn: advertConfigData.nameEn,
+            description: advertConfigData.description,
+            descriptionEn: advertConfigData.descriptionEn,
+            type: advertConfigData.type,
+            advertState: advertConfigData.advertState,
+            price: advertConfigData.price,
             categories: selectCategories,
             gallery,
             tags: selectTags,
-            author: user._id,
-            image: featuredImage
+            author: userData._id,
+            image: image
           },
-          advertId
+          id
         )
       );
     }
@@ -152,11 +157,12 @@ function AdvertEdit({ ...props }) {
                     <label>Spanish Title</label>
                     <input
                       className="input"
+                      name="name"
                       type="text"
                       id="name"
                       placeholder="Enter Spanish Title"
-                      value={name}
-                      onChange={(event) => setName(event.target.value)}
+                      value={advertConfigData.name}
+                      onChange={handleChange}
                     ></input>
                   </div>
 
@@ -165,13 +171,14 @@ function AdvertEdit({ ...props }) {
                     <label>Spanish Description</label>
                     <textarea
                       className="input"
+                      name="description"
                       type="text"
                       id="description"
                       placeholder="Enter a product description"
                       rows="6"
                       cols="50"
-                      value={description}
-                      onChange={(event) => setDescription(event.target.value)}
+                      value={advertConfigData.description}
+                      onChange={handleChange}
                     ></textarea>
                   </div>
 
@@ -180,11 +187,12 @@ function AdvertEdit({ ...props }) {
                     <label>English Title</label>
                     <input
                       className="input"
+                      name="nameEn"
                       type="text"
                       id="nameEn"
                       placeholder="Enter English Title"
-                      value={nameEn}
-                      onChange={(event) => setNameEn(event.target.value)}
+                      value={advertConfigData.nameEn}
+                      onChange={handleChange}
                     ></input>
                   </div>
 
@@ -193,13 +201,14 @@ function AdvertEdit({ ...props }) {
                     <label>English Description</label>
                     <textarea
                       className="input"
+                      name="descriptionEn"
                       type="text"
                       id="descriptionEn"
                       placeholder="Enter a product description"
                       rows="6"
                       cols="50"
-                      value={descriptionEn}
-                      onChange={(event) => setDescriptionEn(event.target.value)}
+                      value={advertConfigData.descriptionEn}
+                      onChange={handleChange}
                     ></textarea>
                   </div>
 
@@ -211,7 +220,7 @@ function AdvertEdit({ ...props }) {
                         name="state"
                         id="ForSale"
                         value="ForSale"
-                        checked={advertState === 'ForSale'}
+                        checked={advertState === 'ForSale' ? true : false}
                         onChange={handlerState}
                       />
                       <label className="label-radio" htmlFor="ForSale">
@@ -223,7 +232,7 @@ function AdvertEdit({ ...props }) {
                         name="state"
                         id="Inactive"
                         value="Inactive"
-                        checked={advertState === 'Inactive'}
+                        checked={advertState === 'Inactive' ? true : false}
                         onChange={handlerState}
                       />
                       <label className="label-radio" htmlFor="Inactive">
@@ -235,7 +244,7 @@ function AdvertEdit({ ...props }) {
                         name="state"
                         id="Finished"
                         value="Finished"
-                        checked={advertState === 'Finished'}
+                        checked={advertState === 'Finished' ? true : false}
                         onChange={handlerState}
                       />
                       <label className="label-radio" htmlFor="Finished">
@@ -254,7 +263,7 @@ function AdvertEdit({ ...props }) {
                         name="type"
                         id="Sale"
                         value="Sale"
-                        checked={type === 'Sale'}
+                        checked={type === 'Sale' && true}
                         onChange={handlerType}
                       />
                       <label className="label-radio" htmlFor="Sale">
@@ -266,7 +275,7 @@ function AdvertEdit({ ...props }) {
                         name="type"
                         id="Purchase"
                         value="Purchase"
-                        checked={type === 'Purchase'}
+                        checked={type === 'Purchase' && true}
                         onChange={handlerType}
                       />
                       <label className="label-radio" htmlFor="Purchase">
@@ -295,13 +304,14 @@ function AdvertEdit({ ...props }) {
                     <label>Price</label>
                     <input
                       className="input"
+                      name="price"
                       min="0"
                       step="any"
                       type="number"
                       id="price"
                       placeholder="Enter price"
-                      value={price}
-                      onChange={(event) => setPrice(event.target.value)}
+                      value={advertConfigData.price}
+                      onChange={handleChange}
                     ></input>
                   </div>
                 </section>
@@ -336,13 +346,13 @@ function AdvertEdit({ ...props }) {
                       <img
                         className="image-preview"
                         alt={''}
-                        src={advert.image ? advert.image : urlNoImage}
+                        src={advert ? advert.image : urlNoImage}
                       />
                     </div>
                     <div>
                       <label>Cover Image</label>
                       <DropFileUpload updateFeaturedImage={updateFeaturedImage} />
-                      <p>{featuredImage}</p>
+                      <p>{image}</p>
                     </div>
                   </div>
                 </section>
