@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import LayoutAccount from '../../../../components/LayoutAccount/LayoutAccount';
 import './AdvertCreate.scss';
-import { getCategories, getTags, getUi, getUserInfo } from '../../../../store/selectors/selectors';
+import { getCategories, getTags, getUi, getUserAuth } from '../../../../store/selectors/selectors';
 import { createAdvert } from '../../../../store/actions/AdvertActions';
 import NotResultsFound from '../../../../components/NotResultsFound/NotResultsFound';
 import Button from '../../../../components/Button/Button';
@@ -34,7 +34,7 @@ function AdvertCreate({ ...props }) {
   const dispatch = useDispatch();
   const { isLoading, error } = useSelector(getUi);
 
-  const userIsAuth = useSelector(getUserInfo);
+  const userIsAuth = useSelector(getUserAuth);
   console.log('userInfo', userIsAuth);
 
   //=============================================

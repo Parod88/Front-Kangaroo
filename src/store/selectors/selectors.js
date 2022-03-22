@@ -2,7 +2,8 @@ export const getAdverts = (state) => state.adverts.data;
 export const getAdvertDetail = (state, id) => getAdverts(state).find((advert) => advert._id === id);
 export const areAdvertsLoaded = (state) => state.adverts.loaded;
 
-export const getUserInfo = (state) => state.auth;
+export const getUserAuth = (state) => state.auth;
+export const getUserData = (state) => state.userData;
 
 export const getCategories = (state) => state.categories;
 export const getCagetoriesIsLoaded = (state) => getCategories(state).length > 0;
