@@ -1,0 +1,51 @@
+#navbar {
+  background-color: var(--primary);
+  color: white;
+  height: 5.625rem;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+
+  .grid {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    align-items: center;
+  }
+
+  .nav-section-brand {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2rem;
+    .explore-link {
+      color: var(--secondary);
+    }
+  }
+
+  .nav-section-search {
+    display: flex;
+    background-color: white;
+    height: 3rem;
+    border-radius: 50rem;
+    color: var(--primary);
+    gap: 1rem;
+
+    input[type='email'] {
+      padding: 0;
+      color: #4f547b;
+      border-width: 0px;
+      font-size: 1rem;
+      border: none;
+      outline: none;
+    }
+  }
+
+  .nav-section-buttons {
+    display: flex;
+    gap: 1rem;
+  }
+}

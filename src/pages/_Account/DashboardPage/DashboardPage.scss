@@ -1,0 +1,15 @@
+#dashboard-page {
+  .dashboard-container {
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 0;
+    gap: 4rem;
+
+    .grid-data-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 2rem;
+    }
+  }
+}
