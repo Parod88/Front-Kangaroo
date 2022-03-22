@@ -16,9 +16,12 @@ export const login = ({ rememberMe, ...credentials }) => {
     .then(({ token, _id, name, email, imageAvatar }) => {
       if (rememberMe) {
         storage.remove('auth');
+        storage.remove('user_data');
         storage.set('auth', token);
+        storage.set('user_data', { _id, name, email, imageAvatar });
       } else {
         storage.session('auth', token);
+        storage.session('user_data', { _id, name, email, imageAvatar });
       }
       return { _id, name, email, imageAvatar };
     });
@@ -28,6 +31,7 @@ export const logout = () =>
   Promise.resolve().then(() => {
     removeAuthorizationHeader();
     storage.remove('auth');
+    storage.remove('user_data');
   });
 
 // USER SERVICES

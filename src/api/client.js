@@ -6,20 +6,20 @@ const client = axios.create({
 });
 
 client.interceptors.response.use(
-  response => response.data,
-  error => {
+  (response) => response.data,
+  (error) => {
     if (!error.response) {
       return Promise.reject({ message: error.message });
     }
     return Promise.reject({
       message: error.response.statusText,
       ...error.response,
-      ...error.response.data,
+      ...error.response.data
     });
-  },
+  }
 );
 
-export const setAuthorizationHeader = token => {
+export const setAuthorizationHeader = (token) => {
   client.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 };
 
