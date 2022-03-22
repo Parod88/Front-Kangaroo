@@ -40,6 +40,7 @@ export function createAdvert(advert) {
     try {
       const advertCreate = await api.adverts.createAdvert(advert);
       dispatch(advertCreateSuccess(advertCreate));
+      history.push(`/account/products`);
     } catch (error) {
       dispatch(advertCreateFailure(error));
     }
@@ -112,7 +113,7 @@ export function deleteAdvert(advertId) {
     try {
       const advert = await api.adverts.deleteAdvert(advertId);
       dispatch(advertDeleteSuccess(advert));
-      history.push(`/adverts`);
+      history.push(`/account/products`);
     } catch (error) {
       dispatch(advertDeleteFailure(error));
     }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import LayoutAccount from '../../../../components/LayoutAccount/LayoutAccount';
 import './AdvertCreate.scss';
-import { getCategories, getTags, getUi } from '../../../../store/selectors/selectors';
+import { getCategories, getTags, getUi, getUserInfo } from '../../../../store/selectors/selectors';
 import { createAdvert } from '../../../../store/actions/AdvertActions';
 import NotResultsFound from '../../../../components/NotResultsFound/NotResultsFound';
 import Button from '../../../../components/Button/Button';
@@ -11,6 +11,8 @@ import { useHistory, useParams } from 'react-router-dom';
 import imageNoPhoto from '../../../../resources/images/no-image.png';
 import { loadCategories } from '../../../../store/actions/CategoryActions';
 import { TagsInput } from 'react-tag-input-component';
+import DropFileUpload from '../../../../components/DropFileUpload/DropFileUpload';
+import persistCombineReducers from 'redux-persist/es/persistCombineReducers';
 
 function AdvertCreate({ ...props }) {
   const navigate = useHistory();
@@ -19,7 +21,7 @@ function AdvertCreate({ ...props }) {
   //TODO: add conditional render for title and data
 
   const user = {
-    _id: '62386e449b155160f1a9b1f4',
+    _id: '62388739a7a36b32a6ca4967',
     name: 'WallacloneAdmin',
     email: 'admin@wallaclone.com',
     password: '$2a$10$LVlsiH6CmLa77LddL8hDT.yJwgnhrnMESjkWp2nksMdcAnWW/FRai',
@@ -32,28 +34,16 @@ function AdvertCreate({ ...props }) {
   const dispatch = useDispatch();
   const { isLoading, error } = useSelector(getUi);
 
+  const userIsAuth = useSelector(getUserInfo);
+  console.log('userInfo', userIsAuth);
+
   //=============================================
   //Handler
   //=============================================
   const [name, setName] = useState('');
-  const handlerName = (event) => {
-    setName(event.target.value);
-  };
-
   const [nameEn, setNameEn] = useState('');
-  const handlerNameEn = (event) => {
-    setNameEn(event.target.value);
-  };
-
   const [description, setDescription] = useState('');
-  const handlerDescription = (event) => {
-    setDescription(event.target.value);
-  };
-
   const [descriptionEn, setDescriptionEn] = useState('');
-  const handlerDescriptionEn = (event) => {
-    setDescriptionEn(event.target.value);
-  };
 
   const [type, setType] = useState('Sale');
   const handlerType = (event) => {
@@ -66,9 +56,6 @@ function AdvertCreate({ ...props }) {
   };
 
   const [price, setPrice] = useState(0);
-  const handlerPrice = (event) => {
-    setPrice(event.target.value);
-  };
 
   const categories = useSelector(getCategories) || [];
   const [selectCategories, setSelectCategories] = useState([]);
@@ -88,22 +75,7 @@ function AdvertCreate({ ...props }) {
   };
 
   // //Tags
-  const tags = useSelector(getTags) || [];
   const [selectTags, setSelectTags] = useState([]);
-
-  // useEffect(() => {
-  //   dispatch(loadTags());
-  // }, [dispatch]);
-
-  const handlerTags = (event) => {
-    var listTags = [...selectTags];
-    if (event.target.checked) {
-      listTags = [...selectTags, event.target.value];
-    } else {
-      listTags.splice(selectTags.indexOf(event.target.value), 1);
-    }
-    setSelectTags(listTags);
-  };
 
   //Image
   const [gallery, setGallery] = useState(0);
@@ -131,6 +103,16 @@ function AdvertCreate({ ...props }) {
     }
   };
 
+  const [featuredImage, setFeaturedImage] = useState('');
+  const updateFeaturedImage = (listUrls) => {
+    setFeaturedImage(listUrls);
+  };
+
+  const [galleryImgs, setGalleryImgs] = useState([]);
+  const updateGallery = (listUrls) => {
+    setGalleryImgs(listUrls);
+  };
+
   //Send form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -138,22 +120,22 @@ function AdvertCreate({ ...props }) {
     if (!selectCategories.length) {
       alert('Select one categorie'); //TODO: Create error
     } else {
-      const newAdvertFormData = new FormData();
-      newAdvertFormData.set('nameEn', nameEn);
-      newAdvertFormData.set('name', name);
-      newAdvertFormData.set('descriptionEn', descriptionEn);
-      newAdvertFormData.set('description', description);
-      newAdvertFormData.set('type', type);
-      newAdvertFormData.set('state', advertState);
-      newAdvertFormData.set('price', price);
-      newAdvertFormData.set('categories', selectCategories);
-      newAdvertFormData.set('gallery', gallery);
-      newAdvertFormData.set('tags', selectTags);
-      newAdvertFormData.set('author', user._id);
-      if (image) {
-        newAdvertFormData.set('image', image);
-      }
-      dispatch(createAdvert(newAdvertFormData));
+      dispatch(
+        createAdvert({
+          name,
+          nameEn,
+          description,
+          descriptionEn,
+          type,
+          advertState,
+          price,
+          categories: selectCategories,
+          gallery,
+          tags: selectTags,
+          author: user._id,
+          image: featuredImage
+        })
+      );
     }
   };
 
@@ -343,17 +325,11 @@ function AdvertCreate({ ...props }) {
                     </ul>
                   </div>
                 </section>
-                {/* Image */}
                 <section className="section">
-                  <div className="input-container">
-                    <label>Cover Image: </label>
-                    <InputFileUpload
-                      onChange={handlerImage}
-                      imageNoPhoto={imageRender}
-                      validFormats={'image/*'}
-                      name={'image-upload'}
-                      {...props}
-                    />
+                  <div>
+                    <label>Cover Image</label>
+                    <DropFileUpload updateFeaturedImage={updateFeaturedImage} />
+                    <p>{featuredImage}</p>
                   </div>
                 </section>
                 <section className="footer">

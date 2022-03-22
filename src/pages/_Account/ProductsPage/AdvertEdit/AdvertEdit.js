@@ -7,7 +7,8 @@ import {
   getCategories,
   getTags,
   getUi,
-  getAdvertDetail
+  getAdvertDetail,
+  getUserInfo
 } from '../../../../store/selectors/selectors';
 import { updateAdvert } from '../../../../store/actions/AdvertActions';
 import { loadAdvertDetail } from '../../../../store/actions/AdvertDetailActions';
@@ -18,6 +19,10 @@ import { useHistory, useParams } from 'react-router-dom';
 import imageNoPhoto from '../../../../resources/images/no-image.png';
 import { loadCategories } from '../../../../store/actions/CategoryActions';
 import { TagsInput } from 'react-tag-input-component';
+import DropFileUpload from '../../../../components/DropFileUpload/DropFileUpload';
+
+const urlNoImage =
+  'https://res.cloudinary.com/kangaroomailer/image/upload/v1647891889/kangaroo/adverts/noimage_deiv4x.jpg';
 
 function AdvertEdit({ ...props }) {
   const navigate = useHistory();
@@ -27,41 +32,26 @@ function AdvertEdit({ ...props }) {
   //TODO: add conditional render for title and data
 
   const user = {
-    _id: '621bf293e5330d28f939097b'
+    _id: '62388739a7a36b32a6ca4967'
   };
 
   const dispatch = useDispatch();
   const { isLoading, error } = useSelector(getUi);
+  const userIsAuth = useSelector(getUserInfo);
+  const advert = useSelector((state) => getAdvertDetail(state, advertId));
+  console.log('advert', advert);
 
   useEffect(() => {
     dispatch(loadAdvertDetail(advertId));
-  }, [dispatch, advertId]);
-
-  const advert = useSelector((state) => getAdvertDetail(state, advertId));
-  console.log('advert', advert);
+  }, [dispatch, advert, advertId]);
 
   //=============================================
   //Handler
   //=============================================
   const [name, setName] = useState('');
-  const handlerName = (event) => {
-    setName(event.target.value);
-  };
-
   const [nameEn, setNameEn] = useState('');
-  const handlerNameEn = (event) => {
-    setNameEn(event.target.value);
-  };
-
   const [description, setDescription] = useState('');
-  const handlerDescription = (event) => {
-    setDescription(event.target.value);
-  };
-
   const [descriptionEn, setDescriptionEn] = useState('');
-  const handlerDescriptionEn = (event) => {
-    setDescriptionEn(event.target.value);
-  };
 
   const [type, setType] = useState(true);
   const handlerType = (event) => {
@@ -74,9 +64,6 @@ function AdvertEdit({ ...props }) {
   };
 
   const [price, setPrice] = useState(0);
-  const handlerPrice = (event) => {
-    setPrice(event.target.value);
-  };
 
   const categories = useSelector(getCategories) || [];
   const [selectCategories, setSelectCategories] = useState([]);
@@ -100,28 +87,10 @@ function AdvertEdit({ ...props }) {
 
   //Image
   const [gallery, setGallery] = useState(0);
-  const handlerGallery = (event) => {
-    setGallery(event.target.value);
-  };
 
-  const [image, setImage] = useState();
-  const [imageRender, setImageRender] = useState({ imageNoPhoto });
-  const handlerImage = (event) => {
-    const reader = new FileReader();
-
-    if (event.target.files[0]) {
-      setImage(event.target.files[0]);
-    }
-
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        setImageRender({ imageNoPhoto: reader.result });
-      }
-    };
-
-    if (event.target.files[0]) {
-      reader.readAsDataURL(event.target.files[0]);
-    }
+  const [featuredImage, setFeaturedImage] = useState([]);
+  const updateFeaturedImage = (listUrls) => {
+    setFeaturedImage(listUrls);
   };
 
   useEffect(() => {
@@ -135,8 +104,7 @@ function AdvertEdit({ ...props }) {
       setAdvertState(advert.state);
       setSelectCategories(advert.categories);
       setSelectTags(advert.tags);
-      setImageRender(advert.image);
-      setImage(advert.image);
+      setFeaturedImage(advert.image);
     }
   }, [advert]);
 
@@ -149,33 +117,31 @@ function AdvertEdit({ ...props }) {
     if (!selectCategories.length) {
       alert('Select one categorie'); //TODO: Create error
     } else {
-      const newAdvertFormData = new FormData();
-      newAdvertFormData.set('name', name);
-      newAdvertFormData.set('nameEn', nameEn);
-      newAdvertFormData.set('description', description);
-      newAdvertFormData.set('descriptionEn', descriptionEn);
-      newAdvertFormData.set('sale', type);
-      newAdvertFormData.set('state', advertState);
-      newAdvertFormData.set('price', price);
-      newAdvertFormData.set('categories', selectCategories);
-      newAdvertFormData.set('gallery', gallery);
-      newAdvertFormData.set('tags', selectTags);
-      newAdvertFormData.set('author', user._id);
-      if (image) {
-        newAdvertFormData.set('image', image);
-      }
-      dispatch(updateAdvert(newAdvertFormData, advertId));
+      dispatch(
+        updateAdvert(
+          {
+            name,
+            nameEn,
+            description,
+            descriptionEn,
+            type,
+            advertState,
+            price,
+            categories: selectCategories,
+            gallery,
+            tags: selectTags,
+            author: user._id,
+            image: featuredImage
+          },
+          advertId
+        )
+      );
     }
-  };
-
-  const handlerDelete = () => {
-    alert('eleiminar');
   };
 
   return (
     <LayoutAccount title={'Edit Product'} subtitle={'Lorem ipsum dolor sit amet, consectetur'}>
       <div id="advert-create">
-        <p>{type}</p>
         <div className="account-container">
           <form className="form" onSubmit={handleFormSubmit}>
             {!isLoading ? (
@@ -365,25 +331,24 @@ function AdvertEdit({ ...props }) {
 
                 <section className="section">
                   <div className="input-container">
-                    <label>Cover Image: </label>
-                    <div className="image">
-                      <AdvertImage alt={''} imageServer={advert ? advert.image : ''} />
+                    <label>Old Image: </label>
+                    <div>
+                      <img
+                        className="image-preview"
+                        alt={''}
+                        src={advert.image ? advert.image : urlNoImage}
+                      />
                     </div>
-                    <InputFileUpload
-                      onChange={handlerImage}
-                      imageNoPhoto={imageRender}
-                      validFormats={'image/*'}
-                      name={'image-upload'}
-                      {...props}
-                    />
+                    <div>
+                      <label>Cover Image</label>
+                      <DropFileUpload updateFeaturedImage={updateFeaturedImage} />
+                      <p>{featuredImage}</p>
+                    </div>
                   </div>
                 </section>
                 <section className="footer">
                   <Button primaryOutline onClick={() => navigate(-1)}>
                     Cancel
-                  </Button>
-                  <Button primaryOutline onClick={handlerDelete}>
-                    Delete Product
                   </Button>
                   <Button secondary type="submit">
                     Save Product

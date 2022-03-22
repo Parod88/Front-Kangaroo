@@ -1,74 +1,43 @@
 #advert-card-account {
   background-color: white;
-  max-width: 300px;
+  border: 1px solid var(--primary);
+  border-radius: 0.5rem;
+  max-width: 100%;
+  padding: 0.5rem;
+  cursor: pointer;
 
   &:hover {
-    transform: scale(1.01);
     transition: all 0.1s ease 0.1s;
+    background-color: gainsboro;
+    border: 1px solid gainsboro;
   }
 
-  .header {
-    img {
-      border-radius: 0.5rem;
-      width: 100%;
-    }
-  }
-
-  .body {
-    .title {
-      margin-bottom: 0.5rem;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-line-clamp: 1;
-      line-clamp: 1;
-      -webkit-box-orient: vertical;
-    }
-    .description {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      line-clamp: 3;
-      -webkit-box-orient: vertical;
-    }
-    .metadata {
-      font-size: 0.625rem;
-      margin-top: 1rem;
-      padding-bottom: 0.5rem;
-    }
-  }
-
-  .footer {
+  .content-card-account {
     display: flex;
+    gap: 1.875rem;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid #ededed;
-    padding-top: 0.5rem;
-    margin-top: 0.5rem;
 
-    .vendor-data {
+    .content-flex {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .cover-image {
+      object-fit: cover;
+      position: relative;
+      width: 80px;
+      height: 80px;
+      border-radius: 0.5rem;
+    }
+
+    .actions {
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: flex-start;
-      color: #4f547b;
-      font-size: 0.875rem;
-      &:hover {
-        color: var(--primary);
-      }
-    }
-
-    .img-avatar {
-      margin-right: 0.5rem;
-      width: 35px;
-      border-radius: 5rem;
-    }
-
-    p {
-      font-size: 1.563rem;
-      font-weight: 600;
-      color: var(--primaryç);
+      justify-content: center;
+      gap: 2rem;
     }
   }
 }
