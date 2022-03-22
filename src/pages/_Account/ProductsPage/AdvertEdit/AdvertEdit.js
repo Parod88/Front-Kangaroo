@@ -8,7 +8,7 @@ import {
   getTags,
   getUi,
   getAdvertDetail,
-  getUserInfo
+  getUserAuth
 } from '../../../../store/selectors/selectors';
 import { updateAdvert } from '../../../../store/actions/AdvertActions';
 import { loadAdvertDetail } from '../../../../store/actions/AdvertDetailActions';
@@ -37,7 +37,7 @@ function AdvertEdit({ ...props }) {
 
   const dispatch = useDispatch();
   const { isLoading, error } = useSelector(getUi);
-  const userIsAuth = useSelector(getUserInfo);
+  const userIsAuth = useSelector(getUserAuth);
   const advert = useSelector((state) => getAdvertDetail(state, advertId));
   console.log('advert', advert);
 

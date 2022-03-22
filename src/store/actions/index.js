@@ -47,12 +47,12 @@ export {
 } from './ForgetResetPasswordActions';
 
 export {
-  loginStart, 
+  loginStart,
   loginFailure,
   loginSuccess,
   loginInitiate,
   logoutInitiate
-} from './LoginActions'
+} from './LoginActions';
 
 export { signUpRequest, signUpSuccess, signUpFailure, signUpUser } from './SignupActions';
 
@@ -63,3 +63,4 @@ export {
   deleteUser
 } from './DeleteUserActions';
 
+export { userUpdateRequest, userUpdateSuccess, userUpdateFailure, userUpdate } from './UserActions';
