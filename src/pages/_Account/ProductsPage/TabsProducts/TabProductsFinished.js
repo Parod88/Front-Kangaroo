@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import AdvertCardAccount from '../../../../components/AdvertCardAccount/AdvertCardAccount';
 import { loadPaginatedAdverts } from '../../../../store/actions';
 import { getAdverts } from '../../../../store/selectors/selectors';
-import FiltersSection from '../../../AdvertsPage/FiltersSection/FiltersSection';
 import NotResultsFound from '../../../../components/NotResultsFound/NotResultsFound';
 
 function TabProductsFinished() {
@@ -20,7 +19,6 @@ function TabProductsFinished() {
 
   return (
     <section>
-      <FiltersSection />
       <ul className="tab-grid-cards">
         {adverts.length > 0 ? (
           adverts.slice(0, limitPagination).map((advert) => (

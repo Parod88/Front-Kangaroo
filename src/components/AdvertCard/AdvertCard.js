@@ -4,6 +4,9 @@ import AdvertImage from '../AdvertImage/AdvertImage';
 import ReviewStartAndCount from '../ReviewStartAndCount/ReviewStartAndCount';
 import './AdvertCard.scss';
 
+const urlNoImage =
+  'https://res.cloudinary.com/kangaroomailer/image/upload/v1647891889/kangaroo/adverts/noimage_deiv4x.jpg';
+
 const { formatDistanceToNow } = require('date-fns');
 
 const AdvertCard = ({ advert, ...props }) => {
@@ -13,7 +16,7 @@ const AdvertCard = ({ advert, ...props }) => {
     <article id="advert-card">
       <Link to={`/advert/${_id}`}>
         <div className="header">
-          <AdvertImage alt={name} imageServer={image} />
+          <img alt={name} src={image ? image : urlNoImage} />
         </div>
         <div className="body">
           <h4 className="title">{name}</h4>
