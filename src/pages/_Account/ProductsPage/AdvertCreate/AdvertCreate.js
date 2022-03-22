@@ -2,52 +2,43 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import LayoutAccount from '../../../../components/LayoutAccount/LayoutAccount';
 import './AdvertCreate.scss';
-import { getCategories, getTags, getUi, getUserAuth } from '../../../../store/selectors/selectors';
+import {
+  getCategories,
+  getUi,
+  getUserAuth,
+  getUserData
+} from '../../../../store/selectors/selectors';
 import { createAdvert } from '../../../../store/actions/AdvertActions';
 import NotResultsFound from '../../../../components/NotResultsFound/NotResultsFound';
 import Button from '../../../../components/Button/Button';
-import InputFileUpload from '../../../../components/InputFileUpload/InputFileUpload';
 import { useHistory, useParams } from 'react-router-dom';
 import imageNoPhoto from '../../../../resources/images/no-image.png';
 import { loadCategories } from '../../../../store/actions/CategoryActions';
 import { TagsInput } from 'react-tag-input-component';
 import DropFileUpload from '../../../../components/DropFileUpload/DropFileUpload';
-import persistCombineReducers from 'redux-persist/es/persistCombineReducers';
 
 function AdvertCreate({ ...props }) {
   const navigate = useHistory();
-  const params = useParams();
-  //TODO: if url with id them edit. Not id them create
-  //TODO: add conditional render for title and data
-
-  const user = {
-    _id: '62388739a7a36b32a6ca4967',
-    name: 'WallacloneAdmin',
-    email: 'admin@wallaclone.com',
-    password: '$2a$10$LVlsiH6CmLa77LddL8hDT.yJwgnhrnMESjkWp2nksMdcAnWW/FRai',
-    imageAvatar: 'https://i.pravatar.cc/500',
-    isAdmin: true,
-    createdAt: '2022-02-27T21:52:19.752Z',
-    updatedAt: '2022-02-27T21:52:19.752Z'
-  };
-
   const dispatch = useDispatch();
+
   const { isLoading, error } = useSelector(getUi);
 
+  const userData = useSelector(getUserData);
   const userIsAuth = useSelector(getUserAuth);
-  console.log('userInfo', userIsAuth);
 
-  //=============================================
-  //Handler
-  //=============================================
-  const [name, setName] = useState('');
-  const [nameEn, setNameEn] = useState('');
-  const [description, setDescription] = useState('');
-  const [descriptionEn, setDescriptionEn] = useState('');
+  const [advertConfigData, setAdvertConfigData] = useState({
+    name: '',
+    nameEn: '',
+    description: '',
+    descriptionEn: '',
+    price: 0
+  });
 
-  const [type, setType] = useState('Sale');
-  const handlerType = (event) => {
-    setType(event.target.value);
+  const handleChange = ({ target: { value, name } }) => {
+    setAdvertConfigData((prevState) => ({
+      ...prevState,
+      [name]: value
+    }));
   };
 
   const [advertState, setAdvertState] = useState('ForSale');
@@ -55,11 +46,13 @@ function AdvertCreate({ ...props }) {
     setAdvertState(event.target.value);
   };
 
-  const [price, setPrice] = useState(0);
+  const [type, setType] = useState('Sale');
+  const handlerType = (event) => {
+    setType(event.target.value);
+  };
 
   const categories = useSelector(getCategories) || [];
   const [selectCategories, setSelectCategories] = useState([]);
-
   useEffect(() => {
     dispatch(loadCategories());
   }, [dispatch]);
@@ -74,43 +67,16 @@ function AdvertCreate({ ...props }) {
     setSelectCategories(listCategories);
   };
 
-  // //Tags
   const [selectTags, setSelectTags] = useState([]);
 
-  //Image
-  const [gallery, setGallery] = useState(0);
+  const [image, setImage] = useState('');
+  const updateFeaturedImage = (listUrls) => {
+    setImage(listUrls);
+  };
+
+  const [gallery, setGallery] = useState([]);
   const handlerGallery = (event) => {
     setGallery(event.target.value);
-  };
-
-  const [image, setImage] = useState();
-  const [imageRender, setImageRender] = useState({ imageNoPhoto });
-  const handlerImage = (event) => {
-    const reader = new FileReader();
-
-    if (event.target.files[0]) {
-      setImage(event.target.files[0]);
-    }
-
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        setImageRender({ imageNoPhoto: reader.result });
-      }
-    };
-
-    if (event.target.files[0]) {
-      reader.readAsDataURL(event.target.files[0]);
-    }
-  };
-
-  const [featuredImage, setFeaturedImage] = useState('');
-  const updateFeaturedImage = (listUrls) => {
-    setFeaturedImage(listUrls);
-  };
-
-  const [galleryImgs, setGalleryImgs] = useState([]);
-  const updateGallery = (listUrls) => {
-    setGalleryImgs(listUrls);
   };
 
   //Send form
@@ -122,18 +88,18 @@ function AdvertCreate({ ...props }) {
     } else {
       dispatch(
         createAdvert({
-          name,
-          nameEn,
-          description,
-          descriptionEn,
-          type,
-          advertState,
-          price,
+          name: advertConfigData.name,
+          nameEn: advertConfigData.nameEn,
+          description: advertConfigData.description,
+          descriptionEn: advertConfigData.descriptionEn,
+          type: advertConfigData.type,
+          advertState: advertConfigData.advertState,
+          price: advertConfigData.price,
           categories: selectCategories,
           gallery,
           tags: selectTags,
-          author: user._id,
-          image: featuredImage
+          author: userData._id,
+          image: image
         })
       );
     }
@@ -152,11 +118,12 @@ function AdvertCreate({ ...props }) {
                     <label>Spanish Title</label>
                     <input
                       className="input"
+                      name="name"
                       type="text"
                       id="name"
                       placeholder="Enter Spanish Title"
-                      value={name}
-                      onChange={(event) => setName(event.target.value)}
+                      value={advertConfigData.name}
+                      onChange={handleChange}
                     ></input>
                   </div>
 
@@ -165,13 +132,14 @@ function AdvertCreate({ ...props }) {
                     <label>Spanish Description</label>
                     <textarea
                       className="input"
+                      name="description"
                       type="text"
                       id="description"
                       placeholder="Enter a product description"
                       rows="6"
                       cols="50"
-                      value={description}
-                      onChange={(event) => setDescription(event.target.value)}
+                      value={advertConfigData.description}
+                      onChange={handleChange}
                     ></textarea>
                   </div>
 
@@ -180,11 +148,12 @@ function AdvertCreate({ ...props }) {
                     <label>English Title</label>
                     <input
                       className="input"
+                      name="nameEn"
                       type="text"
                       id="nameEn"
                       placeholder="Enter English Title"
-                      value={nameEn}
-                      onChange={(event) => setNameEn(event.target.value)}
+                      value={advertConfigData.nameEn}
+                      onChange={handleChange}
                     ></input>
                   </div>
 
@@ -193,13 +162,14 @@ function AdvertCreate({ ...props }) {
                     <label>English Description</label>
                     <textarea
                       className="input"
+                      name="descriptionEn"
                       type="text"
                       id="descriptionEn"
                       placeholder="Enter a product description"
                       rows="6"
                       cols="50"
-                      value={descriptionEn}
-                      onChange={(event) => setDescriptionEn(event.target.value)}
+                      value={advertConfigData.descriptionEn}
+                      onChange={handleChange}
                     ></textarea>
                   </div>
 
@@ -294,13 +264,14 @@ function AdvertCreate({ ...props }) {
                     <label>Price</label>
                     <input
                       className="input"
+                      name="price"
                       min="0"
                       step="any"
                       type="number"
                       id="price"
                       placeholder="Enter price"
-                      value={price}
-                      onChange={(event) => setPrice(event.target.value)}
+                      value={advertConfigData.price}
+                      onChange={handleChange}
                     ></input>
                   </div>
                 </section>
@@ -329,7 +300,7 @@ function AdvertCreate({ ...props }) {
                   <div>
                     <label>Cover Image</label>
                     <DropFileUpload updateFeaturedImage={updateFeaturedImage} />
-                    <p>{featuredImage}</p>
+                    <p>{image}</p>
                   </div>
                 </section>
                 <section className="footer">

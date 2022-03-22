@@ -7,17 +7,8 @@ import { uploadFileProfile } from '../../../../api/services/uploadFileService';
 
 function TabProfileEdit() {
   const dispatch = useDispatch();
-  // const userData = useSelector(getUserData);
-  const userData = {
-    _id: '62388739a7a36b32a6ca4967',
-    imageAvatar: 'https://i.pravatar.cc/500',
-    name: 'kangarooemail',
-    email: 'kangarooemail@gmail.com',
-    phone: '000000000',
-    location: 'Barcelona',
-    personalDescription:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et augue sollicitudin, semper dolor in, dictum nunc. Aliquam hendrerit velit sed risus lacinia, sed accumsan metus luctus.'
-  };
+  const userData = useSelector(getUserData);
+
   const [userConfigData, setUserConfigData] = useState({
     imageAvatar: '',
     name: '',
@@ -44,7 +35,6 @@ function TabProfileEdit() {
     bodyFormData.append('image', file);
     try {
       const response = await uploadFileProfile(bodyFormData);
-      alert(response);
       setImageAvatar(response.url);
     } catch (error) {
       console.log(error);
@@ -57,12 +47,14 @@ function TabProfileEdit() {
 
   const handleUpdate = async (event) => {
     event.preventDefault();
-    // alert(JSON.stringify(userConfigData));
     dispatch(userUpdate(userConfigData, userData._id));
   };
 
   return (
     <div id="tab-profile-edit">
+      <div>
+        <p className="email-info">Your email is: {userData.email}</p>
+      </div>
       <div className="avatar">
         <div>
           <img src={userData.imageAvatar} />

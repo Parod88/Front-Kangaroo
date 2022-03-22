@@ -29,7 +29,6 @@ export function userUpdate(userInfo, userId) {
     dispatch(userUpdateRequest());
     try {
       const userUpdate = await api.users.updateUser(userInfo, userId);
-      alert(JSON.stringify(userUpdate));
       dispatch(userUpdateSuccess(userUpdate));
     } catch (error) {
       dispatch(userUpdateFailure(error));
