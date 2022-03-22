@@ -65,7 +65,7 @@ function TabProfileEdit() {
     <div id="tab-profile-edit">
       <div className="avatar">
         <div>
-          <img src={imageAvatar} />
+          <img src={userData.imageAvatar} />
         </div>
         <div>
           <h5>Your avatar</h5>
