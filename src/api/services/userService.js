@@ -1,4 +1,4 @@
-import client, { removeAuthorizationHeader, setAuthorizationHeader } from '../../api/client';
+import axiosClient, { removeAuthorizationHeader, setAuthorizationHeader } from '../client';
 import storage from '../../utils/storage';
 
 const usersURL = process.env.REACT_APP_USERS_BASE_URL;
@@ -6,7 +6,7 @@ const loginURL = process.env.REACT_APP_LOGIN_BASE_URL;
 
 export const login = ({ rememberMe, ...credentials }) => {
   const url = `${loginURL}/login`;
-  return client
+  return axiosClient
     .post(url, credentials)
     .then(({ token, results }) => {
       const { _id, name, email, imageAvatar } = results;
@@ -34,15 +34,15 @@ export const logout = () =>
 
 export const forgottenPassword = (email) => {
   const url = `${usersURL}/forgot-password`;
-  return client.put(url, {
+  return axiosClient.put(url, {
     email: `${email.content}`
   });
 };
 
 export const resetForgottenPassword = (data, userToken) => {
   const url = `${usersURL}/new-password/${userToken}`;
-  client.defaults.headers.common['reset'] = `${userToken}`;
-  return client.put(url, {
+  axiosClient.defaults.headers.common['reset'] = `${userToken}`;
+  return axiosClient.put(url, {
     newPassword: `${data.password}`,
     newPasswordConfirmation: `${data.confirmPassword}`
   });
@@ -57,15 +57,35 @@ export const registerNewAccount = (newUser) => {
   // if (newUser.imageAvatar) newUser.append('avatar', newUser.imageAvatar);
 
   const url = `${usersURL}/register`;
-  return client.post(url, newUser);
+  return axiosClient.post(url, newUser);
 };
 
 export const confirmRegister = (userToken) => {
   const url = `${usersURL}/confirm-signup/${userToken}`;
-  return client.put(url);
+  return axiosClient.put(url);
 };
 
 export const deleteAccount = (userId) => {
   const url = `${usersURL}/${userId}`;
-  return client.delete(url);
+  return axiosClient.delete(url);
+};
+
+export const getAllUsers = async () => {
+  const url = `${usersURL}`;
+  return await axiosClient.get(url);
+};
+
+export const getOneUserForId = async (userId) => {
+  const url = `${usersURL}/${userId}`;
+  return await axiosClient.get(url);
+};
+
+export const updateUser = async (userInfo, userId) => {
+  const url = `${usersURL}/${userId}`;
+  return await axiosClient.put(url, userInfo);
+};
+
+export const deleteUser = async (userId) => {
+  const url = `${usersURL}/${userId}`;
+  return await axiosClient.delete(url);
 };
