@@ -77,6 +77,7 @@ export function updateAdvert(advert, advertId) {
     try {
       const advertUpdate = await api.adverts.updateAdvert(advert, advertId);
       dispatch(advertUpdateSuccess(advertUpdate));
+      history.push(`/account/products`);
     } catch (error) {
       dispatch(advertUpdateFailure(error));
     }
