@@ -15,25 +15,21 @@ import {
   LOGIN_START,
   LOGIN_SUCCESS,
   LOGOUT_USER,
+  USER_SIGNUP_REQUEST,
   USER_SIGNUP_SUCCESS,
+  USER_SIGNUP_FAILURE,
+  USER_DATA_SUCCESS,
   CATEGORY_LOAD_REQUEST,
   CATEGORY_LOAD_SUCCESS,
   CATEGORY_LOAD_FAILURE
 } from '../types/';
 
 const defaultState = {
-  auth: {
-    logged: false,
-    forgotPass: {
-      isForgotten: false,
-      data: null
-    },
-    resetPass: {
-      data: null
-    },
-    user: {
-      data: []
-    }
+  auth: false,
+  userData: null,
+  forgotPass: {
+    isForgotten: false,
+    data: null
   },
   adverts: {
     loaded: false,
@@ -49,34 +45,40 @@ const defaultState = {
 
 export function auth(authState = defaultState.auth, action) {
   switch (action.type) {
+    case LOGIN_SUCCESS:
+      return true;
+    case LOGOUT_USER:
+      return false;
+
+    default:
+      return authState;
+  }
+}
+
+export function userData(userDataState = defaultState.userData, action) {
+  switch (action.type) {
+    case USER_DATA_SUCCESS:
+      return action.payload;
+    case LOGOUT_USER:
+      return null;
+    default:
+      return userDataState;
+  }
+}
+
+export function forgotPass(forgotState = defaultState.forgotPass, action) {
+  switch (action.type) {
     case FORGET_PASSWORD_SUCCESS:
       return {
-        ...authState,
-        logged: false,
-        forgotPass: { isForgotten: true, data: action.payload.config.data }
-      };
-    case LOGIN_SUCCESS:
-      return {
-        ...authState,
-        logged: true
-      };
-    case LOGOUT_USER:
-      return {
-        ...authState,
-        logged: false
+        ...forgotState
       };
     case RESET_PASSWORD_SUCCESS:
       return {
-        ...authState,
-        data: action.payload
-      };
-    case USER_SIGNUP_SUCCESS:
-      return {
-        ...authState,
-        user: { data: action.payload }
+        ...forgotState,
+        forgotPass: { isForgotten: false, data: null }
       };
     default:
-      return authState;
+      return forgotState;
   }
 }
 
@@ -105,6 +107,7 @@ export function categories(categoriesState = defaultState.categories, action) {
 export function ui(uiState = defaultState.ui, action) {
   switch (action.type) {
     case LOGIN_START:
+    case USER_SIGNUP_REQUEST:
     case RESET_PASSWORD_REQUEST:
     case FORGET_PASSWORD_REQUEST:
     case ADVERTS_LOADED_REQUEST:
@@ -112,6 +115,7 @@ export function ui(uiState = defaultState.ui, action) {
     case CATEGORY_LOAD_REQUEST:
       return { ...uiState, isLoading: true, error: null };
     case LOGIN_SUCCESS:
+    case USER_SIGNUP_SUCCESS:
     case RESET_PASSWORD_SUCCESS:
     case FORGET_PASSWORD_SUCCESS:
     case ADVERTS_LOADED_SUCCESS:
@@ -119,6 +123,7 @@ export function ui(uiState = defaultState.ui, action) {
     case CATEGORY_LOAD_SUCCESS:
       return { ...uiState, isLoading: false, error: null };
     case LOGIN_FAILURE:
+    case USER_SIGNUP_FAILURE:
     case RESET_PASSWORD_FAILURE:
     case FORGET_PASSWORD_FAILURE:
     case ADVERTS_LOADED_FAILURE:

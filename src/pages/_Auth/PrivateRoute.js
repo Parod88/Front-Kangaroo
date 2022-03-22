@@ -4,6 +4,7 @@ import { getIsLogged } from '../../store/selectors/selectors';
 
 const PrivateRoute = ({ ...props }) => {
   const isLogged = useSelector(getIsLogged);
+
   return isLogged ? (
     <Route {...props} />
   ) : (

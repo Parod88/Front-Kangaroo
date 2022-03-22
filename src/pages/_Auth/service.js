@@ -8,17 +8,19 @@ export const login = ({ rememberMe, ...credentials }) => {
   const url = `${loginURL}/login`;
   return client
     .post(url, credentials)
-    .then(({ token }) => {
+    .then(({ token, results }) => {
+      const { _id, name, email, imageAvatar } = results;
       setAuthorizationHeader(token);
-      return token;
+      return { token, _id, name, email, imageAvatar };
     })
-    .then((token) => {
+    .then(({ token, _id, name, email, imageAvatar }) => {
       if (rememberMe) {
         storage.remove('auth');
         storage.set('auth', token);
       } else {
         storage.session('auth', token);
       }
+      return { _id, name, email, imageAvatar };
     });
 };
 
