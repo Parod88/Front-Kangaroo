@@ -1,53 +1,48 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { loadAdvertDetail } from '../../store/actions';
-import { getAdvertDetail } from '../../store/selectors/selectors';
+import { getAdvertDetail, getAdverts } from '../../store/selectors/selectors';
 import LayoutGeneral from '../../components/LayoutGeneral/LayoutGeneral';
+import SectionSlider from '../../pages/HomePage/SectionSlider/SectionSlider';
+import ReviewStartAndCount from '../../components/ReviewStartAndCount/ReviewStartAndCount';
 import './AdvertPage.scss';
+
+import {
+  EmailShareButton,
+  EmailIcon,
+  FacebookShareButton,
+  FacebookIcon,
+  LinkedinShareButton,
+  LinkedinIcon,
+  TelegramShareButton,
+  TelegramIcon,
+  TwitterShareButton,
+  TwitterIcon,
+  WhatsappShareButton,
+  WhatsappIcon
+} from 'react-share';
+import Button from '../../components/Button/Button';
+import { Link } from 'react-router-dom';
 
 function AdvertPage() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const advert = useSelector((state) => getAdvertDetail(state, id));
+  const adverts = useSelector((state) => getAdverts(state));
+
+  const currentUrl = window.location.href;
 
   useEffect(() => {
     dispatch(loadAdvertDetail(id));
   }, [dispatch, id]);
-  //TODO: Advert mock data
-  // const advert = {
-  //   _id: '621bf293e5330d28f93909ca',
-  //   name: 'Guapo Hormigon Bacon',
-  //   description:
-  //     'Quidem et dicta velit quibusdam dolorum id. Voluptates non temporibus. Iure dolore qui sunt libero quia quos consequuntur id maxime. Cum sint quia in.',
-  //   type: false,
-  //   price: 3,
-  //   image: 'http://placeimg.com/640/480',
-  //   gallery: [
-  //     'http://placeimg.com/1500/1500/sports',
-  //     'http://placeimg.com/1500/1500/sports',
-  //     'http://placeimg.com/1500/1500/sports',
-  //     'http://placeimg.com/1500/1500/sports'
-  //   ],
-  //   tags: ['tag1', 'tag2'],
-  //   author: {
-  //     active: false,
-  //     userToken: null,
-  //     _id: '621bf293e5330d28f939097b',
-  //     name: 'WallacloneAdmin',
-  //     email: 'admin@wallaclone.com',
-  //     password: '$2a$10$LVlsiH6CmLa77LddL8hDT.yJwgnhrnMESjkWp2nksMdcAnWW/FRai',
-  //     imageAvatar: 'https://i.pravatar.cc/500',
-  //     isAdmin: true,
-  //     createdAt: '2022-02-27T21:52:19.752Z',
-  //     updatedAt: '2022-02-27T21:52:19.752Z'
-  //   },
-  //   createdAt: '2022-02-27T21:52:19.929Z',
-  //   updatedAt: '2022-02-27T21:52:19.929Z'
-  // };
 
-  // const { name, description, type, price, image, gallery, tags, author, categories, updatedAt } =
-  //   advert;
+  const handlerFollow = () => {
+    alert('implement');
+  };
+  const handlerMessage = () => {
+    alert('implement');
+  };
 
   return advert ? (
     <LayoutGeneral>
@@ -76,26 +71,101 @@ function AdvertPage() {
                 </div>
 
                 <div>
-                  <h3>Location</h3>
-                  <p>Mapa</p>
+                  <h3>Categories</h3>
+                  <ul>
+                    {advert?.categories.map((categorie, index) => (
+                      <li key={index}>{categorie.name}</li>
+                    ))}
+                  </ul>
                 </div>
 
                 <div>
                   <h3>Related tags</h3>
                   <div>
-                    <button>Tag 1</button>
+                    {advert?.tags.map((tag, index) => (
+                      <p key={index}>{tag}</p>
+                    ))}
                   </div>
                 </div>
               </div>
-              <div className="footer">{advert.description}</div>
             </div>
             <div className="col-right">
-              <div className="card">{advert.author.name}</div>
+              <div className="card">
+                <div className="avatar-content">
+                  <Link to={`/user/${advert?.author._id}`}>
+                    <div>
+                      <img src={advert?.author.imageAvatar}></img>
+                    </div>
+                    <div>
+                      <p>{advert.author.name}</p>
+                      <ReviewStartAndCount reviewCount={45} reviewStart={3.5} />
+                    </div>
+                  </Link>
+                </div>
+
+                <div className="buttons-group">
+                  <Button secondaryOutline full onClick={handlerFollow}>
+                    Follow
+                  </Button>
+                  <Button secondary full onClick={handlerMessage}>
+                    Send Message
+                  </Button>
+                </div>
+
+                <div className="social-icons">
+                  <h4>Share product:</h4>
+                  <div className="icons-row">
+                    <EmailShareButton url={currentUrl}>
+                      <EmailIcon size={40} round={true} />
+                    </EmailShareButton>
+
+                    <FacebookShareButton
+                      url={currentUrl}
+                      quote={'Title'}
+                      hashtag={'#segundamano, #coche'}
+                    >
+                      <FacebookIcon size={40} round={true} />
+                    </FacebookShareButton>
+
+                    <TelegramShareButton url={currentUrl} title={advert.name}>
+                      <TelegramIcon size={40} round={true} />
+                    </TelegramShareButton>
+
+                    <LinkedinShareButton
+                      url={currentUrl}
+                      title={advert.name}
+                      summary={advert.description}
+                      source={'https://kangaroostore.es'}
+                    >
+                      <LinkedinIcon size={40} round={true} />
+                    </LinkedinShareButton>
+
+                    <TwitterShareButton
+                      url={currentUrl}
+                      quote={'Title'}
+                      hashtag={'#segundamano, #coche'}
+                    >
+                      <TwitterIcon size={40} round={true} />
+                    </TwitterShareButton>
+
+                    <WhatsappShareButton url={currentUrl}>
+                      <WhatsappIcon size={40} round={true} />
+                    </WhatsappShareButton>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        <div className="footer">
+          <SectionSlider
+            adverts={adverts}
+            title={'Similar products that may interest you'}
+            subtitle={'Discover the most desired of the moment'}
+            limit={4}
+          />
+        </div>
       </div>
-      <div className="container">Section You may also like</div>
     </LayoutGeneral>
   ) : (
     <div>El anuncio no existe</div>

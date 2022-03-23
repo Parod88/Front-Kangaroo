@@ -24,15 +24,62 @@
       h3 {
         font-size: 1.25rem;
       }
+
+      .body {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+    }
+
+    .col-right {
+      .card {
+        width: 100%;
+        min-height: 200px;
+        background-color: white;
+        box-shadow: 0px 20px 30px rgba(25, 25, 46, 0.04);
+        border-radius: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        padding: 2rem;
+
+        .avatar-content {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 1rem;
+
+          img {
+            width: 60px;
+            height: 60px;
+            border-radius: 100%;
+            object-fit: cover;
+          }
+        }
+        .buttons-group {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 100%;
+          gap: 1rem;
+        }
+
+        .social-icons {
+          h4 {
+            margin-bottom: 0.5rem;
+          }
+
+          .icons-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          }
+        }
+      }
     }
   }
-  .col-right {
-    .card {
-      width: 100%;
-      min-height: 200px;
-      background-color: white;
-      box-shadow: 0px 20px 30px rgba(25, 25, 46, 0.04);
-      border-radius: 0.5rem;
-    }
+  .footer {
+    margin-top: 5rem;
   }
 }
