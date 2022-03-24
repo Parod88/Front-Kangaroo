@@ -10,6 +10,7 @@ const urlNoImage =
 const { formatDistanceToNow } = require('date-fns');
 
 const AdvertCard = ({ advert, ...props }) => {
+  console.log('advert', advert);
   const { _id, name, description, price, image, author, updatedAt } = advert;
 
   const [isFavorite, setIsFavorite] = useState(true);

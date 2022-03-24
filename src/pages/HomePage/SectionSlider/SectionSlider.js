@@ -13,7 +13,7 @@ function SectionSlider({ adverts, title, subtitle, limit }) {
         <ul className="content">
           {adverts.length > 0 ? (
             adverts.slice(0, limit).map((advert) => (
-              <li key={advert._id}>
+              <li key={advert.name_id}>
                 <AdvertCard advert={advert} />
               </li>
             ))

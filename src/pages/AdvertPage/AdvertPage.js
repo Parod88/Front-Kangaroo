@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { loadAdvertDetail } from '../../store/actions';
-import { getAdvertDetail, getAdverts } from '../../store/selectors/selectors';
+import { getAdvertDetail, getAdverts, getCategoryDetail } from '../../store/selectors/selectors';
 import LayoutGeneral from '../../components/LayoutGeneral/LayoutGeneral';
 import SectionSlider from '../../pages/HomePage/SectionSlider/SectionSlider';
 import ReviewStartAndCount from '../../components/ReviewStartAndCount/ReviewStartAndCount';
 import './AdvertPage.scss';
+import { useHistory } from 'react-router-dom';
 
 import {
   EmailShareButton,
@@ -26,6 +27,8 @@ import Button from '../../components/Button/Button';
 import { Link } from 'react-router-dom';
 
 function AdvertPage() {
+  const history = useHistory();
+
   const dispatch = useDispatch();
   const { id } = useParams();
   const advert = useSelector((state) => getAdvertDetail(state, id));
@@ -40,8 +43,10 @@ function AdvertPage() {
   const handlerFollow = () => {
     alert('implement');
   };
+
   const handlerMessage = () => {
-    alert('implement');
+    //TODO: Implement add user to chat
+    history.push('/account/messages/');
   };
 
   return advert ? (
