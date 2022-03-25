@@ -58,3 +58,9 @@ export {
   ADVERT_DELETE_SUCCESS,
   ADVERT_DELETE_FAILURE
 } from './AdvertTypes';
+
+export {
+  TAGS_LOADED_REQUEST,
+  TAGS_LOADED_SUCCESS,
+  TAGS_LOADED_FAILURE
+} from './TagsTypes';

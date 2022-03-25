@@ -63,3 +63,10 @@ export {
   deleteUser
 } from './DeleteUserActions';
 
+export {
+  getTagsRequest,
+  getTagsSuccess,
+  getTagsFailure,
+  loadTags,
+} from './TagsActions'
+

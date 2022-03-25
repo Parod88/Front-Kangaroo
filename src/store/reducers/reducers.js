@@ -18,7 +18,10 @@ import {
   USER_SIGNUP_SUCCESS,
   CATEGORY_LOAD_REQUEST,
   CATEGORY_LOAD_SUCCESS,
-  CATEGORY_LOAD_FAILURE
+  CATEGORY_LOAD_FAILURE,
+  TAGS_LOADED_FAILURE,
+  TAGS_LOADED_SUCCESS,
+  TAGS_LOADED_REQUEST
 } from '../types/';
 
 const defaultState = {
@@ -96,11 +99,20 @@ export function categories(categoriesState = defaultState.categories, action) {
   switch (action.type) {
     case CATEGORY_LOAD_SUCCESS:
       return action.payload.results;
-
     default:
       return categoriesState;
   }
 }
+
+export function tags(tagsState = defaultState.tags, action) {
+  switch (action.type) {
+    case TAGS_LOADED_SUCCESS:
+      return action.payload;
+    default:
+      return tagsState;
+  }
+}
+
 
 export function ui(uiState = defaultState.ui, action) {
   switch (action.type) {
@@ -117,6 +129,7 @@ export function ui(uiState = defaultState.ui, action) {
     case ADVERTS_LOADED_SUCCESS:
     case ADVERT_LOADED_SUCCESS:
     case CATEGORY_LOAD_SUCCESS:
+    case TAGS_LOADED_SUCCESS:
       return { ...uiState, isLoading: false, error: null };
     case LOGIN_FAILURE:
     case RESET_PASSWORD_FAILURE:
@@ -124,6 +137,7 @@ export function ui(uiState = defaultState.ui, action) {
     case ADVERTS_LOADED_FAILURE:
     case ADVERT_LOADED_FAILURE:
     case CATEGORY_LOAD_FAILURE:
+    case TAGS_LOADED_FAILURE:
       return { ...uiState, isLoading: false, error: action.payload };
     default:
       return uiState;

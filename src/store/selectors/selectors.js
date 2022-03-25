@@ -5,7 +5,8 @@ export const areAdvertsLoaded = (state) => state.adverts.loaded;
 export const getCategories = (state) => state.categories;
 export const getCagetoriesIsLoaded = (state) => getCategories(state).length > 0;
 
-export const getTags = (state) => state.adverts.tags;
-export const getTagsIsLoaded = (state) => getTags(state).length > 0;
+export const getTagsIsLoaded = (state) => getTags(state).length !== 0;
+export const getTags = (state) => state.tags;
 
 export const getUi = (state) => state.ui;
+
