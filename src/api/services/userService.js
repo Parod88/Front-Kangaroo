@@ -85,7 +85,7 @@ export const getOneUserForId = async (userId) => {
 };
 
 export const updateUser = async (userInfo, userId) => {
-  const url = `${usersURL}/${userId}`;
+  const url = `${usersURL}/${userInfo._id}`;
   return await axiosClient.put(url, userInfo);
 };
 
