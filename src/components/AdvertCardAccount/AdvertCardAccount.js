@@ -68,7 +68,7 @@ const AdvertCardAccount = ({ advert, ...props }) => {
 
   return (
     <>
-      <article id="advert-card-account">
+      <article id="product-card-account">
         <div className="content-card-account">
           <Link to={`/advert/${_id}`}>
             <div className="content-flex">
