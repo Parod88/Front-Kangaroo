@@ -74,3 +74,4 @@ return (
 }
 
 export default FiltersSection;
+
