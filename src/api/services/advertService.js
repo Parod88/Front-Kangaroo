@@ -31,3 +31,9 @@ export const deleteAdvert = async (advertId) => {
   const url = `${apiAdvertsURL}/${advertId}`;
   return await axiosClient.delete(url);
 };
+
+export const getTags = async () => {
+  const url = `${apiAdvertsURL}/tags`;
+  return await axiosClient.get(url);
+}
+
