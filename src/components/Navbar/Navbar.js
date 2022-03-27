@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { useTranslation } from 'react-i18next';
 import KangarooBrand from '../../resources/svg/kangaroo-brand-color.svg';
 import Button from '../../components/Button/Button';
 
 import './Navbar.scss';
 
 function Navbar() {
+  const [t, i18n] = useTranslation('global');
   return (
     <header id="navbar">
       <div className="container grid">
@@ -14,7 +16,7 @@ function Navbar() {
             <img src={KangarooBrand} alt="brand" />
           </Link>
           <Link className="explore-link" to="/account/profile">
-            <span>= </span>admin
+            <span>{t('navbar.profile')}</span>
           </Link>
         </div>
         <div className="nav-section-search">
@@ -23,22 +25,25 @@ function Navbar() {
             className="input"
             type="email"
             id="email"
-            placeholder="Search for a product, category or vendor"
+            placeholder={t('navbar.searchbar')}
             required
             onChange={() => alert('implement')}
           ></input>
         </div>
 
         <div className="nav-section-buttons">
-          <Button language>
+          <Button language onClick={() => i18n.changeLanguage('en')}>
             <span>icon</span>English
+          </Button>
+          <Button language onClick={() => i18n.changeLanguage('es')}>
+            <span>icon</span>Español
           </Button>
           <p>Theme</p>
           <Link to="/login">
-            <Button textWhite>Login</Button>
+            <Button textWhite>{t('navbar.login')}</Button>
           </Link>
           <Link to="/register">
-            <Button white>SignUp</Button>
+            <Button white>{t('navbar.signup')}</Button>
           </Link>
         </div>
       </div>
