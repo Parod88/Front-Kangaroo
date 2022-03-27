@@ -5,21 +5,20 @@ import './LogoutPage.scss';
 import { useDispatch } from 'react-redux';
 import { logoutInitiate } from '../../../store/actions';
 import { Link } from 'react-router-dom';
-import { logout } from '../../_Auth/service';
-import {useHistory} from "react-router-dom"
+import { logout } from '../../../api/services/userService';
+import { useHistory } from 'react-router-dom';
 
 function LogoutPage() {
-
   const dispatch = useDispatch();
 
-  const history = useHistory()
+  const history = useHistory();
 
   const handleLogout = () => {
-    logout().then(()=>{
-      dispatch(logoutInitiate())
-      history.push("/");
-    })
-  }
+    logout().then(() => {
+      dispatch(logoutInitiate());
+      history.push('/');
+    });
+  };
 
   return (
     <div id="logout-page">
@@ -30,9 +29,11 @@ function LogoutPage() {
 
           <div>
             <Link to="/">
-            <Button primaryOutline>Cancel</Button>
+              <Button primaryOutline>Cancel</Button>
             </Link>
-            <Button secondary onClick={handleLogout}>Yes, I'm sure</Button>
+            <Button secondary onClick={handleLogout}>
+              Yes, I'm sure
+            </Button>
           </div>
         </div>
       </LayoutAccount>

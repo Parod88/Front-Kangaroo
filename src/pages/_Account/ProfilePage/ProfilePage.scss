@@ -8,8 +8,14 @@
 
     img {
       width: 150px;
+      height: 150px;
+      object-fit: cover;
       border-radius: 50rem;
     }
+  }
+
+  .email-info {
+    margin-bottom: 1rem;
   }
 
   .account-container {
@@ -23,6 +29,13 @@
   .grid-two-cols {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    column-gap: 2rem;
+  }
+
+  .grid-three-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 1rem;
     column-gap: 2rem;
   }

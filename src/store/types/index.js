@@ -19,7 +19,13 @@ export {
   RESET_PASSWORD_FAILURE
 } from './ForgetResetPasswordTypes';
 
-export { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_USER } from './LoginTypes';
+export {
+  LOGIN_START,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  LOGOUT_USER,
+  USER_DATA_SUCCESS
+} from './LoginTypes';
 
 export {
   USER_SIGNUP_REQUEST,
