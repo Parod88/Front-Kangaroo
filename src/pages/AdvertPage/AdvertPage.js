@@ -37,6 +37,8 @@ import { Link } from 'react-router-dom';
 import CustomToaster from '../../components/CustomToaster/CustomToaster';
 import LoadingBox from '../../components/LoadingBox/LoadingBox';
 import NotResultsFound from '../../components/NotResultsFound/NotResultsFound';
+import axios from 'axios';
+import { createConversation } from '../../api/services/chatServices';
 
 function AdvertPage() {
   const history = useHistory();
@@ -64,7 +66,12 @@ function AdvertPage() {
   };
 
   const handlerMessage = () => {
-    //TODO: Implement add user to chat
+    createConversation({
+      userSenderId: userData._id,
+      userReceiverId: advert.author,
+      advertisementId: advertId
+    });
+
     history.push('/account/messages/');
   };
 

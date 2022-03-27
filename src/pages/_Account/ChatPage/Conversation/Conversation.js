@@ -8,11 +8,11 @@ function Conversation({ conversation, currentUser }) {
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    const friendId = conversation.members.find((m) => m !== currentUser._id);
+    const friend = conversation.members.find((m) => m !== currentUser._id);
 
     const getUser = async () => {
       try {
-        const res = await axios('http://localhost:3000/api/v1/user/' + friendId);
+        const res = await axios('http://localhost:3000/api/v1/user/' + friend._id);
         setUser(res.data.results);
       } catch (err) {
         console.log('error: ', err);
