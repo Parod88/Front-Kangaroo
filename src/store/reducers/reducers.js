@@ -115,7 +115,6 @@ export function tags(tagsState = defaultState.tags, action) {
   }
 }
 
-
 export function ui(uiState = defaultState.ui, action) {
   switch (action.type) {
     case LOGIN_START:
@@ -125,6 +124,7 @@ export function ui(uiState = defaultState.ui, action) {
     case ADVERTS_LOADED_REQUEST:
     case ADVERT_LOADED_REQUEST:
     case CATEGORY_LOAD_REQUEST:
+    case TAGS_LOADED_FAILURE:
       return { ...uiState, isLoading: true, error: null };
     case LOGIN_SUCCESS:
     case USER_SIGNUP_SUCCESS:
