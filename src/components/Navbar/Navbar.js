@@ -52,10 +52,9 @@ function Navbar() {
         </div>
 
         <div className="nav-section-buttons">
-          <div>
-            <Button language onClick={handlerLanguage}>
-              <span>icon</span>English
-            </Button>
+          <div className="language">
+            <button onClick={() => i18n.changeLanguage('en')}>English</button>
+            <button onClick={() => i18n.changeLanguage('es')}>Español</button>
           </div>
           <div>
             <img
@@ -69,10 +68,10 @@ function Navbar() {
           {!userIsAuth ? (
             <>
               <Link to="/login">
-                <Button textWhite>Login</Button>
+                <Button textWhite>{t('navbar.login')}</Button>
               </Link>
               <Link to="/register">
-                <Button white>SignUp</Button>
+                <Button white>{t('navbar.signup')}</Button>
               </Link>
             </>
           ) : (
@@ -88,19 +87,6 @@ function Navbar() {
               </Link>
             </div>
           )}
-          <Button language onClick={() => i18n.changeLanguage('en')}>
-            <span>icon</span>English
-          </Button>
-          <Button language onClick={() => i18n.changeLanguage('es')}>
-            <span>icon</span>Español
-          </Button>
-          <p>Theme</p>
-          <Link to="/login">
-            <Button textWhite>{t('navbar.login')}</Button>
-          </Link>
-          <Link to="/register">
-            <Button white>{t('navbar.signup')}</Button>
-          </Link>
         </div>
       </div>
     </header>

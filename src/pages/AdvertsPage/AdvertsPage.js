@@ -1,8 +1,8 @@
 import LayoutGeneral from '../../components/LayoutGeneral/LayoutGeneral';
 import './AdvertsPage.scss';
 
-import React from 'react';
-import storage from '../../utils/storage'
+import React, { useState } from 'react';
+import storage from '../../utils/storage';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadPaginatedAdverts } from '../../store/actions';
 import { getAdverts, getUi } from '../../store/selectors/selectors';
@@ -17,11 +17,10 @@ import LoadingBox from '../../components/LoadingBox/LoadingBox';
 import CustomToaster from '../../components/CustomToaster/CustomToaster';
 import { defaultFilters, filterAds } from './service';
 
-const getFilters = () => storage.get("filters") || defaultFilters;
-const saveFilters = (filters) => storage.set("filters", filters);
+const getFilters = () => storage.get('filters') || defaultFilters;
+const saveFilters = (filters) => storage.set('filters', filters);
 
 function AdvertsPage(history, ...props) {
-
   const dispatch = useDispatch();
   const { isLoading, error } = useSelector(getUi);
   useEffect(() => {
@@ -41,7 +40,6 @@ function AdvertsPage(history, ...props) {
     saveFilters(filters);
   }, [filters]);
 
-
   useEffect(() => {
     dispatch(loadPaginatedAdverts());
   }, [dispatch]);
@@ -59,11 +57,16 @@ function AdvertsPage(history, ...props) {
               title={'What are you looking for today?'}
               subtitle={'Write an introductory description of the category.'}
             />
-            <FiltersSection />
+            <FiltersSection
+              initialFilters={filters}
+              defaultFilters={defaultFilters}
+              prices={adverts.map(({ price }) => price)}
+              onFilter={setFilters}
+            />
             <section className="container ">
               <ul className="grid-cards">
-                {adverts.length > 0 ? (
-                  adverts.slice(0, limitPagination).map((advert) => (
+                {filteredAdverts.length > 0 ? (
+                  filteredAdverts.slice(0, limitPagination).map((advert) => (
                     <li key={advert._id}>
                       <AdvertCard advert={advert} />
                     </li>
@@ -82,32 +85,6 @@ function AdvertsPage(history, ...props) {
         {/*Loading and errors */}
         {isLoading && <LoadingBox />}
         {error && <CustomToaster />}
-        <SectionTitle
-          title={'What are you looking for today?'}
-          subtitle={'Write an introductory description of the category.'}
-        />
-
-        <FiltersSection
-        initialFilters={filters}
-        defaultFilters={defaultFilters}
-        prices={adverts.map(({ price }) => price)}
-        onFilter={setFilters}
-        />
-        <section className="container ">
-          <ul className="grid-cards">
-            {filteredAdverts.length > 0 ? (
-              filteredAdverts.slice(0, limitPagination).map((advert) => (
-                <li key={advert._id}>
-                  <AdvertCard advert={advert} />
-                </li>
-              ))
-            ) : (
-              <div>
-                <NotResultsFound />
-              </div>
-            )}
-          </ul>
-        </section>
       </LayoutGeneral>
     </div>
   );
