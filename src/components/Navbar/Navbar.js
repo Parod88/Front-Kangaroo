@@ -4,17 +4,12 @@ import { useTranslation } from 'react-i18next';
 import KangarooBrand from '../../resources/svg/kangaroo-brand-color.svg';
 import Button from '../../components/Button/Button';
 import { getUserAuth, getUserData } from '../../store/selectors/selectors';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import './Navbar.scss';
 
 function Navbar() {
   const userIsAuth = useSelector(getUserAuth);
   const userData = useSelector(getUserData);
-
-  //TODO: Implement button language
-  const handlerLanguage = () => {
-    alert('implement');
-  };
 
   const handlerSearch = () => {
     alert('implement');
@@ -78,10 +73,10 @@ function Navbar() {
             <div className="user-data">
               <Link to={`/account/profile`}>
                 <div className="avatar">
-                  <img className="avatar-image" src={userData.imageAvatar} />
+                  <img alt={userData?.name} className="avatar-image" src={userData?.imageAvatar} />
                   <div>
                     <p>Hello</p>
-                    <p className="name">{userData.name}</p>
+                    <p className="name">{userData?.name}</p>
                   </div>
                 </div>
               </Link>

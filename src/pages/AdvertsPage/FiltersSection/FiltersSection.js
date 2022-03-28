@@ -1,6 +1,5 @@
 import './FiltersSection.scss';
 import { useState } from 'react';
-import { getFilteredAds } from '../service';
 import RangeSlider from '../Common/Slider';
 import RadioGroup from '../Common/RadioGroup';
 import SelectTags from '../SelectTags';
