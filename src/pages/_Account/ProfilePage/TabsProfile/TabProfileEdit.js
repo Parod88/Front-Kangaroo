@@ -36,8 +36,6 @@ function TabProfileEdit() {
     }));
   };
 
-  const [imageAvatar, setImageAvatar] = useState('');
-
   const uploadImageProfile = async (event) => {
     event.preventDefault();
     const file = event.target.files[0];
@@ -46,7 +44,10 @@ function TabProfileEdit() {
     bodyFormData.append('image', file);
     try {
       const response = await uploadFileProfile(bodyFormData);
-      setImageAvatar(response.url);
+      setUserConfigData((prevState) => ({
+        ...prevState,
+        imageAvatar: response.url
+      }));
     } catch (error) {
       console.log(error);
     }
@@ -54,7 +55,7 @@ function TabProfileEdit() {
 
   useEffect(() => {
     setUserConfigData(userData);
-  }, []);
+  }, [userData]);
 
   const handleUpdate = async (event) => {
     event.preventDefault();
@@ -70,7 +71,7 @@ function TabProfileEdit() {
           </div>
           <div className="avatar">
             <div>
-              <img src={userData.imageAvatar} />
+              <img alt={''} src={userData.imageAvatar} />
             </div>
             <div>
               <h5>Your avatar</h5>
@@ -106,10 +107,9 @@ function TabProfileEdit() {
               <input
                 className="input"
                 name="phone"
-                type="tel"
+                type="text"
                 id="phone"
                 placeholder="Enter phone"
-                // required
                 value={userConfigData.phone}
                 onChange={handleChange}
               ></input>
@@ -122,7 +122,6 @@ function TabProfileEdit() {
                 type="text"
                 id="location"
                 placeholder="Enter yout direcction"
-                // required
                 value={userConfigData.location}
                 onChange={handleChange}
               ></input>

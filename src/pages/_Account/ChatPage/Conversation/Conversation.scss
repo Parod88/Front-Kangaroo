@@ -1,5 +1,6 @@
 #conversation {
   display: flex;
+  flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   padding: 0.75rem;
@@ -7,13 +8,20 @@
   gap: 1rem;
   cursor: pointer;
 
+  .conversation-data {
+    display: flex;
+    flex-direction: column;
+  }
+
   &:hover {
     background-color: rgb(226, 223, 223);
     border-radius: 0.5rem;
   }
 
   img {
-    width: 3.75rem;
-    border-radius: 100rem;
+    width: 70px;
+    height: 70px;
+    border-radius: 0.5rem;
+    object-fit: cover;
   }
 }

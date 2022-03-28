@@ -11,11 +11,11 @@ function ReviewCard({ review, author, ...props }) {
     <article id="review-card">
       <div>
         <div>
-          <img className="imgage-avatar" src={author.imageAvatar}></img>
+          <img className="imgage-avatar" src={author?.imageAvatar}></img>
         </div>
       </div>
       <div>
-        <Link to={`/user/${author._id}`}>
+        <Link to={`/user/${author?._id}`}>
           <h4>Ali Tufón</h4>
         </Link>
         <p>{updatedAt}</p>

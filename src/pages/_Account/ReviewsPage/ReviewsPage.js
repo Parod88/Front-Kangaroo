@@ -1,30 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import LayoutAccount from '../../../components/LayoutAccount/LayoutAccount';
 import ReviewCard from '../../../components/ReviewCard/ReviewCard';
 import './ReviewsPage.scss';
 import NotResultsFound from '../../../components/NotResultsFound/NotResultsFound';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAdverts } from '../../../store/selectors/selectors';
+import { loadAdvertDetail, loadAdverts } from '../../../store/actions';
+
+//TODO: Search no found, sustitude in map for searResult atack to reviews
 
 function ReviewsPage() {
-  //TODO: Mock data reviews
+  const dispatch = useDispatch();
+  const adverts = useSelector((state) => getAdverts(state));
 
-  const reviews = [
-    {
-      _id: 1,
-      userName: 'OneUser',
-      comment:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et gravida tortor. Morbi non mi euismod, laoreet neque nec, pretium lacus. Pellentesque dolor dolor, consectetur sed consectetur vitae, commodo eget tellus. ',
-      rating: 4,
-      updatedAt: '2022-02-27T21:52:19.929Z"'
-    },
-    {
-      _id: 2,
-      userName: 'TwoUser',
-      comment:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et gravida tortor. Morbi non mi euismod.',
-      rating: 2,
-      updatedAt: '2022-02-27T21:53:19.929Z"'
-    }
-  ];
+  useEffect(() => {
+    dispatch(loadAdverts());
+  }, [dispatch]);
+
+  const [searchText, setSearchText] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+
+  const handlerSearch = (event) => {
+    setSearchText(event.target.value);
+  };
+
+  useEffect(() => {
+    const results = adverts.filter((advert) => advert.reviews.includes(searchText));
+    setSearchResults(results);
+  }, [searchText]);
 
   return (
     <LayoutAccount title={'Reviews'} subtitle={'Lorem ipsum dolor sit amet, consectetur'}>
@@ -36,22 +39,25 @@ function ReviewsPage() {
               Search:{' '}
               <input
                 className="input"
+                name="search"
                 type="text"
                 id="search"
                 placeholder="Product name, category..."
-                required
-                // onChange={}
+                value={searchText}
+                onChange={handlerSearch}
               ></input>
             </label>
           </div>
 
           <ul className="grid-cards-reviews">
-            {reviews.length > 0 ? (
-              reviews.map((review) => (
-                <li key={review._id}>
-                  <ReviewCard review={review} />
-                </li>
-              ))
+            {adverts?.length > 0 ? (
+              adverts.map((advert) =>
+                advert.reviews.map((review) => (
+                  <li key={review._id}>
+                    <ReviewCard review={review} />
+                  </li>
+                ))
+              )
             ) : (
               <div>
                 <NotResultsFound />

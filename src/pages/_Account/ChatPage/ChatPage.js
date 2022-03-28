@@ -9,9 +9,13 @@ import Message from './Message/Message';
 import { io } from 'socket.io-client';
 import { useSelector } from 'react-redux';
 import { getUserData } from '../../../store/selectors/selectors';
+import { loadAdvertDetail } from '../../../store/actions';
+import { useDispatch } from 'react-redux';
 
 function ChatPage() {
   //TODO: User data mock simulate login. Implemento with redux and finaly authentication
+
+  const dispatch = useDispatch();
 
   const [conversations, setConversations] = useState([]);
   const [currentConversation, setcurrentConversation] = useState(null);
@@ -43,6 +47,7 @@ function ChatPage() {
       setMessages((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage, currentConversation]);
 
+  //Online users
   useEffect(() => {
     socket.current.emit('addUser', userData._id);
     //TODO:Filter users followin video
@@ -122,24 +127,20 @@ function ChatPage() {
         <div className="chat-container">
           {/*Menu */}
           <div className="chat-col-menu">
-            <div className="input-item">
-              <input
-                className="input"
-                type="text"
-                id="search"
-                placeholder="Enter user name"
-              ></input>
-            </div>
+            <h4>Your conversations</h4>
             <div className="chat-col-menu-box">
               {conversations.map((conversation) => (
                 //Select one conversation in list conversations and currentConversation
                 <div key={conversation._id} onClick={() => setcurrentConversation(conversation)}>
-                  <Conversation conversation={conversation} currentUser={userData} />
+                  <Conversation
+                    conversation={conversation}
+                    currentUser={userData}
+                    onlineUsers={onlineUsers}
+                  />
                 </div>
               ))}
             </div>
           </div>
-
           {/*Box */}
           <div className="chat-col-messages">
             <div className="chat-col-messages-box">
@@ -177,14 +178,14 @@ function ChatPage() {
             </div>
           </div>
 
-          {/*Chat */}
-          <div className="chat-col-users-online">
+          {/*Chat*/}
+          {/* <div className="chat-col-users-online">
             <ChatUsersOnline
               onlineUsers={onlineUsers}
               currentUserId={userData._id}
               setcurrentConversation={setcurrentConversation}
             />
-          </div>
+          </div> */}
         </div>
       </LayoutAccount>
     </div>

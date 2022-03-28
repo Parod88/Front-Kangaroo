@@ -25,7 +25,6 @@ function ChatUsersOnline({ onlineUsers, currentUserId, setcurrentConversation })
 
   useEffect(() => {
     let uniqueVendors = [...new Set(vendors)];
-
     setOnlineVendors(uniqueVendors.filter((f) => onlineUsers.includes(f._id)));
   }, [vendors, onlineUsers]);
 
