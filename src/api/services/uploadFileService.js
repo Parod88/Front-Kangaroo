@@ -1,7 +1,6 @@
 import axiosClient from '../client';
 
 const apiUploadsURL = process.env.REACT_APP_UPLOADS_BASE_URL;
-console.log('apiUploadsURL', apiUploadsURL);
 
 export const uploadFileProfile = async (file) => {
   const url = `${apiUploadsURL}/file-profile`;

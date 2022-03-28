@@ -3,10 +3,23 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { useTranslation } from 'react-i18next';
 import KangarooBrand from '../../resources/svg/kangaroo-brand-color.svg';
 import Button from '../../components/Button/Button';
-
+import { getUserAuth, getUserData } from '../../store/selectors/selectors';
+import { useDispatch, useSelector } from 'react-redux';
 import './Navbar.scss';
 
 function Navbar() {
+  const userIsAuth = useSelector(getUserAuth);
+  const userData = useSelector(getUserData);
+
+  //TODO: Implement button language
+  const handlerLanguage = () => {
+    alert('implement');
+  };
+
+  const handlerSearch = () => {
+    alert('implement');
+  };
+
   const [t, i18n] = useTranslation('global');
   return (
     <header id="navbar">
@@ -20,18 +33,61 @@ function Navbar() {
           </Link>
         </div>
         <div className="nav-section-search">
-          <p>icon</p>
+          <img
+            className="loupe"
+            alt="icon"
+            src={
+              'https://cdn-icons.flaticon.com/png/512/2319/premium/2319177.png?token=exp=1648047174~hmac=a3f1975c251d7c80f8335a7acd880bb2'
+            }
+          />
+
           <input
             className="input"
-            type="email"
-            id="email"
-            placeholder={t('navbar.searchbar')}
+            type="text"
+            id="search"
+            placeholder="Search for a product, category or vendor"
             required
-            onChange={() => alert('implement')}
+            onChange={handlerSearch}
           ></input>
         </div>
 
         <div className="nav-section-buttons">
+          <div>
+            <Button language onClick={handlerLanguage}>
+              <span>icon</span>English
+            </Button>
+          </div>
+          <div>
+            <img
+              className="alert"
+              alt="icon"
+              src={
+                'https://cdn-icons.flaticon.com/png/512/4196/premium/4196701.png?token=exp=1648047021~hmac=25e00903cec611e89ecbf4c28e918f1f'
+              }
+            />
+          </div>
+          {!userIsAuth ? (
+            <>
+              <Link to="/login">
+                <Button textWhite>Login</Button>
+              </Link>
+              <Link to="/register">
+                <Button white>SignUp</Button>
+              </Link>
+            </>
+          ) : (
+            <div className="user-data">
+              <Link to={`/account/profile`}>
+                <div className="avatar">
+                  <img className="avatar-image" src={userData.imageAvatar} />
+                  <div>
+                    <p>Hello</p>
+                    <p className="name">{userData.name}</p>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          )}
           <Button language onClick={() => i18n.changeLanguage('en')}>
             <span>icon</span>English
           </Button>

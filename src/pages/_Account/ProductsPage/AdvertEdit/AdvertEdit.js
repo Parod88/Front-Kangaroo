@@ -29,23 +29,19 @@ function AdvertEdit({ ...props }) {
   const navigate = useHistory();
   const { id } = useParams();
 
-  console.log('id', id);
-
   const dispatch = useDispatch();
   const { isLoading, error } = useSelector(getUi);
   const userData = useSelector(getUserData);
   const userIsAuth = useSelector(getUserAuth);
 
   const advert = useSelector((state) => getAdvertDetail(state, id));
-  console.log('advert', advert);
 
   useEffect(() => {
-    dispatch(loadAdvertDetail(id));
-  }, [dispatch, id]);
+    if (advert) {
+      dispatch(loadAdvertDetail(id));
+    }
+  }, [dispatch, advert, id]);
 
-  //=============================================
-  //Handler
-  //=============================================
   const [advertConfigData, setAdvertConfigData] = useState({
     name: '',
     nameEn: '',
@@ -61,18 +57,19 @@ function AdvertEdit({ ...props }) {
     }));
   };
 
-  const [advertState, setAdvertState] = useState('ForSale');
+  const [advertState, setAdvertState] = useState('');
   const handlerState = (event) => {
     setAdvertState(event.target.value);
   };
 
-  const [type, setType] = useState('Sale');
+  const [type, setType] = useState('');
   const handlerType = (event) => {
     setType(event.target.value);
   };
 
-  const categories = useSelector(getCategories) || [];
+  const categories = useSelector(getCategories);
   const [selectCategories, setSelectCategories] = useState([]);
+
   useEffect(() => {
     dispatch(loadCategories());
   }, [dispatch]);
@@ -87,7 +84,10 @@ function AdvertEdit({ ...props }) {
     setSelectCategories(listCategories);
   };
 
-  const [selectTags, setSelectTags] = useState([]);
+  const [selectTags, setSelectTags] = useState(advert?.tags);
+  useEffect(() => {
+    setSelectTags(advert?.tags);
+  }, [advert]);
 
   const [image, setImage] = useState('');
   const updateFeaturedImage = (listUrls) => {
@@ -107,7 +107,6 @@ function AdvertEdit({ ...props }) {
       });
 
       setType(advert.type);
-      setAdvertConfigData(advert.price);
       setAdvertState(advert.state);
       setSelectCategories(advert.categories);
       setSelectTags(advert.tags);

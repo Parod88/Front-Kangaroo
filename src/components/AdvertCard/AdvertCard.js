@@ -21,7 +21,7 @@ const AdvertCard = ({ advert, ...props }) => {
   };
 
   return (
-    <article id="advert-card">
+    <article id="product-card">
       <div className="header">
         <div className="icon-container">
           <button

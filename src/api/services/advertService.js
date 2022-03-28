@@ -32,6 +32,10 @@ export const deleteAdvert = async (advertId) => {
   return await axiosClient.delete(url);
 };
 
+export const createAdvertReview = async (advertId, review) => {
+  const url = `${apiAdvertsURL}/${advertId}/reviews`;
+  return await axiosClient.post(url, review);
+};
 export const getTags = async () => {
   const url = `${apiAdvertsURL}/tags`;
   return await axiosClient.get(url);

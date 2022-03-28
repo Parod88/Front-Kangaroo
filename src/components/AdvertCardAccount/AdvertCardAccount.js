@@ -1,44 +1,74 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import AdvertImage from '../AdvertImage/AdvertImage';
 import { useDispatch, useSelector } from 'react-redux';
 
 import './AdvertCardAccount.scss';
 import { deleteAdvert, updateAdvert } from '../../store/actions';
-import ConfirmDialog from '../ConfirmDialog/ConfirmDialog';
+import ModalDelete from '../ModalDelete/ModalDelete';
+import ModalAdvertState from '../ModelAdvertState/ModelAdvertState';
+import Button from '../Button/Button';
+import ModelAdvertState from '../ModelAdvertState/ModelAdvertState';
 const { formatDistanceToNow } = require('date-fns');
 
 const AdvertCardAccount = ({ advert, ...props }) => {
   const dispatch = useDispatch();
 
-  const { _id, name, advertState, price, image, updatedAt } = advert;
+  const { _id, name, state, price, image, updatedAt } = advert;
 
   const urlNoImage =
     'https://res.cloudinary.com/kangaroomailer/image/upload/v1647891889/kangaroo/adverts/noimage_deiv4x.jpg';
 
-  const [state, setState] = useState(advertState);
-  const handlerState = (event) => {
-    setState(event.target.value);
-    // dispatch(updateAdvert({ advertState: state }));
-    alert('implement');
-    //TODO: Implemente methods change state
-  };
-
-  //Modal control
-  const [modalConfirm, setConfirm] = useState(false);
-
+  //Modal delete
+  const [modalDelete, setModalDelete] = useState(false);
   const handlerConfirm = () => {
-    setConfirm(modalConfirm ? false : true);
+    setModalDelete(modalDelete ? false : true);
   };
 
   const handlerDelete = (event) => {
     dispatch(deleteAdvert(_id));
-    handlerConfirm(false);
+    setModalDelete(false);
+  };
+
+  //Modal state
+  const [selectAdvertState, setSelectAdvertState] = useState('ForSale');
+  useEffect(() => {
+    setSelectAdvertState(advert.state);
+  }, [advert]);
+
+  const [modalState, setModalState] = useState(false);
+  const handlerModalState = () => {
+    setModalState(modalState ? false : true);
+  };
+
+  const handlerChangeState = (newState) => {
+    setSelectAdvertState(newState);
+    dispatch(
+      updateAdvert(
+        {
+          name: advert.name,
+          nameEn: advert.nameEn,
+          description: advert.description,
+          descriptionEn: advert.descriptionEn,
+          type: advert.type,
+          advertState: advert.advertState,
+          price: advert.price,
+          categories: advert.categories,
+          gallery: advert.gallery,
+          tags: advert.tags,
+          author: advert.author._id,
+          image: [advert.image],
+          state: newState
+        },
+        advert._id
+      )
+    );
+    setModalState(false);
   };
 
   return (
     <>
-      <article id="advert-card-account">
+      <article id="product-card-account">
         <div className="content-card-account">
           <Link to={`/advert/${_id}`}>
             <div className="content-flex">
@@ -61,28 +91,45 @@ const AdvertCardAccount = ({ advert, ...props }) => {
           </Link>
 
           <div className="actions">
-            {/* <button onClick={handlerState}>Vendido</button> */}
-
-            <select value={state} onChange={handlerState}>
-              <option value="ForSale">For Sale</option>
-              <option value="Inactive">Inactive</option>
-              <option value="Finished">Finished</option>
-            </select>
+            <div>
+              {selectAdvertState === 'ForSale' && (
+                <Button primary onClick={() => handlerModalState()}>
+                  {selectAdvertState}
+                </Button>
+              )}
+              {selectAdvertState === 'Inactive' && (
+                <Button primary onClick={() => handlerModalState()}>
+                  {selectAdvertState}
+                </Button>
+              )}
+              {selectAdvertState === 'Finished' && <Button disabled>{selectAdvertState}</Button>}
+            </div>
 
             <Link className="content-flex" to={`/account/products/edit/${_id}`}>
-              <button>Editar</button>
+              <Button secondary>Editar</Button>
             </Link>
 
-            <button onClick={handlerConfirm}>Delete</button>
+            <Button red onClick={handlerConfirm}>
+              Delete
+            </Button>
           </div>
         </div>
       </article>
 
-      {modalConfirm && (
-        <ConfirmDialog
+      {modalDelete && (
+        <ModalDelete
           title={'Are you want to delete this ad?'}
           onConfirm={handlerDelete}
           onClose={handlerConfirm}
+        />
+      )}
+
+      {modalState && (
+        <ModelAdvertState
+          title={'Change advert you want to delete this ad?'}
+          onChangeState={handlerChangeState}
+          onClose={handlerModalState}
+          advertState={advert.state}
         />
       )}
     </>
