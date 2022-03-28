@@ -53,13 +53,17 @@ const AdvertCard = ({ advert, ...props }) => {
         </div>
       </Link>
       <div className="footer">
-        <Link to={`/user/${author._id}`} className="vendor-data">
-          <img className="img-avatar" alt={author.name} src={author.imageAvatar} />
-          <div>
-            {author.name}
-            <ReviewStartAndCount reviewCount={45} reviewStart={3.5} />
-          </div>
-        </Link>
+        {author ? (
+          <Link to={`/user/${author._id}`} className="vendor-data">
+            <img className="img-avatar" alt={author.name} src={author.imageAvatar} />
+            <div>
+              {author.name}
+              <ReviewStartAndCount reviewCount={45} reviewStart={3.5} />
+            </div>
+          </Link>
+        ) : (
+          <strong>User not available</strong>
+        )}
         <p className="price">${price}</p>
       </div>
     </article>

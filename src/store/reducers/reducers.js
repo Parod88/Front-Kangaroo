@@ -18,6 +18,9 @@ import {
   USER_SIGNUP_REQUEST,
   USER_SIGNUP_SUCCESS,
   USER_SIGNUP_FAILURE,
+  DELETE_USER_REQUEST,
+  DELETE_USER_SUCCESS,
+  DELETE_USER_FAILURE,
   USER_DATA_SUCCESS,
   CATEGORY_LOAD_REQUEST,
   CATEGORY_LOAD_SUCCESS,
@@ -62,6 +65,7 @@ export function userData(userDataState = defaultState.userData, action) {
   switch (action.type) {
     case USER_DATA_SUCCESS:
       return action.payload;
+    case DELETE_USER_SUCCESS:
     case LOGOUT_USER:
       return null;
     default:
@@ -119,6 +123,7 @@ export function ui(uiState = defaultState.ui, action) {
   switch (action.type) {
     case LOGIN_START:
     case USER_SIGNUP_REQUEST:
+    case DELETE_USER_REQUEST:
     case RESET_PASSWORD_REQUEST:
     case FORGET_PASSWORD_REQUEST:
     case ADVERTS_LOADED_REQUEST:
@@ -128,6 +133,7 @@ export function ui(uiState = defaultState.ui, action) {
       return { ...uiState, isLoading: true, error: null };
     case LOGIN_SUCCESS:
     case USER_SIGNUP_SUCCESS:
+    case DELETE_USER_SUCCESS:
     case RESET_PASSWORD_SUCCESS:
     case FORGET_PASSWORD_SUCCESS:
     case ADVERTS_LOADED_SUCCESS:
@@ -137,6 +143,7 @@ export function ui(uiState = defaultState.ui, action) {
       return { ...uiState, isLoading: false, error: null };
     case LOGIN_FAILURE:
     case USER_SIGNUP_FAILURE:
+    case DELETE_USER_FAILURE:
     case RESET_PASSWORD_FAILURE:
     case FORGET_PASSWORD_FAILURE:
     case ADVERTS_LOADED_FAILURE:
