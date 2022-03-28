@@ -11,7 +11,7 @@ function ChatUsersOnline({ onlineUsers, currentUserId, setcurrentConversation })
     const getConversations = async () => {
       try {
         const res = await axios.get(
-          'http://localhost:3000/api/v1/chat/conversation/' + currentUserId
+          'http://ec2-52-5-122-57.compute-1.amazonaws.com/api/v1/chat/conversation/' + currentUserId
         );
         res.data.results.forEach((conversation) =>
           setVendors((prev) => [...prev, conversation.members[1]])
@@ -31,7 +31,7 @@ function ChatUsersOnline({ onlineUsers, currentUserId, setcurrentConversation })
   const handleInitConversation = async (user) => {
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/v1/chat/conversation/${currentUserId}/${user._id}`
+        `http://ec2-52-5-122-57.compute-1.amazonaws.com/api/v1/chat/conversation/${currentUserId}/${user._id}`
       );
       setcurrentConversation(res.data);
       res.data.results.forEach((conversation) =>

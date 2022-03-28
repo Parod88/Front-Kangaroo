@@ -31,7 +31,7 @@ function ChatPage() {
 
   //Init socket
   useEffect(() => {
-    socket.current = io('http://localhost:8900');
+    socket.current = io('http://52.5.122.57:8900');
     socket.current.on('getMessage', (data) => {
       setArrivalMessage({
         userSenderId: data.userSenderId,
@@ -61,7 +61,7 @@ function ChatPage() {
     const getConversations = async () => {
       try {
         const res = await axios.get(
-          'http://localhost:3000/api/v1/chat/conversation/' + userData._id
+          'http://ec2-52-5-122-57.compute-1.amazonaws.com/api/v1/chat/conversation/' + userData._id
         );
         setConversations(res.data.results);
       } catch (err) {
@@ -78,7 +78,8 @@ function ChatPage() {
     const getMessages = async () => {
       try {
         const res = await axios.get(
-          'http://localhost:3000/api/v1/chat/message/' + currentConversation._id
+          'http://ec2-52-5-122-57.compute-1.amazonaws.com/api/v1/chat/message/' +
+            currentConversation._id
         );
         setMessages(res.data.results);
       } catch (err) {
@@ -105,7 +106,10 @@ function ChatPage() {
     });
 
     try {
-      const res = await axios.post('http://localhost:3000/api/v1/chat/message', sendMessage);
+      const res = await axios.post(
+        'http://ec2-52-5-122-57.compute-1.amazonaws.com/api/v1/chat/message',
+        sendMessage
+      );
       setMessages([...messages, res.data.results]);
       setNewMessage(''); //Reset input
     } catch (err) {

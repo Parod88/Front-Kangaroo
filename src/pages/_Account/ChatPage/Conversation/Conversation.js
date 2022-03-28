@@ -18,7 +18,9 @@ function Conversation({ conversation, currentUser, onlineUsers }) {
     const friend = conversation.members.find((m) => m !== currentUser._id);
     const getUser = async () => {
       try {
-        const res = await axios('http://localhost:3000/api/v1/user/' + friend);
+        const res = await axios(
+          'http://ec2-52-5-122-57.compute-1.amazonaws.com/api/v1/user/' + friend
+        );
         setUser(res.data.results);
       } catch (err) {
         console.log('error: ', err);
