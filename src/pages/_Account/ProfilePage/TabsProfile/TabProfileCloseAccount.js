@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../../../components/Button/Button';
 import { deleteUser } from '../../../../store/actions';
+import { getUserData } from '../../../../store/selectors/selectors';
 import './TabProfileCloseAccount.scss';
 
 function TabProfileCloseAccount() {
+  const dispatch = useDispatch();
+  const userData = useSelector(getUserData);
+  console.log(userData._id);
   const [value, setValue] = useState({
     deleteAccount: ''
   });
@@ -14,10 +19,15 @@ function TabProfileCloseAccount() {
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (value.deleteAccount === 'delete') {
-      return dispatchEvent(deleteUser);
+    if (value.deleteAccount !== 'delete') {
+      return;
     }
+    dispatch(deleteUser(userData._id));
   };
+
+  useEffect(() => {
+    setValue(value);
+  }, [setValue]);
 
   return (
     <div id="tab-profile-close-account">

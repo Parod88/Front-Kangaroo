@@ -6,9 +6,10 @@ export function deleteUserRequest() {
   };
 }
 
-export function deleteUserSuccess() {
+export function deleteUserSuccess(userId) {
   return {
-    type: DELETE_USER_SUCCESS
+    type: DELETE_USER_SUCCESS,
+    payload: userId
   };
 }
 
@@ -20,12 +21,12 @@ export function deleteUserFailure(error) {
   };
 }
 
-export function deleteUser() {
+export function deleteUser(userId) {
   return async function (dispatch, getState, { api }) {
     dispatch(deleteUserRequest());
     try {
-      const userToDelete = await api.users.deleteAccount();
-      dispatch(deleteUser(userToDelete));
+      const userToDelete = await api.users.deleteAccount(userId);
+      dispatch(deleteUserSuccess(userToDelete));
     } catch (error) {
       dispatch(deleteUserFailure(error));
     }
