@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import Button from '../../../components/Button/Button';
+import AdvertCard from '../../../components/AdvertCard/AdvertCard';
 import LayoutAccount from '../../../components/LayoutAccount/LayoutAccount';
 import './ChatPage.scss';
 import ChatUsersOnline from './ChatUsersOnline/ChatUsersOnline';
@@ -16,6 +17,7 @@ import {
   getAllUserConversations,
   createMessage
 } from '../../../api/services/chatServices';
+import { getSingleAdvert } from '../../../api/services/advertService';
 
 function ChatPage() {
   //TODO: User data mock simulate login. Implemento with redux and finaly authentication
@@ -28,6 +30,8 @@ function ChatPage() {
   const [newMessage, setNewMessage] = useState('');
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
+  const [conversationAdvert, setConversationAdvert] = useState(null);
+
   const socket = useRef();
   const scrollRef = useRef();
   const userData = useSelector(getUserData);
@@ -38,7 +42,7 @@ function ChatPage() {
   useEffect(() => {
     socket.current = io('http://localhost:8900');
     socket.current.on('getMessage', (data) => {
-      setArrivalMessage(alert('hola'), {
+      setArrivalMessage({
         userSenderId: data.userSenderId,
         text: data.text,
         createdAt: Date.now()
@@ -93,6 +97,22 @@ function ChatPage() {
     };
     if (currentConversation._id) {
       getMessages();
+    }
+  }, [currentConversation]);
+
+  //Return advert of conversation
+  useEffect(() => {
+    const getAdvert = async () => {
+      try {
+        const res = await getSingleAdvert(currentConversation.advertisement);
+        setConversationAdvert(res.results);
+      } catch (err) {
+        console.log('error: ', err);
+      }
+    };
+
+    if (currentConversation.advertisement) {
+      getAdvert();
     }
   }, [currentConversation]);
 
@@ -188,13 +208,21 @@ function ChatPage() {
           </div>
 
           {/*Chat*/}
-          {/* <div className="chat-col-users-online">
-            <ChatUsersOnline
+          <div className="chat-col-users-online">
+            {/* {conversationAdvert ? <AdvertCard advert={conversationAdvert} /> : <></>} */}
+            {/* {isAuthorAdvert ? <AdvertCard advert={conversationAdvert} /> : <></>} */}
+            {conversationAdvert && userData._id !== conversationAdvert?.author ? (
+              <AdvertCard advert={conversationAdvert} />
+            ) : (
+              <></>
+            )}
+
+            {/* <ChatUsersOnline
               onlineUsers={onlineUsers}
               currentUserId={userData._id}
               setcurrentConversation={setcurrentConversation}
-            />
-          </div> */}
+            /> */}
+          </div>
         </div>
       </LayoutAccount>
     </div>

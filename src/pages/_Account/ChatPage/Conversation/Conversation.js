@@ -5,8 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadAdvertDetail } from '../../../../store/actions';
 import { getAdvertDetail } from '../../../../store/selectors/selectors';
 import { getOneUserForId } from '../../../../api/services/userService';
+import { getSingleAdvert } from '../../../../api/services/advertService';
 
 import './Conversation.scss';
+import Button from '../../../../components/Button/Button';
 
 function Conversation({ conversation, currentUser }) {
   // console.log('conversation', conversation);

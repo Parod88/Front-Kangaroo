@@ -51,7 +51,7 @@ function AdvertCreate({ ...props }) {
     setType(event.target.value);
   };
 
-  const categories = useSelector(getCategories) || [];
+  const categories = useSelector(getCategories);
   const [selectCategories, setSelectCategories] = useState([]);
   useEffect(() => {
     dispatch(loadCategories());
