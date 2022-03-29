@@ -27,7 +27,16 @@ import {
   CATEGORY_LOAD_FAILURE,
   TAGS_LOADED_FAILURE,
   TAGS_LOADED_SUCCESS,
-  TAGS_LOADED_REQUEST
+  TAGS_LOADED_REQUEST,
+  USERS_LOADED_FAILURE,
+  USERS_LOADED_REQUEST,
+  USERS_LOADED_SUCCESS,
+  USER_LOADED_FAILURE,
+  USER_LOADED_REQUEST,
+  USER_LOADED_SUCCESS,
+  USER_UPDATE_FAILURE,
+  USER_UPDATE_REQUEST,
+  USER_UPDATE_SUCCESS
 } from '../types/';
 
 const defaultState = {
@@ -129,7 +138,10 @@ export function ui(uiState = defaultState.ui, action) {
     case ADVERTS_LOADED_REQUEST:
     case ADVERT_LOADED_REQUEST:
     case CATEGORY_LOAD_REQUEST:
-    case TAGS_LOADED_FAILURE:
+    case TAGS_LOADED_REQUEST:
+    case USERS_LOADED_REQUEST:
+    case USER_LOADED_REQUEST:
+    case USER_UPDATE_REQUEST:
       return { ...uiState, isLoading: true, error: null };
     case LOGIN_SUCCESS:
     case USER_SIGNUP_SUCCESS:
@@ -140,6 +152,9 @@ export function ui(uiState = defaultState.ui, action) {
     case ADVERT_LOADED_SUCCESS:
     case CATEGORY_LOAD_SUCCESS:
     case TAGS_LOADED_SUCCESS:
+    case USERS_LOADED_SUCCESS:
+    case USER_LOADED_SUCCESS:
+    case USER_UPDATE_SUCCESS:
       return { ...uiState, isLoading: false, error: null };
     case LOGIN_FAILURE:
     case USER_SIGNUP_FAILURE:
@@ -150,6 +165,9 @@ export function ui(uiState = defaultState.ui, action) {
     case ADVERT_LOADED_FAILURE:
     case CATEGORY_LOAD_FAILURE:
     case TAGS_LOADED_FAILURE:
+    case USERS_LOADED_FAILURE:
+    case USER_UPDATE_FAILURE:
+    case USER_LOADED_FAILURE:
       return { ...uiState, isLoading: false, error: action.payload };
     default:
       return uiState;

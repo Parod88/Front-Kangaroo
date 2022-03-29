@@ -195,3 +195,45 @@ input:-webkit-autofill:active {
   background-color: rgba(0, 0, 0, 0.2); /* color of the scroll thumb */
   border-radius: 20px; /* roundness of the scroll thumb */
 }
+
+.input-image {
+  input {
+    border: none !important;
+    padding-left: 0;
+    border-radius: 0;
+  }
+}
+
+/*================================================================
+ React Tabs
+================================================================*/
+.react-tabs__tab-list {
+  border-bottom: 1px solid #dddddd !important;
+  background-color: #f5f3f3;
+  border-radius: 0.5rem 0.5rem 0 0 !important;
+  margin: 0 !important;
+  padding: 0;
+}
+
+.react-tabs__tab--selected {
+  background: none !important;
+  border-color: none !important;
+  color: var(--primary);
+  font-weight: 700;
+  border-radius: none !important;
+}
+
+.react-tabs__tab:focus {
+  outline: none !important;
+}
+
+.react-tabs__tab {
+  display: inline-block;
+  border: none !important;
+  border-bottom: none !important;
+  bottom: none !important;
+  position: relative;
+  list-style: none;
+  padding: 0.5rem 2rem !important;
+  cursor: pointer;
+}

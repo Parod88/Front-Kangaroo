@@ -13,7 +13,6 @@ import ProductsPage from '../pages/_Account/ProductsPage/ProductsPage';
 import FavoritesPage from '../pages/_Account/FavoritesPage/FavoritesPage';
 import ChatPage from '../pages/_Account/ChatPage/ChatPage';
 import ReviewsPage from '../pages/_Account/ReviewsPage/ReviewsPage';
-import DashboardPage from '../pages/_Account/DashboardPage/DashboardPage';
 import LogoutPage from '../pages/_Account/LogoutPage/LogoutPage';
 
 import AdvertCreate from '../pages/_Account/ProductsPage/AdvertCreate/AdvertCreate';
@@ -49,7 +48,6 @@ function App({ ...props }) {
       <Route exact path="/account/favorites" component={FavoritesPage} />
       <Route exact path="/account/messages" component={ChatPage} />
       <Route exact path="/account/reviews" component={ReviewsPage} />
-      <Route exact path="/account/dashboard" component={DashboardPage} />
       <Route exact path="/account/logout" component={LogoutPage} />
 
       <Route exact path="/account/products/create" component={AdvertCreate} />

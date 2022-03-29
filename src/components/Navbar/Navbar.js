@@ -5,6 +5,8 @@ import KangarooBrand from '../../resources/svg/kangaroo-brand-color.svg';
 import Button from '../../components/Button/Button';
 import { getUserAuth, getUserData } from '../../store/selectors/selectors';
 import { useSelector } from 'react-redux';
+import ChatIcon from '@mui/icons-material/Chat';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import './Navbar.scss';
 
 function Navbar() {
@@ -28,19 +30,14 @@ function Navbar() {
           </Link>
         </div>
         <div className="nav-section-search">
-          <img
-            className="loupe"
-            alt="icon"
-            src={
-              'https://cdn-icons.flaticon.com/png/512/2319/premium/2319177.png?token=exp=1648047174~hmac=a3f1975c251d7c80f8335a7acd880bb2'
-            }
-          />
-
+          <span className="icon">
+            <SearchOutlinedIcon />
+          </span>
           <input
             className="input"
             type="text"
             id="search"
-            placeholder="Search for a product, category or vendor"
+            placeholder={t('navbar.searchbar')}
             required
             onChange={handlerSearch}
           ></input>
@@ -52,13 +49,9 @@ function Navbar() {
             <button onClick={() => i18n.changeLanguage('es')}>Español</button>
           </div>
           <div>
-            <img
-              className="alert"
-              alt="icon"
-              src={
-                'https://cdn-icons.flaticon.com/png/512/4196/premium/4196701.png?token=exp=1648047021~hmac=25e00903cec611e89ecbf4c28e918f1f'
-              }
-            />
+            <Link to="/account/messages">
+              <ChatIcon />
+            </Link>
           </div>
           {!userIsAuth ? (
             <>

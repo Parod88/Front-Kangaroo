@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import AdvertImage from '../AdvertImage/AdvertImage';
 import { useDispatch, useSelector } from 'react-redux';
-
 import './AdvertCardAccount.scss';
 import { deleteAdvert, updateAdvert } from '../../store/actions';
 import ModalDelete from '../ModalDelete/ModalDelete';
 import ModalAdvertState from '../ModelAdvertState/ModelAdvertState';
 import Button from '../Button/Button';
 import ModelAdvertState from '../ModelAdvertState/ModelAdvertState';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import EditIcon from '@mui/icons-material/Edit';
+
 const { formatDistanceToNow } = require('date-fns');
 
 const AdvertCardAccount = ({ advert, ...props }) => {
@@ -106,11 +108,13 @@ const AdvertCardAccount = ({ advert, ...props }) => {
             </div>
 
             <Link className="content-flex" to={`/account/products/edit/${_id}`}>
-              <Button secondary>Editar</Button>
+              <Button secondary>
+                <EditIcon />
+              </Button>
             </Link>
 
             <Button red onClick={handlerConfirm}>
-              Delete
+              <DeleteForeverIcon />
             </Button>
           </div>
         </div>

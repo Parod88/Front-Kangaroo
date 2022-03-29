@@ -4,7 +4,6 @@ import NotResultsFound from '../../../components/NotResultsFound/NotResultsFound
 import './SliderCategories.scss';
 
 function SliderCategories({ categories, limit }) {
-  console.log('categorysss', categories);
   return (
     <section id="slider-categories">
       <div className="container">

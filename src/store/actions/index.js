@@ -67,11 +67,19 @@ export {
   deleteUser
 } from './DeleteUserActions';
 
-export {
-  getTagsRequest,
-  getTagsSuccess,
-  getTagsFailure,
-  loadTags,
-} from './TagsActions'
+export { getTagsRequest, getTagsSuccess, getTagsFailure, loadTags } from './TagsActions';
 
-export { userUpdateRequest, userUpdateSuccess, userUpdateFailure, userUpdate } from './UserActions';
+export {
+  userUpdateRequest,
+  userUpdateSuccess,
+  userUpdateFailure,
+  userUpdate,
+  usersLoadedRequest,
+  usersLoadedSuccess,
+  usersLoadedFailure,
+  loadUsers,
+  userDetailRequest,
+  userDetailSuccess,
+  userDetailFailure,
+  loadUserDetail
+} from './UserActions';

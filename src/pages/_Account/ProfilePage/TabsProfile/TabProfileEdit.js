@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../../../components/Button/Button';
-import { userUpdate } from '../../../../store/actions';
+import { loadUserDetail, userUpdate } from '../../../../store/actions';
 import { getUi, getUserData } from '../../../../store/selectors/selectors';
 import { uploadFileProfile } from '../../../../api/services/uploadFileService';
 import { toast } from 'react-hot-toast';
@@ -11,8 +11,16 @@ import CustomToaster from '../../../../components/CustomToaster/CustomToaster';
 
 function TabProfileEdit() {
   const dispatch = useDispatch();
-  const userData = useSelector(getUserData);
   const { isLoading, error } = useSelector(getUi);
+
+  const userData = useSelector(getUserData);
+  useEffect(() => {
+    if (userData) {
+      dispatch(loadUserDetail(userData._id));
+    }
+  }, [dispatch, userData]);
+
+  console.log('userData', userData);
 
   const [userConfigData, setUserConfigData] = useState({
     imageAvatar: '',
@@ -54,7 +62,16 @@ function TabProfileEdit() {
   };
 
   useEffect(() => {
-    setUserConfigData(userData);
+    if (userData) {
+      setUserConfigData({
+        imageAvatar: userData.imageAvatar,
+        name: userData.name,
+        email: userData.email,
+        phone: userData.phone,
+        location: userData.location,
+        personalDescription: userData.personalDescription
+      });
+    }
   }, [userData]);
 
   const handleUpdate = async (event) => {
@@ -136,12 +153,10 @@ function TabProfileEdit() {
                 type="text"
                 id="personalDescription"
                 placeholder="Enter a text descrtiption"
-                // required
                 value={userConfigData.personalDescription}
                 onChange={handleChange}
                 rows="4"
                 cols="50"
-                // onChange={}
               ></textarea>
             </div>
           </div>
