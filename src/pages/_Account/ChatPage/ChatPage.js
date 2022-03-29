@@ -11,6 +11,11 @@ import { useSelector } from 'react-redux';
 import { getUserData } from '../../../store/selectors/selectors';
 import { loadAdvertDetail } from '../../../store/actions';
 import { useDispatch } from 'react-redux';
+import {
+  getAllMessagesConversation,
+  getAllUserConversations,
+  createMessage
+} from '../../../api/services/chatServices';
 
 function ChatPage() {
   //TODO: User data mock simulate login. Implemento with redux and finaly authentication
@@ -18,7 +23,7 @@ function ChatPage() {
   const dispatch = useDispatch();
 
   const [conversations, setConversations] = useState([]);
-  const [currentConversation, setcurrentConversation] = useState(null);
+  const [currentConversation, setcurrentConversation] = useState({});
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [arrivalMessage, setArrivalMessage] = useState(null);
@@ -31,9 +36,9 @@ function ChatPage() {
 
   //Init socket
   useEffect(() => {
-    socket.current = io('http://52.5.122.57:8900');
+    socket.current = io('http://localhost:8900');
     socket.current.on('getMessage', (data) => {
-      setArrivalMessage({
+      setArrivalMessage(alert('hola'), {
         userSenderId: data.userSenderId,
         text: data.text,
         createdAt: Date.now()
@@ -41,9 +46,10 @@ function ChatPage() {
     });
   }, []);
 
+  //Read message, extract user and change state message list
   useEffect(() => {
     arrivalMessage &&
-      currentConversation?.members.includes(arrivalMessage.userSenderId) &&
+      currentConversation.members.includes(arrivalMessage.userSenderId) &&
       setMessages((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage, currentConversation]);
 
@@ -54,43 +60,44 @@ function ChatPage() {
     socket.current.on('getUsers', (users) => {
       setOnlineUsers(users);
     });
-  }, [userData._id]);
+  }, [userData]);
 
   //Get all conversations users
   useEffect(() => {
     const getConversations = async () => {
       try {
-        const res = await axios.get(
-          'http://ec2-52-5-122-57.compute-1.amazonaws.com/api/v1/chat/conversation/' + userData._id
-        );
-        setConversations(res.data.results);
+        const res = await getAllUserConversations(userData._id);
+        // console.log('getConversations', res.results);
+        setConversations(res.results);
       } catch (err) {
         console.log(err);
       }
     };
 
-    getConversations();
-  }, [userData._id]);
+    if (userData) {
+      getConversations();
+    }
+  }, [userData]);
 
   //TODO: Refactoring with Redux
   //Get messages current conversation
   useEffect(() => {
     const getMessages = async () => {
       try {
-        const res = await axios.get(
-          'http://ec2-52-5-122-57.compute-1.amazonaws.com/api/v1/chat/message/' +
-            currentConversation._id
-        );
-        setMessages(res.data.results);
+        const res = await getAllMessagesConversation(currentConversation._id);
+        // console.log('getMessages', res);
+        setMessages(res.results);
       } catch (err) {
         console.log(err);
       }
     };
-    getMessages();
+    if (currentConversation._id) {
+      getMessages();
+    }
   }, [currentConversation]);
 
   const handleSubmitMessage = async (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     const sendMessage = {
       userSenderId: userData._id,
       conversationId: currentConversation._id,
@@ -106,11 +113,8 @@ function ChatPage() {
     });
 
     try {
-      const res = await axios.post(
-        'http://ec2-52-5-122-57.compute-1.amazonaws.com/api/v1/chat/message',
-        sendMessage
-      );
-      setMessages([...messages, res.data.results]);
+      const res = await createMessage(sendMessage);
+      setMessages([...messages, res.results]);
       setNewMessage(''); //Reset input
     } catch (err) {
       console.log(err);
@@ -133,14 +137,10 @@ function ChatPage() {
           <div className="chat-col-menu">
             <h4>Your conversations</h4>
             <div className="chat-col-menu-box">
-              {conversations.map((conversation) => (
+              {conversations.map((conversation, index) => (
                 //Select one conversation in list conversations and currentConversation
-                <div key={conversation._id} onClick={() => setcurrentConversation(conversation)}>
-                  <Conversation
-                    conversation={conversation}
-                    currentUser={userData}
-                    onlineUsers={onlineUsers}
-                  />
+                <div key={index} onClick={() => setcurrentConversation(conversation)}>
+                  <Conversation conversation={conversation} currentUser={userData} />
                 </div>
               ))}
             </div>
@@ -159,15 +159,20 @@ function ChatPage() {
                   </div>
                   <div className="chat-box-bottom">
                     <div className="input-item">
-                      <textarea
+                      <input
                         className="input "
                         type="text"
                         id="message"
                         placeholder="Write your message..."
                         col="30"
                         value={newMessage}
+                        onKeyPress={(event) => {
+                          if (event.key === 'Enter') {
+                            handleSubmitMessage();
+                          }
+                        }}
                         onChange={(event) => setNewMessage(event.target.value)}
-                      ></textarea>
+                      ></input>
                     </div>
                     <div>
                       <Button secondary onClick={handleSubmitMessage}>

@@ -4,10 +4,13 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadAdvertDetail } from '../../../../store/actions';
 import { getAdvertDetail } from '../../../../store/selectors/selectors';
+import { getOneUserForId } from '../../../../api/services/userService';
 
 import './Conversation.scss';
 
-function Conversation({ conversation, currentUser, onlineUsers }) {
+function Conversation({ conversation, currentUser }) {
+  // console.log('conversation', conversation);
+  // console.log('currentUser', currentUser);
   //TODO: Implement in REDUX
 
   const [user, setUser] = useState({});
@@ -15,27 +18,32 @@ function Conversation({ conversation, currentUser, onlineUsers }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const friend = conversation.members.find((m) => m !== currentUser._id);
+    const userFriend = conversation.members.find((member) => member !== currentUser._id);
+    // console.log('userFriend', userFriend);
+
     const getUser = async () => {
       try {
-        const res = await axios(
-          'http://ec2-52-5-122-57.compute-1.amazonaws.com/api/v1/user/' + friend
-        );
-        setUser(res.data.results);
+        const res = getOneUserForId(userFriend);
+        // const res = await axios(
+        //   `${process.env.REACT_APP_WALLACLONE_API_BASE_URL}/api/v1/user/${userFriend._id}`
+        // );
+        setUser(res.results);
       } catch (err) {
         console.log('error: ', err);
       }
     };
-    getUser();
-  }, [currentUser, conversation]);
-
-  useEffect(() => {
-    if (onlineUsers.includes(currentUser)) {
-      SetOutlined(true);
-    } else {
-      SetOutlined(false);
+    if (userFriend) {
+      getUser();
     }
-  }, [currentUser, onlineUsers]);
+  }, [conversation.members, currentUser._id]);
+
+  // useEffect(() => {
+  //   if (onlineUsers.includes(currentUser)) {
+  //     SetOutlined(true);
+  //   } else {
+  //     SetOutlined(false);
+  //   }
+  // }, [currentUser, onlineUsers]);
 
   const advert = useSelector((state) => getAdvertDetail(state, conversation.advertisement));
   useEffect(() => {
