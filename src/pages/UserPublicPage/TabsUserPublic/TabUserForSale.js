@@ -4,10 +4,11 @@ import AdvertCard from '../../../components/AdvertCard/AdvertCard';
 import { loadPaginatedAdverts } from '../../../store/actions';
 import { getAdverts } from '../../../store/selectors/selectors';
 import NotResultsFound from '../../../components/NotResultsFound/NotResultsFound';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 function TabUserForSale() {
   const dispatch = useDispatch();
-  //TODO: load only adverts user
+  const { id } = useParams();
 
   const limitPagination = 300;
 

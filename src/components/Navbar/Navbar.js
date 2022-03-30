@@ -25,9 +25,13 @@ function Navbar() {
           <Link to="/">
             <img src={KangarooBrand} alt="brand" />
           </Link>
-          <Link className="explore-link" to={`/account/profile/${userData._id}`}>
-            <span>{t('navbar.profile')}</span>
-          </Link>
+          {userData ? (
+            <Link className="explore-link" to={`/account/profile/${userData._id}`}>
+              <span>{t('navbar.profile')}</span>
+            </Link>
+          ) : (
+            <div></div>
+          )}
         </div>
         <div className="nav-section-search">
           <span className="icon">
