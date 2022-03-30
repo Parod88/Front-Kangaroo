@@ -46,6 +46,7 @@ function AdvertPage() {
   const currentUrl = window.location.href;
   const dispatch = useDispatch();
   const { id: advertId } = useParams();
+
   const userData = useSelector(getUserData);
   const advert = useSelector((state) => getAdvertDetail(state, advertId));
   const adverts = useSelector((state) => getAdverts(state));
@@ -69,7 +70,7 @@ function AdvertPage() {
   const handlerMessage = () => {
     createConversation({
       userSenderId: userData._id,
-      userReceiverId: advert.author,
+      userReceiverId: advert.author._id,
       advertisementId: advertId
     });
 

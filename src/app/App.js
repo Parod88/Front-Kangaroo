@@ -43,15 +43,17 @@ function App({ ...props }) {
 
       {/*User account routes*/}
       {/*TODO: add id params user accoutn*/}
-      <PrivateRoute exact path="/account/profile/:userId" component={ProfilePage} />
-      <Route exact path="/account/products" component={ProductsPage} />
-      <Route exact path="/account/favorites" component={FavoritesPage} />
-      <Route exact path="/account/messages" component={ChatPage} />
-      <Route exact path="/account/reviews" component={ReviewsPage} />
-      <Route exact path="/account/logout" component={LogoutPage} />
 
-      <Route exact path="/account/products/create" component={AdvertCreate} />
-      <Route exact path="/account/products/edit/:id" component={AdvertEdit} />
+      <PrivateRoute exact path="/account/profile/:userId" component={ProfilePage} />
+      <PrivateRoute exact path="/account/products" component={ProductsPage} />
+      <PrivateRoute exact path="/account/favorites" component={FavoritesPage} />
+      <PrivateRoute exact path="/account/messages" component={ChatPage} />
+      <PrivateRoute exact path="/account/reviews" component={ReviewsPage} />
+      <PrivateRoute exact path="/account/logout" component={LogoutPage} />
+
+
+      <PrivateRoute exact path="/account/products/create" component={AdvertCreate} />
+      <PrivateRoute exact path="/account/products/edit/:id" component={AdvertEdit} />
 
       {/*Public routes*/}
       {/*TODO: change parameters routers, example /advert/:id */}

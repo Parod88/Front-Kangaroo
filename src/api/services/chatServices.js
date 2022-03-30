@@ -17,3 +17,13 @@ export const createConversation = async (conversation) => {
   const url = `${apiConversationsURL}`;
   return await axiosClient.post(url, conversation);
 };
+
+export const getAllMessagesConversation = async (conversationId) => {
+  const url = `${apiMessagesURL}/${conversationId}`;
+  return await axiosClient.get(url);
+};
+
+export const createMessage = async (message) => {
+  const url = `${apiMessagesURL}`;
+  return await axiosClient.post(url, message);
+};
