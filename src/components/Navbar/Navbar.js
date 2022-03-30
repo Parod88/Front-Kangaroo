@@ -5,18 +5,35 @@ import KangarooBrand from '../../resources/svg/kangaroo-brand-color.svg';
 import Button from '../../components/Button/Button';
 import { getUserAuth, getUserData } from '../../store/selectors/selectors';
 import { useSelector } from 'react-redux';
+import { useState } from 'react';
 import './Navbar.scss';
 
-function Navbar() {
+function Navbar({onFilter, initialFilters}) {
   const userIsAuth = useSelector(getUserAuth);
   const userData = useSelector(getUserData);
 
-  const handlerSearch = () => {
-    alert('implement');
+  const [filter, setFilter] = useState(initialFilters);
+
+  const handleChange = (ev) => {
+    let value;
+    value = ev.target.value;
+
+    setFilter({
+      ...filter,
+      [ev.target.name]: value
+    });
   };
+
+  const handleSubmit = (onSubmit) => (ev) => {
+    ev.preventDefault();
+    onSubmit(filter);
+  };
+
+  // const { name } = filter;
 
   const [t, i18n] = useTranslation('global');
   return (
+    <form className="form" onSubmit={handleSubmit(onFilter)}>
     <header id="navbar">
       <div className="container grid">
         <div className="nav-section-brand">
@@ -35,17 +52,22 @@ function Navbar() {
               'https://cdn-icons.flaticon.com/png/512/2319/premium/2319177.png?token=exp=1648047174~hmac=a3f1975c251d7c80f8335a7acd880bb2'
             }
           />
-
+      
           <input
-            className="input"
-            type="text"
-            id="search"
-            placeholder="Search for a product, category or vendor"
-            required
-            onChange={handlerSearch}
+          className="filter-name"
+          name="name"
+          type="text"
+          value={""}
+          placeholder="Search for a product"
+          onChange={handleChange}
           ></input>
+          <div className="buttons">
+            <Button primaryOutline type="submit">
+              🔎 Filter
+            </Button>
+            </div>
         </div>
-
+        
         <div className="nav-section-buttons">
           <div className="language">
             <button onClick={() => i18n.changeLanguage('en')}>English</button>
@@ -85,7 +107,8 @@ function Navbar() {
         </div>
       </div>
     </header>
+    </form>
   );
-}
+};
 
 export default Navbar;
