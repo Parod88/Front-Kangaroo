@@ -74,8 +74,6 @@ export {
 export { getTagsRequest, getTagsSuccess, getTagsFailure, loadTags } from './TagsActions';
 
 
-export { userUpdateRequest, userUpdateSuccess, userUpdateFailure, userUpdate } from './UserActions';
-
 
 export {
   userUpdateRequest,
@@ -91,4 +89,11 @@ export {
   userDetailFailure,
   loadUserDetail
 } from './UserActions';
+
+export {
+  changePasswordRequest,
+  changePasswordSuccess,
+  changePasswordFailure,
+  changePassword
+} from './ChangePasswordActions';
 

@@ -84,10 +84,12 @@ export {
 } from './AdvertTypes';
 
 export {
-  TAGS_LOADED_REQUEST,
-  TAGS_LOADED_SUCCESS,
-  TAGS_LOADED_FAILURE
-} from './TagsTypes';
+  CHANGE_PASSWORD_REQUEST,
+  CHANGE_PASSWORD_SUCCESS,
+  CHANGE_PASSWORD_FAILURE
+} from './ChangePasswordTypes';
+
+export { TAGS_LOADED_REQUEST, TAGS_LOADED_SUCCESS, TAGS_LOADED_FAILURE } from './TagsTypes';
 
 export {
 ADVERTS_CATEGORY_FAILURE,

@@ -43,12 +43,14 @@ function App({ ...props }) {
 
       {/*User account routes*/}
       {/*TODO: add id params user accoutn*/}
-      <PrivateRoute exact path="/account/profile" component={ProfilePage} />
+
+      <PrivateRoute exact path="/account/profile/:userId" component={ProfilePage} />
       <PrivateRoute exact path="/account/products" component={ProductsPage} />
       <PrivateRoute exact path="/account/favorites" component={FavoritesPage} />
       <PrivateRoute exact path="/account/messages" component={ChatPage} />
       <PrivateRoute exact path="/account/reviews" component={ReviewsPage} />
       <PrivateRoute exact path="/account/logout" component={LogoutPage} />
+
 
       <PrivateRoute exact path="/account/products/create" component={AdvertCreate} />
       <PrivateRoute exact path="/account/products/edit/:id" component={AdvertEdit} />

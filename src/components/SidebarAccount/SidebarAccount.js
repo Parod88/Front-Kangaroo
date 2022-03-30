@@ -8,13 +8,20 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 import ReviewsOutlinedIcon from '@mui/icons-material/ReviewsOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import { useSelector } from 'react-redux';
+import { getUserData } from '../../store/selectors/selectors';
 
 function SidebarAccount() {
+  const userData = useSelector(getUserData);
   return (
     <nav id="sidebar-account">
       <ul>
         <li>
-          <NavLink className="item" to={`/account/profile`} activeClassName="selected">
+          <NavLink
+            className="item"
+            to={`/account/profile/${userData._id}`}
+            activeClassName="selected"
+          >
             <PermIdentityIcon />
             <p>Profile</p>
           </NavLink>

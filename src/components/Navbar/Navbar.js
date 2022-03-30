@@ -25,7 +25,7 @@ function Navbar() {
           <Link to="/">
             <img src={KangarooBrand} alt="brand" />
           </Link>
-          <Link className="explore-link" to="/account/profile">
+          <Link className="explore-link" to={`/account/profile/${userData._id}`}>
             <span>{t('navbar.profile')}</span>
           </Link>
         </div>
@@ -64,7 +64,7 @@ function Navbar() {
             </>
           ) : (
             <div className="user-data">
-              <Link to={`/account/profile`}>
+              <Link to={`/account/profile/${userData._id}`}>
                 <div className="avatar">
                   <img alt={userData?.name} className="avatar-image" src={userData?.imageAvatar} />
                   <div>
