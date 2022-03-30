@@ -48,6 +48,10 @@ import {
 const defaultState = {
   auth: false,
   userData: null,
+  publicUser: {
+    loaded: false,
+    data: null
+  },
   forgotPass: {
     isForgotten: false,
     data: null
@@ -85,6 +89,16 @@ export function userData(userDataState = defaultState.userData, action) {
       return null;
     default:
       return userDataState;
+  }
+}
+
+export function publicUser(publicUserState = defaultState.publicUser, action) {
+  switch (action.type) {
+    case USER_LOADED_SUCCESS:
+      return action.payload;
+
+    default:
+      return publicUserState;
   }
 }
 
@@ -180,8 +194,8 @@ export function ui(uiState = defaultState.ui, action) {
     case TAGS_LOADED_FAILURE:
     case ADVERTS_CATEGORY_FAILURE:
     case USERS_LOADED_FAILURE:
-    case USER_UPDATE_FAILURE:
     case USER_LOADED_FAILURE:
+    case USER_UPDATE_FAILURE:
       return { ...uiState, isLoading: false, error: action.payload };
     default:
       return uiState;

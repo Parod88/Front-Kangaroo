@@ -1,4 +1,11 @@
-import { ADVERTS_LOADED_REQUEST, ADVERTS_LOADED_SUCCESS, ADVERTS_LOADED_FAILURE, ADVERTS_CATEGORY_FAILURE, ADVERTS_CATEGORY_REQUEST, ADVERTS_CATEGORY_SUCCESS} from '../types';
+import {
+  ADVERTS_LOADED_REQUEST,
+  ADVERTS_LOADED_SUCCESS,
+  ADVERTS_LOADED_FAILURE,
+  ADVERTS_CATEGORY_FAILURE,
+  ADVERTS_CATEGORY_REQUEST,
+  ADVERTS_CATEGORY_SUCCESS
+} from '../types';
 import { areAdvertsLoaded } from '../selectors/selectors';
 
 export function advertsLoadedRequest() {
@@ -22,20 +29,20 @@ export function advertsLoadedFailure(error) {
   };
 }
 
-export function advertsCategoryRequest(){
+export function advertsCategoryRequest() {
   return {
     type: ADVERTS_CATEGORY_REQUEST
   };
 }
 
-export function advertsCategorySuccess(adverts){
+export function advertsCategorySuccess(adverts) {
   return {
     type: ADVERTS_CATEGORY_SUCCESS,
     payload: adverts
   };
 }
 
-export function advertsCategoryFailure(error){
+export function advertsCategoryFailure(error) {
   return {
     type: ADVERTS_CATEGORY_FAILURE,
     error: true,
@@ -60,9 +67,9 @@ export function loadAdverts() {
 
 export function loadPaginatedAdverts() {
   return async function (dispatch, getState, { api }) {
-    if (areAdvertsLoaded(getState())) {
-      return;
-    }
+    // if (areAdvertsLoaded(getState())) {
+    //   return;
+    // }
     dispatch(advertsLoadedRequest());
     try {
       const adverts = await api.adverts.getLatestPaginatedAdverts();
@@ -73,7 +80,7 @@ export function loadPaginatedAdverts() {
   };
 }
 
-export function loadAdvertsByCategory(id){
+export function loadAdvertsByCategory(id) {
   return async function (dispatch, getState, { api }) {
     dispatch(advertsCategoryRequest());
     try {
