@@ -45,8 +45,37 @@ export function loginInitiate(credentials) {
     try {
       await api.users
         .login(credentials)
-        .then(({ _id, name, email, imageAvatar }) =>
-          dispatch(userDataSuccess({ _id, name, email, imageAvatar }))
+        .then(
+          ({
+            _id,
+            name,
+            email,
+            imageAvatar,
+            phone,
+            favorites,
+            followers,
+            followings,
+            personalDescription,
+            active,
+            conversations,
+            locations
+          }) =>
+            dispatch(
+              userDataSuccess({
+                _id,
+                name,
+                email,
+                imageAvatar,
+                phone,
+                favorites,
+                followers,
+                followings,
+                personalDescription,
+                active,
+                conversations,
+                locations
+              })
+            )
         );
       dispatch(loginSuccess());
       const { from } = history.location.state || { from: { pathname: '/' } };

@@ -2,6 +2,10 @@ import React from 'react';
 import Button from '../Button/Button';
 import './ModelAdvertState.scss';
 
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import DoDisturbAltIcon from '@mui/icons-material/DoDisturbAlt';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+
 function ModelAdvertState({ title, onChangeState, onClose, advertState }) {
   const changeState = (state) => {
     onChangeState(state);
@@ -17,31 +21,37 @@ function ModelAdvertState({ title, onChangeState, onClose, advertState }) {
         <div className="buttons">
           {advertState === 'ForSale' ? (
             <Button disabled onClick={() => onChangeState('ForSale')}>
-              <span>icon</span>ForSale
+              <CheckCircleIcon />
+              ForSale
             </Button>
           ) : (
             <Button primary onClick={() => onChangeState('ForSale')}>
-              <span>icon</span>ForSale
+              <CheckCircleIcon />
+              ForSale
             </Button>
           )}
 
           {advertState === 'Inactive' ? (
             <Button disabled onClick={() => onChangeState('Inactive')}>
-              <span>icon</span>Inactive
+              <DoDisturbAltIcon />
+              Inactive
             </Button>
           ) : (
             <Button primary onClick={() => onChangeState('Inactive')}>
-              <span>icon</span>Inactive
+              <DoDisturbAltIcon />
+              Inactive
             </Button>
           )}
 
           {advertState === 'Finished' ? (
             <Button disabled onClick={() => onChangeState('Finished')}>
-              <span>icon</span>Finished
+              <ShoppingBagIcon />
+              Finished
             </Button>
           ) : (
             <Button primary onClick={() => onChangeState('Finished')}>
-              <span>icon</span>Finished
+              <ShoppingBagIcon />
+              Finished
             </Button>
           )}
 

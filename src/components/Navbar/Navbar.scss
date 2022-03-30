@@ -36,15 +36,20 @@
     color: var(--primary);
     gap: 1rem;
 
-    .loupe {
+    .icon {
       width: 25px;
       height: 25px;
       position: relative;
       top: 10px;
-      left: 10px;
+      left: 15px;
       cursor: pointer;
       z-index: 2;
       margin-right: 0.5rem;
+      color: var(--primary);
+      &:hover {
+        transition: all 0.1s ease-out;
+        color: var(--secondary);
+      }
     }
 
     input[type='text'] {

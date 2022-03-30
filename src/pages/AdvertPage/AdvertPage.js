@@ -39,12 +39,14 @@ import LoadingBox from '../../components/LoadingBox/LoadingBox';
 import NotResultsFound from '../../components/NotResultsFound/NotResultsFound';
 import axios from 'axios';
 import { createConversation } from '../../api/services/chatServices';
+import { Chip } from '@mui/material';
 
 function AdvertPage() {
   const history = useHistory();
   const currentUrl = window.location.href;
   const dispatch = useDispatch();
   const { id: advertId } = useParams();
+
   const userData = useSelector(getUserData);
   const advert = useSelector((state) => getAdvertDetail(state, advertId));
   const adverts = useSelector((state) => getAdverts(state));
@@ -68,15 +70,11 @@ function AdvertPage() {
   const handlerMessage = () => {
     createConversation({
       userSenderId: userData._id,
-      userReceiverId: advert.author,
+      userReceiverId: advert.author._id,
       advertisementId: advertId
     });
 
     history.push('/account/messages/');
-  };
-
-  const handlerBuy = () => {
-    alert('implement');
   };
 
   return advert ? (
@@ -93,12 +91,6 @@ function AdvertPage() {
                 <div className="col-left">
                   <div className="header">
                     <h1>{advert.name}</h1>
-                    <div>
-                      <div>
-                        <span>icon</span>
-                        <p>{}</p>
-                      </div>
-                    </div>
                   </div>
 
                   <div className="body">
@@ -107,20 +99,11 @@ function AdvertPage() {
                       <p>{advert.description}</p>
                     </div>
 
-                    {/* <div>
-                    <h3>Categories</h3>
-                    <ul>
-                      {advert?.categories.map((categorie, index) => (
-                        <li key={index}>{categorie.name}</li>
-                      ))}
-                    </ul>
-                  </div> */}
-
                     <div>
-                      <h3>Related tags</h3>
-                      <div>
+                      <h3>Tags</h3>
+                      <div className="tags">
                         {advert?.tags.map((tag, index) => (
-                          <p key={index}>{tag}</p>
+                          <Chip key={index} label={`${tag}`} />
                         ))}
                       </div>
                     </div>
@@ -137,17 +120,15 @@ function AdvertPage() {
                 </div>
                 <div className="col-right">
                   <div className="card">
-                    <div className="avatar-content">
-                      <Link to={`/user/${advert?.author._id}`}>
-                        <div>
-                          <img src={advert?.author.imageAvatar}></img>
-                        </div>
-                        <div>
-                          <p>{advert.author.name}</p>
-                          <ReviewStartAndCount reviewCount={45} reviewStart={3.5} />
-                        </div>
-                      </Link>
-                    </div>
+                    <Link className="avatar-content" to={`/user/${advert?.author._id}`}>
+                      <div>
+                        <img alt={advert?.author.name} src={advert?.author.imageAvatar}></img>
+                      </div>
+                      <div>
+                        <p>{advert.author.name}</p>
+                        <ReviewStartAndCount reviewCount={45} reviewStart={3.5} />
+                      </div>
+                    </Link>
 
                     <div className="buttons-group">
                       <Button secondaryOutline full onClick={handlerFollow}>
@@ -155,9 +136,6 @@ function AdvertPage() {
                       </Button>
                       <Button secondary full onClick={handlerMessage}>
                         Send Message
-                      </Button>
-                      <Button primary full onClick={handlerBuy}>
-                        Buy product
                       </Button>
                     </div>
 

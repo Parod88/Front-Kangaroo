@@ -26,8 +26,7 @@ function LogoutPage() {
         <div className="account-container">
           <h3>Hope to see you back soon</h3>
           <p>are you sure you want to logout from Kangaroo?</p>
-
-          <div>
+          <div className="buttons">
             <Link to="/">
               <Button primaryOutline>Cancel</Button>
             </Link>

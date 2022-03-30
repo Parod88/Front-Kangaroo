@@ -34,8 +34,6 @@ export const logout = () =>
     storage.remove('user_data');
   });
 
-// USER SERVICES
-
 export const forgottenPassword = (email) => {
   const url = `${usersURL}/forgot-password`;
   return axiosClient.put(url, {
