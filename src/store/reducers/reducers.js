@@ -112,7 +112,7 @@ export function adverts(advertsState = defaultState.adverts, action) {
     case ADVERT_LOADED_SUCCESS:
       return { ...advertsState, data: [...advertsState.data, action.payload.results] };
     case ADVERTS_CATEGORY_SUCCESS:
-        return { ...advertsState, data: action.payload.results };
+      return { ...advertsState, data: action.payload.results };
     default:
       return advertsState;
   }
@@ -147,7 +147,6 @@ export function ui(uiState = defaultState.ui, action) {
     case ADVERTS_LOADED_REQUEST:
     case ADVERT_LOADED_REQUEST:
     case CATEGORY_LOAD_REQUEST:
-    case TAGS_LOADED_FAILURE:
     case ADVERTS_CATEGORY_REQUEST:
     case TAGS_LOADED_REQUEST:
     case USERS_LOADED_REQUEST:
