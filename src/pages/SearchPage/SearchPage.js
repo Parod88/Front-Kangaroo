@@ -4,7 +4,7 @@ import './AdvertsPage.scss';
 import React, { useState } from 'react';
 import storage from '../../utils/storage';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadAdvertsByCategory, loadPaginatedAdverts } from '../../store/actions';
+import { loadPaginatedAdverts } from '../../store/actions';
 import { getAdverts, getUi } from '../../store/selectors/selectors';
 import { useEffect } from 'react';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
@@ -16,17 +16,11 @@ import { Toaster, toast } from 'react-hot-toast';
 import LoadingBox from '../../components/LoadingBox/LoadingBox';
 import CustomToaster from '../../components/CustomToaster/CustomToaster';
 import { defaultFilters, filterAds } from './service';
-import { useParams } from 'react-router-dom';
 
 const getFilters = () => storage.get('filters') || defaultFilters;
 const saveFilters = (filters) => storage.set('filters', filters);
 
 function AdvertsPage(history, ...props) {
-
-  
-  const {id} = useParams()
-  console.log(id)
-  
   const dispatch = useDispatch();
   const { isLoading, error } = useSelector(getUi);
   useEffect(() => {
@@ -47,12 +41,7 @@ function AdvertsPage(history, ...props) {
   }, [filters]);
 
   useEffect(() => {
-    if(!id){
-      dispatch(loadPaginatedAdverts());
-    } else {
-      dispatch(loadAdvertsByCategory(id));
-    }
-    
+    dispatch(loadPaginatedAdverts());
   }, [dispatch]);
 
   const adverts = useSelector(getAdverts);
@@ -81,7 +70,7 @@ function AdvertsPage(history, ...props) {
                     <li key={advert._id}>
                       <AdvertCard advert={advert} />
                     </li>
-                    ))
+                  ))
                 ) : (
                   <div>
                     <NotResultsFound />

@@ -73,3 +73,9 @@ export {
   TAGS_LOADED_SUCCESS,
   TAGS_LOADED_FAILURE
 } from './TagsTypes';
+
+export {
+ADVERTS_CATEGORY_FAILURE,
+ADVERTS_CATEGORY_REQUEST,
+ADVERTS_CATEGORY_SUCCESS
+} from './AdvertsCategoriesTypes'

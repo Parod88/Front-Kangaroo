@@ -27,7 +27,10 @@ import {
   CATEGORY_LOAD_FAILURE,
   TAGS_LOADED_FAILURE,
   TAGS_LOADED_SUCCESS,
-  TAGS_LOADED_REQUEST
+  TAGS_LOADED_REQUEST,
+  ADVERTS_CATEGORY_REQUEST,
+  ADVERTS_CATEGORY_SUCCESS,
+  ADVERTS_CATEGORY_FAILURE
 } from '../types/';
 
 const defaultState = {
@@ -96,6 +99,8 @@ export function adverts(advertsState = defaultState.adverts, action) {
 
     case ADVERT_LOADED_SUCCESS:
       return { ...advertsState, data: [...advertsState.data, action.payload.results] };
+    case ADVERTS_CATEGORY_SUCCESS:
+        return { ...advertsState, data: action.payload.results };
     default:
       return advertsState;
   }
@@ -130,6 +135,7 @@ export function ui(uiState = defaultState.ui, action) {
     case ADVERT_LOADED_REQUEST:
     case CATEGORY_LOAD_REQUEST:
     case TAGS_LOADED_FAILURE:
+    case ADVERTS_CATEGORY_REQUEST:
       return { ...uiState, isLoading: true, error: null };
     case LOGIN_SUCCESS:
     case USER_SIGNUP_SUCCESS:
@@ -140,6 +146,7 @@ export function ui(uiState = defaultState.ui, action) {
     case ADVERT_LOADED_SUCCESS:
     case CATEGORY_LOAD_SUCCESS:
     case TAGS_LOADED_SUCCESS:
+    case ADVERTS_CATEGORY_SUCCESS:
       return { ...uiState, isLoading: false, error: null };
     case LOGIN_FAILURE:
     case USER_SIGNUP_FAILURE:
@@ -150,6 +157,7 @@ export function ui(uiState = defaultState.ui, action) {
     case ADVERT_LOADED_FAILURE:
     case CATEGORY_LOAD_FAILURE:
     case TAGS_LOADED_FAILURE:
+    case ADVERTS_CATEGORY_FAILURE:
       return { ...uiState, isLoading: false, error: action.payload };
     default:
       return uiState;
