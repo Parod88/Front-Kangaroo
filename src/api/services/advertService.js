@@ -1,3 +1,4 @@
+import axios from 'axios';
 import axiosClient from '../client';
 
 const apiAdvertsURL = process.env.REACT_APP_ADVERTS_BASE_URL;
@@ -12,11 +13,15 @@ export const getLatestPaginatedAdverts = async () => {
   return await axiosClient.get(url);
 };
 
-export const getAdvertsByCategory = async (Id) => {
-  const url = `${apiAdvertsURL}/categories/${Id}`
+export const getUserAdverts = async (authorId) => {
+  const url = `${apiAdvertsURL}/author/${authorId}`;
   return await axiosClient.get(url);
+};
 
-}
+export const getAdvertsByCategory = async (Id) => {
+  const url = `${apiAdvertsURL}/categories/${Id}`;
+  return await axiosClient.get(url);
+};
 
 export const getSingleAdvert = async (id) => {
   const url = `${apiAdvertsURL}/${id}`;

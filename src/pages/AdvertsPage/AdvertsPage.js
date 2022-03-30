@@ -22,11 +22,8 @@ const getFilters = () => storage.get('filters') || defaultFilters;
 const saveFilters = (filters) => storage.set('filters', filters);
 
 function AdvertsPage(history, ...props) {
+  const { id } = useParams();
 
-  
-  const {id} = useParams()
-  console.log(id)
-  
   const dispatch = useDispatch();
   const { isLoading, error } = useSelector(getUi);
   useEffect(() => {
@@ -37,7 +34,6 @@ function AdvertsPage(history, ...props) {
 
   //TODO: read params url and load data. Adverts general or categorie
   const [filters, setFilters] = useState(getFilters);
-  // //TODO: read params url and load data. Adverts general or categorie
 
   // //TODO: Limit pagination is a mock data
   const limitPagination = 300;
@@ -47,12 +43,11 @@ function AdvertsPage(history, ...props) {
   }, [filters]);
 
   useEffect(() => {
-    if(!id){
+    if (!id) {
       dispatch(loadPaginatedAdverts());
     } else {
       dispatch(loadAdvertsByCategory(id));
     }
-    
   }, [dispatch]);
 
   const adverts = useSelector(getAdverts);
@@ -81,7 +76,7 @@ function AdvertsPage(history, ...props) {
                     <li key={advert._id}>
                       <AdvertCard advert={advert} />
                     </li>
-                    ))
+                  ))
                 ) : (
                   <div>
                     <NotResultsFound />

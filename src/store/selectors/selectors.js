@@ -4,6 +4,7 @@ export const areAdvertsLoaded = (state) => state.adverts.loaded;
 
 export const getUserAuth = (state) => state.auth;
 export const getUserData = (state) => state.userData;
+export const getPublicUser = (state) => state.publicUser;
 
 export const getCategories = (state) => state.categories;
 export const getCategoryDetail = (state, id) =>
@@ -16,4 +17,3 @@ export const getTags = (state) => state.tags;
 export const getIsLogged = (state) => state.auth;
 
 export const getUi = (state) => state.ui;
-

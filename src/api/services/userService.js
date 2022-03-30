@@ -84,7 +84,11 @@ export const getAllUsers = async () => {
 
 export const getOneUserForId = async (userId) => {
   const url = `${usersURL}/${userId}`;
-  return await axiosClient.get(url);
+  return await axiosClient.get(url).then(({ results }) => {
+    const { _id, name, email, imageAvatar, location, followers, followings, personalDescription } =
+      results;
+    return { _id, name, email, imageAvatar, location, followers, followings, personalDescription };
+  });
 };
 
 export const updateUser = async (userInfo, userId) => {
