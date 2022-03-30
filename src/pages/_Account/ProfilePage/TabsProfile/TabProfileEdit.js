@@ -20,8 +20,6 @@ function TabProfileEdit() {
     }
   }, [dispatch, userData]);
 
-  console.log('userData', userData);
-
   const [userConfigData, setUserConfigData] = useState({
     imageAvatar: '',
     name: '',
