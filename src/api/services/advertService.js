@@ -13,8 +13,8 @@ export const getLatestPaginatedAdverts = async () => {
   return await axiosClient.get(url);
 };
 
-export const getUserAdverts = async () => {
-  const url = `${apiAdvertsURL}/p&1`;
+export const getUserAdverts = async (authorId) => {
+  const url = `${apiAdvertsURL}/author/${authorId}`;
   return await axiosClient.get(url);
 };
 
