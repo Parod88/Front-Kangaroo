@@ -50,6 +50,11 @@ export const resetForgottenPassword = (data, userToken) => {
   });
 };
 
+export const setNewPassword = (newPassword, userId) => {
+  const url = `${usersURL}/change-password/${userId}`;
+  return axiosClient.put(url, newPassword);
+};
+
 export const registerNewAccount = (newUser) => {
   // const registerNewUser = new FormData();
   // registerNewUser.append('username', newUser.username);

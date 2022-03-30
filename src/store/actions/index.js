@@ -83,3 +83,10 @@ export {
   userDetailFailure,
   loadUserDetail
 } from './UserActions';
+
+export {
+  changePasswordRequest,
+  changePasswordSuccess,
+  changePasswordFailure,
+  changePassword
+} from './ChangePasswordActions';
