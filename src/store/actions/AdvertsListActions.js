@@ -84,3 +84,16 @@ export function loadAdvertsByCategory(id){
     }
   };
 }
+
+export function loadAdvertsByName(name){
+  return async function (dispatch, getState, { api }) {
+    dispatch(advertsCategoryRequest());
+    try {
+      const adverts = await api.adverts.getAdvertsByName(name);
+      console.log("ADVERTS", adverts);
+      dispatch(advertsCategorySuccess(adverts));
+    } catch (error) {
+      dispatch(advertsCategoryFailure(error));
+    }
+  };
+}

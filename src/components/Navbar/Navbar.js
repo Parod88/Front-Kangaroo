@@ -7,17 +7,32 @@ import { getUserAuth, getUserData } from '../../store/selectors/selectors';
 import { useSelector } from 'react-redux';
 import ChatIcon from '@mui/icons-material/Chat';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import {useState} from 'react';
+import { useHistory } from 'react-router-dom';
 import './Navbar.scss';
 
 function Navbar() {
+  const history = useHistory()
   const userIsAuth = useSelector(getUserAuth);
   const userData = useSelector(getUserData);
 
-  const handlerSearch = () => {
-    alert('implement');
+  const [filter, setFilter] = useState([]);
+
+  const handleChange = e => {
+    setFilter(e.target.value)
+    console.log(e.target.value)
+  }
+
+  const handleSubmit = (onSubmit) => (ev) => {
+    ev.preventDefault();
+    onSubmit(filter);
   };
 
+  const {name} = filter;
   const [t, i18n] = useTranslation('global');
+
+  const value = `?name=${filter}`
+
   return (
     <header id="navbar">
       <div className="container grid">
@@ -29,19 +44,27 @@ function Navbar() {
             <span>{t('navbar.profile')}</span>
           </Link>
         </div>
+        
+        <form className="form" onSubmit={handleSubmit} value={value}>
         <div className="nav-section-search">
           <span className="icon">
             <SearchOutlinedIcon />
           </span>
           <input
-            className="input"
+            className="filter-name"
+            placeholder="Search by name"
+            name="name"
             type="text"
-            id="search"
-            placeholder={t('navbar.searchbar')}
-            required
-            onChange={handlerSearch}
+            value={name}
+            onChange={handleChange}
           ></input>
+          <Button primaryOutline type="submit" onClick={() => { history.push(`/adverts/${value}`)}}>
+              🔎 Filter
+          </Button>
         </div>
+        
+        </form>
+        
 
         <div className="nav-section-buttons">
           <div className="language">

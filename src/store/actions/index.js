@@ -33,7 +33,8 @@ export {
   advertsCategoryFailure,
   advertsCategoryRequest,
   advertsCategorySuccess,
-  loadAdvertsByCategory
+  loadAdvertsByCategory, 
+  loadAdvertsByName
 } from './AdvertsListActions';
 
 export {

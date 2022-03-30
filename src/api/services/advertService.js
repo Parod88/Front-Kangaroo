@@ -47,3 +47,9 @@ export const getTags = async () => {
   const url = `${apiAdvertsURL}/tags`;
   return await axiosClient.get(url);
 };
+
+export const getAdvertsByName = async (name) => {
+  const url = `${apiAdvertsURL}/?name=${name}`;
+  return await axiosClient.get(url);
+
+}

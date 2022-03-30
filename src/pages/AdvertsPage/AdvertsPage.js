@@ -4,7 +4,7 @@ import './AdvertsPage.scss';
 import React, { useState } from 'react';
 import storage from '../../utils/storage';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadAdvertsByCategory, loadPaginatedAdverts } from '../../store/actions';
+import { loadAdvertsByCategory, loadPaginatedAdverts, loadAdvertsByName } from '../../store/actions';
 import { getAdverts, getUi } from '../../store/selectors/selectors';
 import { useEffect } from 'react';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
@@ -17,15 +17,17 @@ import LoadingBox from '../../components/LoadingBox/LoadingBox';
 import CustomToaster from '../../components/CustomToaster/CustomToaster';
 import { defaultFilters, filterAds } from './service';
 import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom'; 
 
 const getFilters = () => storage.get('filters') || defaultFilters;
 const saveFilters = (filters) => storage.set('filters', filters);
 
-function AdvertsPage(history, ...props) {
+function AdvertsPage(value, history, ...props) {
 
-  
-  const {id} = useParams()
-  console.log(id)
+  const location = useLocation();
+  const {id} = useParams();
+  const route = location.search
+  console.log("ROUTE", route)
   
   const dispatch = useDispatch();
   const { isLoading, error } = useSelector(getUi);
