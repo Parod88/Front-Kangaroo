@@ -28,6 +28,9 @@ import {
   TAGS_LOADED_FAILURE,
   TAGS_LOADED_SUCCESS,
   TAGS_LOADED_REQUEST,
+  ADVERTS_CATEGORY_REQUEST,
+  ADVERTS_CATEGORY_SUCCESS,
+  ADVERTS_CATEGORY_FAILURE,
   USERS_LOADED_FAILURE,
   USERS_LOADED_REQUEST,
   USERS_LOADED_SUCCESS,
@@ -105,6 +108,8 @@ export function adverts(advertsState = defaultState.adverts, action) {
 
     case ADVERT_LOADED_SUCCESS:
       return { ...advertsState, data: [...advertsState.data, action.payload.results] };
+    case ADVERTS_CATEGORY_SUCCESS:
+        return { ...advertsState, data: action.payload.results };
     default:
       return advertsState;
   }
@@ -138,6 +143,8 @@ export function ui(uiState = defaultState.ui, action) {
     case ADVERTS_LOADED_REQUEST:
     case ADVERT_LOADED_REQUEST:
     case CATEGORY_LOAD_REQUEST:
+    case TAGS_LOADED_FAILURE:
+    case ADVERTS_CATEGORY_REQUEST:
     case TAGS_LOADED_REQUEST:
     case USERS_LOADED_REQUEST:
     case USER_LOADED_REQUEST:
@@ -152,6 +159,7 @@ export function ui(uiState = defaultState.ui, action) {
     case ADVERT_LOADED_SUCCESS:
     case CATEGORY_LOAD_SUCCESS:
     case TAGS_LOADED_SUCCESS:
+    case ADVERTS_CATEGORY_SUCCESS:
     case USERS_LOADED_SUCCESS:
     case USER_LOADED_SUCCESS:
     case USER_UPDATE_SUCCESS:
@@ -165,6 +173,7 @@ export function ui(uiState = defaultState.ui, action) {
     case ADVERT_LOADED_FAILURE:
     case CATEGORY_LOAD_FAILURE:
     case TAGS_LOADED_FAILURE:
+    case ADVERTS_CATEGORY_FAILURE:
     case USERS_LOADED_FAILURE:
     case USER_UPDATE_FAILURE:
     case USER_LOADED_FAILURE:

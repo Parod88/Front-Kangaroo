@@ -12,6 +12,12 @@ export const getLatestPaginatedAdverts = async () => {
   return await axiosClient.get(url);
 };
 
+export const getAdvertsByCategory = async (Id) => {
+  const url = `${apiAdvertsURL}/categories/${Id}`
+  return await axiosClient.get(url);
+
+}
+
 export const getSingleAdvert = async (id) => {
   const url = `${apiAdvertsURL}/${id}`;
   return await axiosClient.get(url);
