@@ -53,6 +53,7 @@ function App({ ...props }) {
 
       <PrivateRoute exact path="/account/products/create/new-product" component={AdvertCreate} />
       <PrivateRoute exact path="/account/products/edit/:id" component={AdvertEdit} />
+      <PrivateRoute exact path="/account/products" component={ProductsPage} />
 
       {/*Public routes*/}
       {/*TODO: change parameters routers, example /advert/:id */}
