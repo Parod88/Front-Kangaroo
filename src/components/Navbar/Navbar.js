@@ -9,6 +9,9 @@ import ChatIcon from '@mui/icons-material/Chat';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import './Navbar.scss';
 
+const urlNoImage =
+  'https://res.cloudinary.com/kangaroomailer/image/upload/v1647891889/kangaroo/adverts/noimage_deiv4x.jpg';
+
 function Navbar() {
   const userIsAuth = useSelector(getUserAuth);
   const userData = useSelector(getUserData);
@@ -70,7 +73,11 @@ function Navbar() {
             <div className="user-data">
               <Link to={`/account/profile/${userData._id}`}>
                 <div className="avatar">
-                  <img alt={userData?.name} className="avatar-image" src={userData?.imageAvatar} />
+                  <img
+                    alt={''}
+                    className="avatar-image"
+                    src={userData ? userData.imageAvatar : urlNoImage}
+                  />
                   <div>
                     <p>Hello</p>
                     <p className="name">{userData?.name}</p>

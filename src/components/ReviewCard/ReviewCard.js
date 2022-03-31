@@ -16,7 +16,7 @@ function ReviewCard({ review, author, ...props }) {
       </div>
       <div>
         <Link to={`/user/${author?._id}`}>
-          <h4>Ali Tufón</h4>
+          <h4>{author?.name}</h4>
         </Link>
         <p>{updatedAt}</p>
         <ReviewStart reviewRating={rating} />

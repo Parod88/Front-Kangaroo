@@ -41,8 +41,8 @@ function HomePage() {
 
             <SectionSlider
               adverts={adverts}
-              title={'Featured consoles'}
-              subtitle={'Discover the most desired consoles of the moment'}
+              title={'Our home selection'}
+              subtitle={'The best products for your home'}
               category={'category'}
               limit={4}
             />
