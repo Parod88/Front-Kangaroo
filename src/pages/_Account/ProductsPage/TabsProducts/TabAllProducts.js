@@ -1,18 +1,20 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AdvertCardAccount from '../../../../components/AdvertCardAccount/AdvertCardAccount';
-import { loadPaginatedAdverts } from '../../../../store/actions';
+import { loadPaginatedAdverts, loadUserAdverts } from '../../../../store/actions';
 import { getAdverts } from '../../../../store/selectors/selectors';
 import NotResultsFound from '../../../../components/NotResultsFound/NotResultsFound';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 function TabAllProducts() {
   const dispatch = useDispatch();
+  const { userId } = useParams();
   const limitPagination = 300;
 
   const adverts = useSelector(getAdverts);
 
   useEffect(() => {
-    dispatch(loadPaginatedAdverts());
+    dispatch(loadUserAdverts(userId));
   }, [dispatch]);
 
   return (

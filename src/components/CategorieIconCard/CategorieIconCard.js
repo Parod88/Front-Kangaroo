@@ -11,7 +11,8 @@ function CategorieIconCard({ category }) {
       <div id="categorie-icon-card">
         <img className="icon-category" alt={`icon ${category?.name}`} src={category?.icon}></img>
         <h5>{category?.name}</h5>
-        <p>+ {Math.floor(Math.random() * 100)} Products</p>
+        {/* <p>+ {Math.floor(Math.random() * 100)} Products</p> */}
+        <p>+ {category.adverts.length} Products</p>
       </div>
     </Link>
   );
