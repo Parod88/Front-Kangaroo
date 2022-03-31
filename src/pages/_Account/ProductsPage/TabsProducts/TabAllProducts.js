@@ -13,7 +13,7 @@ function TabAllProducts() {
 
   useEffect(() => {
     dispatch(loadPaginatedAdverts());
-  }, [dispatch, adverts]);
+  }, [dispatch]);
 
   return (
     <>
