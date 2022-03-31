@@ -26,24 +26,25 @@ function ProductsPage() {
             <Tab>For Sale</Tab>
             <Tab>Finished</Tab>
             <Tab>Inactive</Tab>
-            <Tab>Purchased</Tab>
+            {/* <Tab>Purchased</Tab> */}
           </TabList>
           <div className="account-container">
             <TabPanel>
               <TabAllProducts />
             </TabPanel>
             <TabPanel>
-              <TabProductsFinished />
+              <TabProductsForSale />
             </TabPanel>
             <TabPanel>
-              <TabProductsForSale />
+              <TabProductsFinished />
             </TabPanel>
             <TabPanel>
               <TabProductsInactive />
             </TabPanel>
-            <TabPanel>
+            {/* Implement */}
+            {/* <TabPanel>
               <TabProductsPurchased />
-            </TabPanel>
+            </TabPanel> */}
           </div>
         </Tabs>
       </div>

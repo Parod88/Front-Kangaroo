@@ -24,7 +24,7 @@ function AdvertCreate({ ...props }) {
   const { isLoading, error } = useSelector(getUi);
 
   const userData = useSelector(getUserData);
-  const userIsAuth = useSelector(getUserAuth);
+  // const userIsAuth = useSelector(getUserAuth);
 
   const [advertConfigData, setAdvertConfigData] = useState({
     name: '',
