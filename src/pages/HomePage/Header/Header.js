@@ -17,7 +17,7 @@ function Header() {
               {t('header.publishedproducts')}
             </h1>
             {/*TODO: Implement redirection to login in case you are not logged in. */}
-            <Link to="/account/products/create">
+            <Link to="/account/products/create/new-product">
               <Button secondaryOutline>{t('header.uploadproduct')}</Button>
             </Link>
           </div>

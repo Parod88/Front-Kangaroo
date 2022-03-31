@@ -27,7 +27,11 @@ function SidebarAccount() {
           </NavLink>
         </li>
         <li>
-          <NavLink className="item" to={`/account/products`} activeClassName="selected">
+          <NavLink
+            className="item"
+            to={`/account/products/${userData._id}`}
+            activeClassName="selected"
+          >
             <ArticleOutlinedIcon />
             <p>Products</p>
           </NavLink>

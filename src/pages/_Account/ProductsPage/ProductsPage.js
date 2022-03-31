@@ -17,7 +17,7 @@ function ProductsPage() {
       subtitle={'Lorem ipsum dolor sit amet, consectetur'}
       haveButton={true}
       textButton={`Create new product`}
-      urlButton={'/account/products/create'}
+      urlButton={'/account/products/create/new-product'}
     >
       <div id="products-page">
         <Tabs>
