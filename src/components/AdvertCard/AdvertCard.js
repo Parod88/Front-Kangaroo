@@ -4,6 +4,11 @@ import AdvertImage from '../AdvertImage/AdvertImage';
 import ReviewStartAndCount from '../ReviewStartAndCount/ReviewStartAndCount';
 import './AdvertCard.scss';
 
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FmdGoodIcon from '@mui/icons-material/FmdGood';
+import { IconButton, ToggleButton } from '@mui/material';
+
 const urlNoImage =
   'https://res.cloudinary.com/kangaroomailer/image/upload/v1647891889/kangaroo/adverts/noimage_deiv4x.jpg';
 
@@ -12,29 +17,26 @@ const { formatDistanceToNow } = require('date-fns');
 const AdvertCard = ({ advert, ...props }) => {
   const { _id, name, description, price, image, author, updatedAt } = advert;
 
-  const [isFavorite, setIsFavorite] = useState(true);
+  const [isFavorite, setIsFavorite] = useState(false);
 
-  const handleFavorite = () => {
-    //TODO:Implement
-    alert('implement');
-    setIsFavorite(false ? true : false);
-  };
+  //TODO:Implement save favorites
 
   return (
     <article id="product-card">
       <div className="header">
         <div className="icon-container">
-          <button
-            className="button-favorites"
-            aria-label="add to favorites"
-            onClick={handleFavorite}
-          >
-            {isFavorite ? (
-              <p className="is-favorite">FavYes</p>
-            ) : (
-              <p className="not-favorite">FavNot</p>
-            )}
-          </button>
+          <div className="button-favorites">
+            <ToggleButton
+              className="button-favorites"
+              value="check"
+              selected={isFavorite}
+              onChange={() => {
+                setIsFavorite(!isFavorite);
+              }}
+            >
+              {!isFavorite ? <FavoriteBorderIcon /> : <FavoriteIcon />}
+            </ToggleButton>
+          </div>
         </div>
       </div>
       <Link to={`/advert/${_id}`}>

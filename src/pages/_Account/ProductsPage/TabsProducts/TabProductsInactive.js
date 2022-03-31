@@ -1,21 +1,23 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+
 import AdvertCardAccount from '../../../../components/AdvertCardAccount/AdvertCardAccount';
-import { loadPaginatedAdverts } from '../../../../store/actions';
+import { loadUserAdverts } from '../../../../store/actions';
 import { getAdverts } from '../../../../store/selectors/selectors';
 import NotResultsFound from '../../../../components/NotResultsFound/NotResultsFound';
 
 function TabProductsInactive() {
   const dispatch = useDispatch();
-  //TODO: load only adverts user
-
+  const { userId } = useParams();
   const limitPagination = 300;
 
   useEffect(() => {
-    dispatch(loadPaginatedAdverts());
+    dispatch(loadUserAdverts(userId));
   }, [dispatch]);
 
-  const adverts = useSelector(getAdverts);
+  const preloadedAdverts = useSelector(getAdverts);
+  const adverts = preloadedAdverts.filter((advert) => advert.state === 'Inactive');
 
   return (
     <section>

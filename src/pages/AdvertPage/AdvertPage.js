@@ -131,9 +131,9 @@ function AdvertPage() {
                     </Link>
 
                     <div className="buttons-group">
-                      <Button secondaryOutline full onClick={handlerFollow}>
+                      {/* <Button secondaryOutline full onClick={handlerFollow}>
                         Follow
-                      </Button>
+                      </Button> */}
                       <Button secondary full onClick={handlerMessage}>
                         Send Message
                       </Button>
