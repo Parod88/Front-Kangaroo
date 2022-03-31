@@ -51,7 +51,7 @@ function App({ ...props }) {
       <PrivateRoute exact path="/account/reviews" component={ReviewsPage} />
       <PrivateRoute exact path="/account/logout" component={LogoutPage} />
 
-      <PrivateRoute exact path="/account/products/create" component={AdvertCreate} />
+      <PrivateRoute exact path="/account/products/create/new-product" component={AdvertCreate} />
       <PrivateRoute exact path="/account/products/edit/:id" component={AdvertEdit} />
 
       {/*Public routes*/}
