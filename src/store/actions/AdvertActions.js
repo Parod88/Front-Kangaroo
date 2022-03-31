@@ -9,6 +9,11 @@ import {
   ADVERT_UPDATE_REQUEST,
   ADVERT_UPDATE_SUCCESS
 } from '../types';
+import {
+  ADVERT_REVIEW_CREATE_FAILURE,
+  ADVERT_REVIEW_CREATE_REQUEST,
+  ADVERT_REVIEW_CREATE_SUCCESS
+} from '../types/AdvertTypes';
 
 //===================================================================
 //Create
@@ -117,6 +122,43 @@ export function deleteAdvert(advertId) {
       history.push(`/account/products`);
     } catch (error) {
       dispatch(advertDeleteFailure(error));
+    }
+  };
+}
+
+//===================================================================
+//Create Review
+//===================================================================
+export function advertReviewCreateReview() {
+  return {
+    type: ADVERT_REVIEW_CREATE_REQUEST
+  };
+}
+
+export function advertReviewCreateSuccess(newReview) {
+  return {
+    type: ADVERT_REVIEW_CREATE_SUCCESS,
+    payload: newReview
+  };
+}
+
+export function advertReviewCreateFailure(error) {
+  return {
+    type: ADVERT_REVIEW_CREATE_FAILURE,
+    error: true,
+    payload: error
+  };
+}
+
+export function createAdvertReview(advertId, review) {
+  return async function (dispatch, getState, { api, history }) {
+    dispatch(advertCreateRequest());
+    try {
+      const advertReviewCreate = await api.adverts.createAdvertReview(advertId, review);
+      dispatch(advertReviewCreateSuccess(advertReviewCreate));
+      history.push(`/account/products`);
+    } catch (error) {
+      dispatch(advertReviewCreateFailure(error));
     }
   };
 }

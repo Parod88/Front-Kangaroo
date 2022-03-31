@@ -5,5 +5,11 @@
     justify-content: center;
     gap: 2rem;
     padding: 2rem;
+
+    .tab-grid-cards {
+      display: grid;
+      gap: 1.875rem;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
   }
 }

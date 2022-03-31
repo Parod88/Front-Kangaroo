@@ -1,6 +1,8 @@
 import React from 'react';
 import './Message.scss';
 
+const { formatDistanceToNow } = require('date-fns');
+
 function Message({ message, own }) {
   return (
     <div id="message">
@@ -9,8 +11,7 @@ function Message({ message, own }) {
           <img src="https://i.pravatar.cc/500" alt="" />
           <div>
             <p className="message-text">{message.text}</p>
-            <div className="message-bottom">{message.createdAt}</div>
-            {/*TODO: Transform data format */}
+            <div className="message-bottom">{formatDistanceToNow(new Date(message.createdAt))}</div>
           </div>
         </div>
       </div>

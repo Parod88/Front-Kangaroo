@@ -27,8 +27,7 @@ export function loadCategoriesFailure(error) {
 
 export function loadCategories() {
   return async function (dispatch, getState, { api, history }) {
-    const existCategories = getCagetoriesIsLoaded(getState());
-    if (existCategories) {
+    if (getCagetoriesIsLoaded(getState())) {
       return;
     }
     dispatch(loadCategoriesRequest());

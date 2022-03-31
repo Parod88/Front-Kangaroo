@@ -34,8 +34,6 @@ export const logout = () =>
     storage.remove('user_data');
   });
 
-// USER SERVICES
-
 export const forgottenPassword = (email) => {
   const url = `${usersURL}/forgot-password`;
   return axiosClient.put(url, {
@@ -50,6 +48,11 @@ export const resetForgottenPassword = (data, userToken) => {
     newPassword: `${data.password}`,
     newPasswordConfirmation: `${data.confirmPassword}`
   });
+};
+
+export const setNewPassword = (newPassword, userId) => {
+  const url = `${usersURL}/change-password/${userId}`;
+  return axiosClient.put(url, newPassword);
 };
 
 export const registerNewAccount = (newUser) => {
@@ -81,11 +84,15 @@ export const getAllUsers = async () => {
 
 export const getOneUserForId = async (userId) => {
   const url = `${usersURL}/${userId}`;
-  return await axiosClient.get(url);
+  return await axiosClient.get(url).then(({ results }) => {
+    const { _id, name, email, imageAvatar, location, followers, followings, personalDescription } =
+      results;
+    return { _id, name, email, imageAvatar, location, followers, followings, personalDescription };
+  });
 };
 
 export const updateUser = async (userInfo, userId) => {
-  const url = `${usersURL}/${userId}`;
+  const url = `${usersURL}/${userInfo._id}`;
   return await axiosClient.put(url, userInfo);
 };
 

@@ -1,36 +1,40 @@
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import Button from '../../../components/Button/Button';
+import AdvertCard from '../../../components/AdvertCard/AdvertCard';
 import LayoutAccount from '../../../components/LayoutAccount/LayoutAccount';
 import './ChatPage.scss';
 import ChatUsersOnline from './ChatUsersOnline/ChatUsersOnline';
 import Conversation from './Conversation/Conversation';
 import Message from './Message/Message';
 import { io } from 'socket.io-client';
+import { useSelector } from 'react-redux';
+import { getUserData } from '../../../store/selectors/selectors';
+import { loadAdvertDetail } from '../../../store/actions';
+import { useDispatch } from 'react-redux';
+import {
+  getAllMessagesConversation,
+  getAllUserConversations,
+  createMessage
+} from '../../../api/services/chatServices';
+import { getSingleAdvert } from '../../../api/services/advertService';
 
 function ChatPage() {
   //TODO: User data mock simulate login. Implemento with redux and finaly authentication
 
+  const dispatch = useDispatch();
+
   const [conversations, setConversations] = useState([]);
-  const [currentConversation, setcurrentConversation] = useState(null);
+  const [currentConversation, setcurrentConversation] = useState({});
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
+  const [conversationAdvert, setConversationAdvert] = useState(null);
+
   const socket = useRef();
   const scrollRef = useRef();
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const user = {
-    _id: '621bf293e5330d28f939097b',
-    name: 'WallacloneAdmin',
-    email: 'admin@wallaclone.com',
-    password: '$2a$10$LVlsiH6CmLa77LddL8hDT.yJwgnhrnMESjkWp2nksMdcAnWW/FRai',
-    imageAvatar: 'https://i.pravatar.cc/500',
-    isAdmin: true,
-    createdAt: '2022-02-27T21:52:19.752Z',
-    updatedAt: '2022-02-27T21:52:19.752Z'
-  };
+  const userData = useSelector(getUserData);
 
   //TODO: Refactoring with Redux
 
@@ -46,69 +50,91 @@ function ChatPage() {
     });
   }, []);
 
+  //Read message, extract user and change state message list
   useEffect(() => {
     arrivalMessage &&
-      currentConversation?.members.includes(arrivalMessage.userSenderId) &&
+      currentConversation.members.includes(arrivalMessage.userSenderId) &&
       setMessages((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage, currentConversation]);
 
+  //Online users
   useEffect(() => {
-    socket.current.emit('addUser', user._id);
+    socket.current.emit('addUser', userData._id);
     //TODO:Filter users followin video
     socket.current.on('getUsers', (users) => {
       setOnlineUsers(users);
     });
-  }, []);
+  }, [userData]);
 
   //Get all conversations users
   useEffect(() => {
     const getConversations = async () => {
       try {
-        const res = await axios.get('http://localhost:3000/api/v1/chat/conversation/' + user._id);
-        setConversations(res.data.results);
+        const res = await getAllUserConversations(userData._id);
+        // console.log('getConversations', res.results);
+        setConversations(res.results);
       } catch (err) {
         console.log(err);
       }
     };
 
-    getConversations();
-  }, [user._id]);
+    if (userData) {
+      getConversations();
+    }
+  }, [userData]);
 
   //TODO: Refactoring with Redux
   //Get messages current conversation
   useEffect(() => {
     const getMessages = async () => {
       try {
-        const res = await axios.get(
-          'http://localhost:3000/api/v1/chat/message/' + currentConversation._id
-        );
-        setMessages(res.data.results);
+        const res = await getAllMessagesConversation(currentConversation._id);
+        // console.log('getMessages', res);
+        setMessages(res.results);
       } catch (err) {
         console.log(err);
       }
     };
-    getMessages();
+    if (currentConversation._id) {
+      getMessages();
+    }
+  }, [currentConversation]);
+
+  //Return advert of conversation
+  useEffect(() => {
+    const getAdvert = async () => {
+      try {
+        const res = await getSingleAdvert(currentConversation.advertisement);
+        setConversationAdvert(res.results);
+      } catch (err) {
+        console.log('error: ', err);
+      }
+    };
+
+    if (currentConversation.advertisement) {
+      getAdvert();
+    }
   }, [currentConversation]);
 
   const handleSubmitMessage = async (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     const sendMessage = {
-      userSenderId: user._id,
+      userSenderId: userData._id,
       conversationId: currentConversation._id,
       text: newMessage
     };
 
     //Socket
-    const userReceiverId = currentConversation.members.find((member) => member !== user._id);
+    const userReceiverId = currentConversation.members.find((member) => member !== userData._id);
     socket.current.emit('SendMessage', {
-      userSenderId: user._id,
+      userSenderId: userData._id,
       userReceiverId: userReceiverId,
       text: newMessage
     });
 
     try {
-      const res = await axios.post('http://localhost:3000/api/v1/chat/message', sendMessage);
-      setMessages([...messages, res.data.results]);
+      const res = await createMessage(sendMessage);
+      setMessages([...messages, res.results]);
       setNewMessage(''); //Reset input
     } catch (err) {
       console.log(err);
@@ -129,24 +155,16 @@ function ChatPage() {
         <div className="chat-container">
           {/*Menu */}
           <div className="chat-col-menu">
-            <div className="input-item">
-              <input
-                className="input"
-                type="text"
-                id="search"
-                placeholder="Enter user name"
-              ></input>
-            </div>
+            <h4>Your conversations</h4>
             <div className="chat-col-menu-box">
-              {conversations.map((conversation) => (
+              {conversations.map((conversation, index) => (
                 //Select one conversation in list conversations and currentConversation
-                <div key={conversation._id} onClick={() => setcurrentConversation(conversation)}>
-                  <Conversation conversation={conversation} currentUser={user} />
+                <div key={index} onClick={() => setcurrentConversation(conversation)}>
+                  <Conversation conversation={conversation} currentUser={userData} />
                 </div>
               ))}
             </div>
           </div>
-
           {/*Box */}
           <div className="chat-col-messages">
             <div className="chat-col-messages-box">
@@ -155,21 +173,26 @@ function ChatPage() {
                   <div className="chat-box-top">
                     {messages.map((message) => (
                       <div key={message._id} ref={scrollRef}>
-                        <Message message={message} own={message.userSenderId === user._id} />
+                        <Message message={message} own={message.userSenderId === userData._id} />
                       </div>
                     ))}
                   </div>
                   <div className="chat-box-bottom">
                     <div className="input-item">
-                      <textarea
+                      <input
                         className="input "
                         type="text"
                         id="message"
                         placeholder="Write your message..."
                         col="30"
                         value={newMessage}
+                        onKeyPress={(event) => {
+                          if (event.key === 'Enter') {
+                            handleSubmitMessage();
+                          }
+                        }}
                         onChange={(event) => setNewMessage(event.target.value)}
-                      ></textarea>
+                      ></input>
                     </div>
                     <div>
                       <Button secondary onClick={handleSubmitMessage}>
@@ -184,14 +207,21 @@ function ChatPage() {
             </div>
           </div>
 
-          {/*Chat */}
+          {/*Chat*/}
           <div className="chat-col-users-online">
-            <ChatUsersOnline
+            {/* {conversationAdvert ? <AdvertCard advert={conversationAdvert} /> : <></>} */}
+            {/* {isAuthorAdvert ? <AdvertCard advert={conversationAdvert} /> : <></>} */}
+            {conversationAdvert && userData._id !== conversationAdvert?.author ? (
+              <AdvertCard advert={conversationAdvert} />
+            ) : (
+              <></>
+            )}
+
+            {/* <ChatUsersOnline
               onlineUsers={onlineUsers}
-              currentUserId={user._id}
+              currentUserId={userData._id}
               setcurrentConversation={setcurrentConversation}
-              user={user}
-            />
+            /> */}
           </div>
         </div>
       </LayoutAccount>

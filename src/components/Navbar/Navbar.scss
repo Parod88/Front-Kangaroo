@@ -9,9 +9,10 @@
   display: flex;
 
   .grid {
-    display: grid;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     width: 100%;
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
     align-items: center;
   }
 
@@ -28,16 +29,34 @@
 
   .nav-section-search {
     display: flex;
+    min-width: 400px;
     background-color: white;
     height: 3rem;
     border-radius: 50rem;
     color: var(--primary);
     gap: 1rem;
 
-    input[type='email'] {
+    .icon {
+      width: 25px;
+      height: 25px;
+      position: relative;
+      top: 10px;
+      left: 15px;
+      cursor: pointer;
+      z-index: 2;
+      margin-right: 0.5rem;
+      color: var(--primary);
+      &:hover {
+        transition: all 0.1s ease-out;
+        color: var(--secondary);
+      }
+    }
+
+    input[type='text'] {
       padding: 0;
       color: #4f547b;
       border-width: 0px;
+      width: 100%;
       font-size: 1rem;
       border: none;
       outline: none;
@@ -46,6 +65,45 @@
 
   .nav-section-buttons {
     display: flex;
-    gap: 1rem;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 2rem;
+
+    .language {
+      display: flex;
+      gap: 0.5rem;
+
+      button {
+        background-color: transparent;
+        color: white;
+        padding: 0;
+        margin: 0;
+      }
+    }
+
+    .alert {
+      width: 40px;
+      height: auto;
+    }
+
+    .user-data {
+      .avatar {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        .avatar-image {
+          width: 50px;
+          height: 50px;
+          object-fit: cover;
+          border-radius: 10rem;
+        }
+
+        .name {
+          color: white;
+        }
+      }
+    }
   }
 }

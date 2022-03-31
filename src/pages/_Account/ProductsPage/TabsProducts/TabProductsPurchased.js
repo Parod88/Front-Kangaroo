@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import AdvertCardAccount from '../../../../components/AdvertCardAccount/AdvertCardAccount';
+import AdvertCardAccountBuy from '../../../../components/AdvertCardAccountBuy/AdvertCardAccountBuy';
 import { loadPaginatedAdverts } from '../../../../store/actions';
 import { getAdverts } from '../../../../store/selectors/selectors';
 import NotResultsFound from '../../../../components/NotResultsFound/NotResultsFound';
@@ -23,7 +23,7 @@ function TabProductsPurchased() {
         {adverts.length > 0 ? (
           adverts.slice(0, limitPagination).map((advert) => (
             <li key={advert._id}>
-              <AdvertCardAccount advert={advert} />
+              <AdvertCardAccountBuy advert={advert} />
             </li>
           ))
         ) : (

@@ -46,6 +46,21 @@ const Button = styled.button`
           }
         `
       : ``}
+      
+  ${(props) =>
+    props.red
+      ? css`
+          background-color: var(--red);
+          color: white;
+          border: 2px solid var(--red);
+
+          :hover {
+            background-color: var(--red);
+            color: white;
+            border: 2px solid var(--red);
+          }
+        `
+      : ``}
 
   ${(props) =>
     props.secondary

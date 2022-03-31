@@ -3,22 +3,15 @@ import './CategorieIconCard.scss';
 import iconSample from '../../resources/svg/icon-sample.svg';
 import { Link } from 'react-router-dom';
 
-function CategorieIconCard(categorie) {
-  const mockCategorie = {
-    _id: 1,
-    name: 'Cars',
-    icon: '../../resources/svg/icon-sample.svg',
-    totalOfProducts: 135
-  };
-  const { name, totalOfProducts } = mockCategorie;
-
+function CategorieIconCard({ category }) {
+  const url = '/adverts/categories';
+  const link = `${url}/${category._id}`;
   return (
-    <Link to="/adverts/categories/1">
+    <Link to={link} /*categoryId={category._id}*/ category_id={category._id}>
       <div id="categorie-icon-card">
-        {/*TODO: change mock data and url icon */}
-        <img alt={'icon categorie'} src={iconSample}></img>
-        <h5>{name}</h5>
-        <p>{totalOfProducts}+ Products</p>
+        <img className="icon-category" alt={`icon ${category?.name}`} src={category?.icon}></img>
+        <h5>{category?.name}</h5>
+        <p>+ {Math.floor(Math.random() * 100)} Products</p>
       </div>
     </Link>
   );

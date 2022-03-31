@@ -1,8 +1,8 @@
 import React from 'react';
-import './ConfirmDialog.scss';
-import Button from '../../components/Button/Button';
+import './ModalDelete.scss';
+import Button from '../Button/Button';
 
-function ConfirmDialog({ title, onConfirm, onClose }) {
+function ModalDelete({ title, onConfirm, onClose }) {
   return (
     <div id="confirm-dialog">
       <div className="content">
@@ -23,4 +23,4 @@ function ConfirmDialog({ title, onConfirm, onClose }) {
   );
 }
 
-export default ConfirmDialog;
+export default ModalDelete;

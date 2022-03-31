@@ -11,10 +11,9 @@ function ChatUsersOnline({ onlineUsers, currentUserId, setcurrentConversation })
     const getConversations = async () => {
       try {
         const res = await axios.get(
-          'http://localhost:3000/api/v1/chat/conversation/' + currentUserId
+          'http://ec2-52-5-122-57.compute-1.amazonaws.com/api/v1/chat/conversation/' + currentUserId
         );
-        console.log('www', res.data.results);
-        res.data.results.map((conversation) =>
+        res.data.results.forEach((conversation) =>
           setVendors((prev) => [...prev, conversation.members[1]])
         );
       } catch (err) {
@@ -26,18 +25,16 @@ function ChatUsersOnline({ onlineUsers, currentUserId, setcurrentConversation })
 
   useEffect(() => {
     let uniqueVendors = [...new Set(vendors)];
-
     setOnlineVendors(uniqueVendors.filter((f) => onlineUsers.includes(f._id)));
   }, [vendors, onlineUsers]);
 
   const handleInitConversation = async (user) => {
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/v1/chat/conversation/${currentUserId}/${user._id}`
+        `http://ec2-52-5-122-57.compute-1.amazonaws.com/api/v1/chat/conversation/${currentUserId}/${user._id}`
       );
       setcurrentConversation(res.data);
-      console.log('www', res.data.results);
-      res.data.results.map((conversation) =>
+      res.data.results.forEach((conversation) =>
         setVendors((prev) => [...prev, conversation.members[1]])
       );
     } catch (err) {
@@ -47,9 +44,8 @@ function ChatUsersOnline({ onlineUsers, currentUserId, setcurrentConversation })
 
   return (
     <div id="chat-users-online">
-      {/* {JSON.stringify(vendors)} */}
-      {onlineUsers.map((user) => (
-        <div onClick={() => handleInitConversation(user)}>
+      {onlineUsers.map((user, index) => (
+        <div key={index} onClick={() => handleInitConversation(user)}>
           <div className="avatar">
             <img src="https://i.pravatar.cc/500" alt="" />
             <div className="user-badge" />

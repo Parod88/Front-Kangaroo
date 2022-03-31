@@ -2,46 +2,58 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './SidebarAccount.scss';
 
-function SidebarAccount() {
-  //TODO: User id mock data, read id params url http://localhost:3000/account/:id/profile
-  const _id = 5;
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
+import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
+import ReviewsOutlinedIcon from '@mui/icons-material/ReviewsOutlined';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import { useSelector } from 'react-redux';
+import { getUserData } from '../../store/selectors/selectors';
 
+function SidebarAccount() {
+  const userData = useSelector(getUserData);
   return (
     <nav id="sidebar-account">
       <ul>
         <li>
-          <NavLink to={`/account/profile`} activeClassName="selected">
-            Profile
+          <NavLink
+            className="item"
+            to={`/account/profile/${userData._id}`}
+            activeClassName="selected"
+          >
+            <PermIdentityIcon />
+            <p>Profile</p>
           </NavLink>
         </li>
         <li>
-          <NavLink to={`/account/products`} activeClassName="selected">
-            Products
+          <NavLink className="item" to={`/account/products`} activeClassName="selected">
+            <ArticleOutlinedIcon />
+            <p>Products</p>
           </NavLink>
         </li>
         <li>
-          <NavLink to={`/account/favorites`} activeClassName="selected">
-            Favorites
+          <NavLink className="item" to={`/account/favorites`} activeClassName="selected">
+            <FavoriteBorderOutlinedIcon />
+            <p>Favorites</p>
           </NavLink>
         </li>
         <li>
-          <NavLink to={`/account/messages`} activeClassName="selected">
-            Messages
+          <NavLink className="item" to={`/account/messages`} activeClassName="selected">
+            <ForumOutlinedIcon />
+            <p>Messages</p>
           </NavLink>
         </li>
         <li>
-          <NavLink to={`/account/reviews`} activeClassName="selected">
-            Reviews
+          <NavLink className="item" to={`/account/reviews`} activeClassName="selected">
+            <ReviewsOutlinedIcon />
+            <p>Reviews</p>
           </NavLink>
         </li>
         <li>
-          <NavLink to={`/account/dashboard`} activeClassName="selected">
-            Dashboard
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to={`/account/logout`} activeClassName="selected">
-            Logout
+          <NavLink className="item" to={`/account/logout`} activeClassName="selected">
+            <LogoutOutlinedIcon />
+            <p>Logout</p>
           </NavLink>
         </li>
       </ul>

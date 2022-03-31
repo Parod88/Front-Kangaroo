@@ -1,21 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './Header.scss';
 import header from '../../../resources/images/header.png';
 import Button from '../../../components/Button/Button';
 
 function Header() {
+  const [t, i18n] = useTranslation('global');
   return (
     <header id="header">
       <div className="container">
         <div className="grid">
           <div className="col-left">
             <h1>
-              More Than <span>32.500+</span> Published products to find what you are looking for?
+              {t('header.morethan')} <span>{t('header.32500')} </span>{' '}
+              {t('header.publishedproducts')}
             </h1>
             {/*TODO: Implement redirection to login in case you are not logged in. */}
-            <Link to="/account/products">
-              <Button secondaryOutline>+ Upload your product</Button>
+            <Link to="/account/products/create">
+              <Button secondaryOutline>{t('header.uploadproduct')}</Button>
             </Link>
           </div>
           <div className="col-right">
